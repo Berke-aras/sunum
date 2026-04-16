@@ -825,7 +825,7 @@
     .presenter-head-right {
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 10px;
       flex-shrink: 0;
     }
 
@@ -840,24 +840,32 @@
       white-space: nowrap;
     }
 
-    .presenter-controls {
+    .presenter-toolbar {
       display: flex;
       align-items: center;
-      gap: 4px;
-      padding: 2px;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin: 8px 0 10px;
+      padding: 8px;
       border-radius: 8px;
-      background: rgba(255, 255, 255, 0.04);
-      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+    }
+
+    .presenter-toolbar-hint {
+      font-size: 0.67rem;
+      color: #b8c2d8;
+      margin-left: 4px;
     }
 
     .presenter-btn {
-      min-width: 30px;
-      height: 26px;
+      min-width: 76px;
+      height: 28px;
       border-radius: 6px;
-      border: 1px solid rgba(255, 255, 255, 0.18);
-      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.28);
+      background: rgba(255, 255, 255, 0.08);
       color: var(--white);
-      font-size: 0.74rem;
+      font-size: 0.71rem;
       font-weight: 600;
       line-height: 1;
       display: inline-flex;
@@ -865,7 +873,7 @@
       justify-content: center;
       cursor: pointer;
       transition: all 0.2s ease;
-      padding: 0 8px;
+      padding: 0 10px;
     }
 
     .presenter-btn:hover {
@@ -874,7 +882,7 @@
     }
 
     .presenter-btn.reset {
-      min-width: 56px;
+      min-width: 72px;
       font-size: 0.68rem;
     }
 
@@ -887,13 +895,13 @@
       position: absolute;
       right: 8px;
       bottom: 8px;
-      width: 16px;
-      height: 16px;
-      border-right: 2px solid rgba(255, 255, 255, 0.38);
-      border-bottom: 2px solid rgba(255, 255, 255, 0.38);
+      width: 20px;
+      height: 20px;
+      border-right: 3px solid rgba(255, 255, 255, 0.52);
+      border-bottom: 3px solid rgba(255, 255, 255, 0.52);
       border-bottom-right-radius: 3px;
       cursor: nwse-resize;
-      opacity: 0.85;
+      opacity: 0.95;
       z-index: 2;
     }
 
@@ -962,32 +970,6 @@
       padding-right: 4px;
     }
 
-    .presenter-extra-input {
-      width: 100%;
-      min-height: 72px;
-      resize: vertical;
-      border-radius: 8px;
-      border: 1px solid rgba(255, 255, 255, 0.18);
-      background: rgba(255, 255, 255, 0.04);
-      color: var(--white);
-      font-size: 0.77rem;
-      line-height: 1.45;
-      padding: 8px 10px;
-      font-family: 'Inter', sans-serif;
-    }
-
-    .presenter-extra-input:focus {
-      outline: none;
-      border-color: rgba(200, 16, 46, 0.45);
-      box-shadow: 0 0 0 2px rgba(200, 16, 46, 0.15);
-    }
-
-    .presenter-extra-hint {
-      margin-top: 6px;
-      font-size: 0.66rem;
-      color: var(--muted);
-    }
-
     body.presenter-display .nav-bar,
     body.presenter-display .progress-bar,
     body.presenter-display .nav-arrow,
@@ -1007,12 +989,8 @@
       }
 
       .presenter-head {
-        cursor: default;
+        cursor: grab;
         touch-action: auto;
-      }
-
-      .presenter-resize-handle {
-        display: none;
       }
     }
 
@@ -2970,12 +2948,13 @@
         </div>
         <div class="presenter-head-right">
           <div class="presenter-timer" id="presenterTimer">00:00</div>
-          <div class="presenter-controls">
-            <button type="button" class="presenter-btn" id="presenterSmallerBtn" title="Paneli kucult" aria-label="Paneli kucult">A-</button>
-            <button type="button" class="presenter-btn" id="presenterLargerBtn" title="Paneli buyut" aria-label="Paneli buyut">A+</button>
-            <button type="button" class="presenter-btn reset" id="presenterResetBtn" title="Panel boyut ve konumunu sifirla" aria-label="Panel boyut ve konumunu sifirla">Sifirla</button>
-          </div>
         </div>
+      </div>
+      <div class="presenter-toolbar">
+        <button type="button" class="presenter-btn" id="presenterSmallerBtn" title="Paneli kucult" aria-label="Paneli kucult">Kucult</button>
+        <button type="button" class="presenter-btn" id="presenterLargerBtn" title="Paneli buyut" aria-label="Paneli buyut">Buyut</button>
+        <button type="button" class="presenter-btn reset" id="presenterResetBtn" title="Panel boyut ve konumunu sifirla" aria-label="Panel boyut ve konumunu sifirla">Sifirla</button>
+        <span class="presenter-toolbar-hint">Surukle: ust baslik alani · Boyut: sag alt kose</span>
       </div>
       <div class="presenter-meta">
         <div class="presenter-block">
@@ -2999,12 +2978,6 @@
         <div class="presenter-block">
           <div class="presenter-label">Konusma Notu (Ornek Akis)</div>
           <div class="presenter-note-text" id="presenterTalkNote">-</div>
-        </div>
-        <div class="presenter-block">
-          <div class="presenter-label">Kisisel Ek Not (Sana Ozel)</div>
-          <textarea class="presenter-extra-input" id="presenterExtraNote"
-            placeholder="Bu slayt icin kisa hatirlatma yaz (or: soru sor, 2 sn duraksama)..."></textarea>
-          <div class="presenter-extra-hint">Notlar slayt bazli otomatik kaydedilir.</div>
         </div>
       </div>
       <div class="presenter-status" id="presenterStatus">P ile Sunucu Modu acilir. Panel sadece sende gorunur.</div>
@@ -3988,7 +3961,6 @@
     const presenterNextTitleEl = document.getElementById('presenterNextTitle');
     const presenterMainIdeaEl = document.getElementById('presenterMainIdea');
     const presenterTalkNoteEl = document.getElementById('presenterTalkNote');
-    const presenterExtraNoteEl = document.getElementById('presenterExtraNote');
     const presenterHeadEl = document.getElementById('presenterHead');
     const presenterSmallerBtn = document.getElementById('presenterSmallerBtn');
     const presenterLargerBtn = document.getElementById('presenterLargerBtn');
@@ -3999,7 +3971,6 @@
     const FIT_MIN_SCALE = 0.35;
     const FIT_MAX_SCALE = 1.22;
     const DISPLAY_WINDOW_NAME = 'kanadaSunumDisplayWindow';
-    const PRESENTER_EXTRA_NOTE_PREFIX = 'kanadaSunum:extraNote:';
     const PRESENTER_LAYOUT_KEY = 'kanadaSunum:presenterLayout:v1';
     const PRESENTER_MIN_WIDTH = 320;
     const PRESENTER_MIN_HEIGHT = 280;
@@ -4103,7 +4074,6 @@ Soru gelmezse hazir bir kapanis sorusu sor: "Turkiye de ilk adim olarak sizce ha
 
     prepareSlideFit();
     initDisplayMode();
-    initPresenterExtraNotes();
     initPresenterPanelInteractivity();
     document.getElementById('slideTotal').textContent = totalSlides;
 
@@ -4150,29 +4120,6 @@ Soru gelmezse hazir bir kapanis sorusu sor: "Turkiye de ilk adim olarak sizce ha
           idea: 'Bu slayt icin ozel bir ana fikir notu tanimlanmadi.',
           talk: 'Basligi referans alip 2-3 cumle ile temel mesaji acikla.',
         };
-      }
-
-      function getExtraNote(index) {
-        try {
-          return localStorage.getItem(PRESENTER_EXTRA_NOTE_PREFIX + getSlideKey(index)) || '';
-        } catch (err) {
-          return '';
-        }
-      }
-
-      function setExtraNote(index, value) {
-        try {
-          localStorage.setItem(PRESENTER_EXTRA_NOTE_PREFIX + getSlideKey(index), value);
-        } catch (err) {
-          // Ignore write errors from privacy mode or quota limits.
-        }
-      }
-
-      function initPresenterExtraNotes() {
-        if (isDisplayWindow || !presenterExtraNoteEl) return;
-        presenterExtraNoteEl.addEventListener('input', () => {
-          setExtraNote(current, presenterExtraNoteEl.value);
-        });
       }
 
       function clampNumber(value, min, max) {
@@ -4270,9 +4217,8 @@ Soru gelmezse hazir bir kapanis sorusu sor: "Turkiye de ilk adim olarak sizce ha
 
       function startPresenterDrag(e) {
         if (isDisplayWindow || !presenterPanel || !presenterHeadEl) return;
-        if (window.innerWidth <= 1024) return;
         if (e.button !== 0) return;
-        if (e.target && e.target.closest('button,textarea,input,select,a,label')) return;
+        if (e.target && e.target.closest('button,textarea,input,select,a,label,.presenter-resize-handle')) return;
 
         e.preventDefault();
 
@@ -4316,7 +4262,6 @@ Soru gelmezse hazir bir kapanis sorusu sor: "Turkiye de ilk adim olarak sizce ha
 
       function startPresenterResize(e) {
         if (isDisplayWindow || !presenterPanel) return;
-        if (window.innerWidth <= 1024) return;
         if (e.button !== 0) return;
 
         e.preventDefault();
@@ -4438,14 +4383,6 @@ Soru gelmezse hazir bir kapanis sorusu sor: "Turkiye de ilk adim olarak sizce ha
         }
         if (presenterMainIdeaEl) presenterMainIdeaEl.textContent = note.idea;
         if (presenterTalkNoteEl) presenterTalkNoteEl.textContent = note.talk;
-
-        if (presenterExtraNoteEl) {
-          const savedExtraNote = getExtraNote(current);
-          if (presenterExtraNoteEl.value !== savedExtraNote) {
-            presenterExtraNoteEl.value = savedExtraNote;
-          }
-          presenterExtraNoteEl.placeholder = `${getSlideTitle(current)} icin kisa hatirlatma yaz...`;
-        }
 
         if (!presenterMode) {
           setPresenterStatus('P ile Sunucu Modu acilir. Bu panel sadece sende gorunur, projeksiyona yansimaz.');
