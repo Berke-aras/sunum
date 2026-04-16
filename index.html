@@ -747,162 +747,252 @@
       color: var(--white)
     }
 
-      /* PRESENTER MODE */
-      .presenter-panel {
-        position: fixed;
-        left: 24px;
-        bottom: 22px;
-        width: min(480px, 48vw);
-        max-height: calc(100vh - 88px);
-        overflow: auto;
-        z-index: 130;
-        background: rgba(10, 14, 24, 0.88);
-        border: 1px solid rgba(255, 255, 255, 0.16);
-        border-radius: 14px;
-        padding: 14px 16px;
-        backdrop-filter: blur(12px);
-        -webkit-backdrop-filter: blur(12px);
-        box-shadow: 0 18px 42px rgba(0, 0, 0, 0.35);
-        opacity: 0;
-        pointer-events: none;
-        transform: translateY(10px);
-        transition: opacity 0.25s ease, transform 0.25s ease;
-      }
+    /* PRESENTER MODE */
+    .presenter-panel {
+      position: fixed;
+      left: 24px;
+      top: 76px;
+      width: min(520px, 48vw);
+      height: min(78vh, 640px);
+      min-width: 320px;
+      min-height: 280px;
+      max-width: calc(100vw - 24px);
+      max-height: calc(100vh - 24px);
+      resize: both;
+      overflow: auto;
+      z-index: 130;
+      background: rgba(10, 14, 24, 0.88);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      border-radius: 14px;
+      padding: 12px 14px 14px;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      box-shadow: 0 18px 42px rgba(0, 0, 0, 0.35);
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transition: opacity 0.25s ease;
+    }
 
-      body.presenter-mode .presenter-panel {
-        opacity: 1;
-        pointer-events: auto;
-        transform: translateY(0);
+    body.presenter-mode .presenter-panel {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+    }
+
+    .presenter-head {
+      position: sticky;
+      top: 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 10px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      background: linear-gradient(180deg, rgba(10, 14, 24, 0.96), rgba(10, 14, 24, 0.78));
+      cursor: grab;
+      user-select: none;
+      touch-action: none;
+    }
+
+    .presenter-head.dragging {
+      cursor: grabbing;
+    }
+
+    .presenter-head-left {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      min-width: 0;
+      flex: 1;
+    }
+
+    .presenter-title {
+      font-family: 'DM Mono', monospace;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-size: 0.68rem;
+      color: #fca5a5;
+    }
+
+    .presenter-subtitle {
+      font-size: 0.68rem;
+      color: var(--muted);
+      line-height: 1.3;
+    }
+
+    .presenter-head-right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-shrink: 0;
+    }
+
+    .presenter-timer {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.82rem;
+      color: var(--white);
+      background: rgba(200, 16, 46, 0.16);
+      border: 1px solid rgba(200, 16, 46, 0.34);
+      border-radius: 999px;
+      padding: 4px 10px;
+      white-space: nowrap;
+    }
+
+    .presenter-toolbar {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin: 8px 0 10px;
+      padding: 8px;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+    }
+
+    .presenter-toolbar-hint {
+      font-size: 0.67rem;
+      color: #b8c2d8;
+      margin-left: 4px;
+    }
+
+    .presenter-btn {
+      min-width: 76px;
+      height: 28px;
+      border-radius: 6px;
+      border: 1px solid rgba(255, 255, 255, 0.28);
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--white);
+      font-size: 0.71rem;
+      font-weight: 600;
+      line-height: 1;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      padding: 0 10px;
+    }
+
+    .presenter-btn:hover {
+      background: rgba(200, 16, 46, 0.2);
+      border-color: rgba(200, 16, 46, 0.35);
+    }
+
+    .presenter-btn.reset {
+      min-width: 72px;
+      font-size: 0.68rem;
+    }
+
+    .presenter-panel.dragging,
+    .presenter-panel.resizing {
+      user-select: none;
+    }
+
+    .presenter-resize-handle {
+      position: absolute;
+      right: 8px;
+      bottom: 8px;
+      width: 20px;
+      height: 20px;
+      border-right: 3px solid rgba(255, 255, 255, 0.52);
+      border-bottom: 3px solid rgba(255, 255, 255, 0.52);
+      border-bottom-right-radius: 3px;
+      cursor: nwse-resize;
+      opacity: 0.95;
+      z-index: 2;
+    }
+
+    .presenter-resize-handle:hover {
+      border-right-color: rgba(200, 16, 46, 0.8);
+      border-bottom-color: rgba(200, 16, 46, 0.8);
+    }
+
+    .presenter-meta {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .presenter-block {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 10px;
+      padding: 8px 10px;
+    }
+
+    .presenter-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.64rem;
+      letter-spacing: 0.05em;
+      color: var(--muted);
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+
+    .presenter-value {
+      font-size: 0.8rem;
+      line-height: 1.3;
+      color: var(--white);
+    }
+
+    .presenter-status {
+      margin-top: 8px;
+      font-size: 0.74rem;
+      color: #93c5fd;
+      line-height: 1.45;
+    }
+
+    .presenter-help {
+      margin-top: 8px;
+      font-size: 0.7rem;
+      color: var(--muted);
+      line-height: 1.45;
+    }
+
+    .presenter-note-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .presenter-note-text {
+      font-size: 0.78rem;
+      line-height: 1.5;
+      color: #d7deeb;
+      white-space: pre-wrap;
+      max-height: 160px;
+      overflow: auto;
+      padding-right: 4px;
+    }
+
+    body.presenter-display .nav-bar,
+    body.presenter-display .progress-bar,
+    body.presenter-display .nav-arrow,
+    body.presenter-display .slide-counter,
+    body.presenter-display .presenter-panel {
+      display: none !important;
+    }
+
+    @media(max-width:1024px) {
+      .presenter-panel {
+        left: 4vw;
+        top: 64px;
+        width: 92vw;
+        height: min(66vh, 560px);
+        min-width: 0;
+        resize: vertical;
       }
 
       .presenter-head {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        margin-bottom: 10px;
+        cursor: grab;
+        touch-action: auto;
       }
-
-      .presenter-title {
-        font-family: 'DM Mono', monospace;
-        letter-spacing: 0.08em;
-        text-transform: uppercase;
-        font-size: 0.68rem;
-        color: #fca5a5;
-      }
-
-      .presenter-timer {
-        font-family: 'DM Mono', monospace;
-        font-size: 0.85rem;
-        color: var(--white);
-        background: rgba(200, 16, 46, 0.16);
-        border: 1px solid rgba(200, 16, 46, 0.34);
-        border-radius: 999px;
-        padding: 4px 10px;
-      }
-
-      .presenter-meta {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 10px;
-        margin-bottom: 10px;
-      }
-
-      .presenter-block {
-        background: rgba(255, 255, 255, 0.03);
-        border: 1px solid rgba(255, 255, 255, 0.08);
-        border-radius: 10px;
-        padding: 8px 10px;
-      }
-
-      .presenter-label {
-        font-family: 'DM Mono', monospace;
-        font-size: 0.64rem;
-        letter-spacing: 0.05em;
-        color: var(--muted);
-        text-transform: uppercase;
-        margin-bottom: 4px;
-      }
-
-      .presenter-value {
-        font-size: 0.8rem;
-        line-height: 1.3;
-        color: var(--white);
-      }
-
-      .presenter-status {
-        margin-top: 8px;
-        font-size: 0.74rem;
-        color: #93c5fd;
-      }
-
-      .presenter-help {
-        margin-top: 8px;
-        font-size: 0.7rem;
-        color: var(--muted);
-      }
-
-      .presenter-note-grid {
-        display: grid;
-        grid-template-columns: 1fr;
-        gap: 10px;
-        margin-top: 10px;
-      }
-
-      .presenter-note-text {
-        font-size: 0.78rem;
-        line-height: 1.5;
-        color: #d7deeb;
-        white-space: pre-wrap;
-        max-height: 160px;
-        overflow: auto;
-        padding-right: 4px;
-      }
-
-      .presenter-extra-input {
-        width: 100%;
-        min-height: 72px;
-        resize: vertical;
-        border-radius: 8px;
-        border: 1px solid rgba(255, 255, 255, 0.18);
-        background: rgba(255, 255, 255, 0.04);
-        color: var(--white);
-        font-size: 0.77rem;
-        line-height: 1.45;
-        padding: 8px 10px;
-        font-family: 'Inter', sans-serif;
-      }
-
-      .presenter-extra-input:focus {
-        outline: none;
-        border-color: rgba(200, 16, 46, 0.45);
-        box-shadow: 0 0 0 2px rgba(200, 16, 46, 0.15);
-      }
-
-      .presenter-extra-hint {
-        margin-top: 6px;
-        font-size: 0.66rem;
-        color: var(--muted);
-      }
-
-      body.presenter-display .nav-bar,
-      body.presenter-display .progress-bar,
-      body.presenter-display .nav-arrow,
-      body.presenter-display .slide-counter,
-      body.presenter-display .presenter-panel {
-        display: none !important;
-      }
-
-      @media(max-width:1024px) {
-        .presenter-panel {
-          left: 50%;
-          width: min(92vw, 440px);
-          transform: translate(-50%, 10px);
-        }
-
-        body.presenter-mode .presenter-panel {
-          transform: translate(-50%, 0);
-        }
-      }
+    }
 
     /* ============================================================ */
     /* TYPOGRAPHY — Enhanced                                         */
@@ -2851,42 +2941,48 @@
 
     <!-- PRESENTER PANEL -->
     <div class="presenter-panel" id="presenterPanel" aria-live="polite">
-      <div class="presenter-head">
-        <div class="presenter-title">Presenter Mode</div>
-        <div class="presenter-timer" id="presenterTimer">00:00</div>
+      <div class="presenter-head" id="presenterHead">
+        <div class="presenter-head-left">
+          <div class="presenter-title">Sunucu Paneli</div>
+          <div class="presenter-subtitle">Bu panel yalnizca senin ekraninda gorunur (projeksiyonda gorunmez).</div>
+        </div>
+        <div class="presenter-head-right">
+          <div class="presenter-timer" id="presenterTimer">00:00</div>
+        </div>
+      </div>
+      <div class="presenter-toolbar">
+        <button type="button" class="presenter-btn" id="presenterSmallerBtn" title="Paneli kucult" aria-label="Paneli kucult">Kucult</button>
+        <button type="button" class="presenter-btn" id="presenterLargerBtn" title="Paneli buyut" aria-label="Paneli buyut">Buyut</button>
+        <button type="button" class="presenter-btn reset" id="presenterResetBtn" title="Panel boyut ve konumunu sifirla" aria-label="Panel boyut ve konumunu sifirla">Sifirla</button>
+        <span class="presenter-toolbar-hint">Surukle: ust baslik alani · Boyut: sag alt kose</span>
       </div>
       <div class="presenter-meta">
         <div class="presenter-block">
-          <div class="presenter-label">Aktif Slayt</div>
+          <div class="presenter-label">Aktif Slayt (Sira)</div>
           <div class="presenter-value" id="presenterCurrentNum">1 / 12</div>
         </div>
         <div class="presenter-block">
-          <div class="presenter-label">Sonraki</div>
+          <div class="presenter-label">Bir Sonraki Slayt</div>
           <div class="presenter-value" id="presenterNextTitle">-</div>
         </div>
       </div>
       <div class="presenter-block">
-        <div class="presenter-label">Baslik</div>
+        <div class="presenter-label">Bu Slaytin Basligi</div>
         <div class="presenter-value" id="presenterCurrentTitle">-</div>
       </div>
       <div class="presenter-note-grid">
         <div class="presenter-block">
-          <div class="presenter-label">Ana Fikir</div>
+          <div class="presenter-label">Ana Fikir (Ne Vurgulanacak)</div>
           <div class="presenter-note-text" id="presenterMainIdea">-</div>
         </div>
         <div class="presenter-block">
-          <div class="presenter-label">Konusma Notu</div>
+          <div class="presenter-label">Konusma Notu (Ornek Akis)</div>
           <div class="presenter-note-text" id="presenterTalkNote">-</div>
         </div>
-        <div class="presenter-block">
-          <div class="presenter-label">Kisisel Ek Not</div>
-          <textarea class="presenter-extra-input" id="presenterExtraNote"
-            placeholder="Bu slayt icin kisa hatirlatma yaz..."></textarea>
-          <div class="presenter-extra-hint">Yazdiklarin tarayicinda otomatik saklanir.</div>
-        </div>
       </div>
-      <div class="presenter-status" id="presenterStatus">P tusu ile presenter mode acilir</div>
-      <div class="presenter-help">Kisayollar: P = Presenter Mode, F = Tam ekran, Ok tuslari = Slayt gecis</div>
+      <div class="presenter-status" id="presenterStatus">P ile Sunucu Modu acilir. Panel sadece sende gorunur.</div>
+      <div class="presenter-help">Ipuclari: Baslik alanindan surukle. Sag-alt koseden yeniden boyutlandir. + / - ile hizli buyut-kucult yap.</div>
+      <div class="presenter-resize-handle" id="presenterResizeHandle" title="Paneli surukleyerek boyutlandir"></div>
     </div>
 
 
@@ -2916,7 +3012,7 @@
           Kuzeyin<br>
           <em>Eğitim Modeli</em>
         </h1>
-        <p class="slide-sub anim-item">Merkeziyetsiz, kapsayıcı ve PISA'da küresel lider: <strong
+        <p class="slide-sub anim-item">Merkeziyetsiz, kapsayıcı ve PISA'da küresel liderlerinden: <strong
             style="color:var(--white)">Kanada Eğitim Sistemi</strong>'nin kapsamlı karşılaştırmalı analizi.</p>
         <div class="hero-stats anim-item">
           <div class="hero-stat">
@@ -3062,7 +3158,7 @@
           <div style="margin-top:16px;padding:12px 16px;background:rgba(212,168,67,0.08);border:1px dashed rgba(212,168,67,0.3);border-radius:10px">
             <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-              <strong style="color:var(--gold);font-size:0.75rem;text-transform:uppercase;letter-spacing:0.05em">Akademik Terim</strong>
+              <strong style="color:var(--gold);font-size:0.75rem;text-transform:uppercase;letter-spacing:0.05em">Günümüzde</strong>
             </div>
             <p style="font-size:0.78rem;color:var(--muted);line-height:1.5">"Indigenous Peoples" güncel akademik şemsiye terimdir. "Aboriginal" terimi artık yalnızca hukuki bağlamda (1867/1982 Anayasası) kullanılır.</p>
           </div>
@@ -3103,7 +3199,7 @@
           </div>
           <div class="alert">
             <h4>EGT 354 Bağlantısı — Küreselleşme ve Uluslararasılaşma</h4>
-            <p>Tablo-1'e göre Kanada'da <strong>1.040.985 uluslararası öğrenci</strong> bulunmaktadır (IRCC 2023 stok verisi).
+            <p>Hocamızın paylaştığı sunumlara göre Kanada'da <strong>1.040.985 uluslararası öğrenci</strong> bulunmaktadır (IRCC 2023 stok verisi).
               "Study in Canada" markasının başarısı ve bilinçli Brain Gain stratejisi 2023'te 22 milyar CAD
               ekonomik getiri sağlamıştır.</p>
           </div>
@@ -3210,7 +3306,7 @@
       <h2 class="slide-title anim-item">K–12 Sistemi ve <em>Kademeli</em> Yapı</h2>
       <div class="divider anim-item"></div>
       <p class="slide-sub anim-item" style="margin-bottom:clamp(10px,2vh,20px)">Her eyaletin kendi müfredatı olsa da genel K-12
-        çerçevesi ortaktır. Satıra tıkla → ayrıntıları gör.</p>
+        çerçevesi ortaktır..</p>
       <div class="anim-item"
         style="display:flex;flex-direction:column;gap:0;border:1px solid var(--border);border-radius:12px;overflow:hidden">
         <div class="ladder-item" onclick="toggleLadder(this)">
@@ -3493,7 +3589,7 @@
               style="margin-top:14px;padding:14px;background:rgba(34,197,94,0.07);border:1px solid rgba(34,197,94,0.18);border-radius:8px">
               <p style="font-size:0.82rem;color:#4ade80;font-weight:600;margin-bottom:4px">Temel Paradoks</p>
               <p style="font-size:0.79rem;color:var(--muted)">13 ayrı bakanlık, merkezi müfredat yok — ama tutarlı
-                biçimde PISA ilk 10'unda. Merkeziyetsizlik kalite güvencesiyle bağdaşabilir.</p>
+                biçimde PISA ilk 10'unda.</p>
             </div>
           </div>
           <div class="card" style="margin-top:14px">
@@ -3534,12 +3630,12 @@
           <div class="rehber-num">01</div>
           <h3>Guidance Counselors</h3>
           <p>Her ortaöğretim okulunda profesyonel rehber danışmanlar; ders seçimi, üniversite başvurusu ve kariyer
-            planlaması. Hedef oran: 250:1 (bazı eyaletlerde yasal zorunluluk).</p>
+            planlaması.</p>
         </div>
         <div class="rehber-card">
           <div class="rehber-num">02</div>
           <h3>Okul Psikoloğu</h3>
-          <p>Her school board'da School Psychologists görev yapar. Mental sağlık taramaları, anksiyete/depresyon
+          <p>Her okulda okul psikoloğu görev yapar. Mental sağlık taramaları, anksiyete/depresyon
             müdahaleleri, kriz protokolleri. COVID sonrası güçlendirildi.</p>
         </div>
         <div class="rehber-card">
@@ -3563,8 +3659,9 @@
         <div class="rehber-card">
           <div class="rehber-num">06</div>
           <h3>Toplum & Aile Katılımı</h3>
-          <p>Parent Advisory Councils (PAC) resmi karar kanalı. Community Schools modeli: okul sağlık, sosyal hizmet ve
-            kültürel programların merkezi. Yerli kültür köprücüleri (liaisoner).</p>
+          <p>Aile Danışma Kurulları (PAC), velilerin okul kararlarına resmî biçimde katıldığı yapıdır. Toplum Okulu
+            yaklaşımında okul; sağlık, sosyal destek ve kültürel etkinliklerin yürütüldüğü ortak merkezdir. Yerli
+            topluluklarla bağı güçlendirmek için de kültürel bağlantı görevlileri görev alır.</p>
         </div>
       </div>
     </div>
@@ -3757,18 +3854,13 @@
               style="font-size:0.72rem;color:#60a5fa;font-family:'DM Mono',monospace;letter-spacing:0.1em;margin-bottom:6px">
               DERS 3</div>
             <div style="font-size:0.88rem;font-weight:600;margin-bottom:4px">Geçmişle Yüzleşme</div>
-            <div style="font-size:0.78rem;color:var(--muted);line-height:1.6">TRC — eğitimde güven inşası ve uzlaşı
-              kültürünün küresel modeli.</div>
+            <div style="font-size:0.78rem;color:var(--muted);line-height:1.6">TRC süreci, eğitimde güvenin yeniden
+              kurulması ve uzlaşı kültürünün güçlenmesi açısından dünyaya örnek bir model sunar.</div>
           </div>
           <div
             style="background:rgba(74,222,128,0.07);border:1px solid rgba(74,222,128,0.2);border-radius:12px;padding:16px;backdrop-filter:blur(4px);transition:all 0.3s"
             onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform=''">
-            <div
-              style="font-size:0.72rem;color:#4ade80;font-family:'DM Mono',monospace;letter-spacing:0.1em;margin-bottom:6px">
-              DERS 4</div>
-            <div style="font-size:0.88rem;font-weight:600;margin-bottom:4px">Kapsayıcılık Politika Değil Kültür</div>
-            <div style="font-size:0.78rem;color:var(--muted);line-height:1.6">IEP yasal zorunluluk, ELL/FLL programları,
-              French Immersion — farklılık sistem içine entegre.</div>
+           
           </div>
         </div>
       </div>
@@ -3842,13 +3934,7 @@
           </ul>
         </div>
       </div>
-      <div class="anim-item"
-        style="margin-top:clamp(12px,2vh,24px);padding:20px 24px;background:rgba(200,16,46,0.06);border:1px solid rgba(200,16,46,0.18);border-radius:12px;text-align:center;backdrop-filter:blur(8px)">
-        <p style="font-size:0.88rem;color:var(--muted)">Bu sunum EGT 354 Karşılaştırmalı Eğitim dersi kapsamında
-          hazırlanmıştır.</p>
-        <p style="font-size:0.78rem;color:rgba(122,132,153,0.6);margin-top:4px">Kapsam ve Uygunluk · Sunum Performansı ·
-          İşbirliği · Sunum Raporu</p>
-      </div>
+    
     </div>
 
   </div><!-- end deck -->
@@ -3865,61 +3951,103 @@
     const presenterNextTitleEl = document.getElementById('presenterNextTitle');
     const presenterMainIdeaEl = document.getElementById('presenterMainIdea');
     const presenterTalkNoteEl = document.getElementById('presenterTalkNote');
-    const presenterExtraNoteEl = document.getElementById('presenterExtraNote');
+    const presenterHeadEl = document.getElementById('presenterHead');
+    const presenterSmallerBtn = document.getElementById('presenterSmallerBtn');
+    const presenterLargerBtn = document.getElementById('presenterLargerBtn');
+    const presenterResetBtn = document.getElementById('presenterResetBtn');
+    const presenterResizeHandleEl = document.getElementById('presenterResizeHandle');
     const presenterStatusEl = document.getElementById('presenterStatus');
     const FIT_BOTTOM_GAP = 12;
     const FIT_MIN_SCALE = 0.35;
     const FIT_MAX_SCALE = 1.22;
     const DISPLAY_WINDOW_NAME = 'kanadaSunumDisplayWindow';
-    const PRESENTER_EXTRA_NOTE_PREFIX = 'kanadaSunum:extraNote:';
+    const PRESENTER_LAYOUT_KEY = 'kanadaSunum:presenterLayout:v1';
+    const PRESENTER_MIN_WIDTH = 320;
+    const PRESENTER_MIN_HEIGHT = 280;
     const SPEAKER_NOTES = {
       'slide-0': {
         idea: 'Acilista dikkat cek ve Kanada modeline merak uyandir.',
-        talk: 'Herkese merhaba. Bugun Kanada Egitim Sistemi nin dikkat ceken basari hikayesini inceleyecegiz. 41M+ nufus, 1M+ uluslararasi ogrenci ve PISA okuma 8. sira gibi verilerle baslayip su soruyu sor: Merkezi bir bakanlik olmadan bunu nasil yapiyorlar?',
+        talk: `Herkese merhaba, hos geldiniz.
+Bugun Kanada egitim sistemini adim adim inceleyecegiz ve sunum boyunca su soruya cevap arayacagiz: Merkezi bir egitim bakanligi olmadan bu performans nasil korunuyor?
+Ekranda gordugunuz uc veri bu sorunun neden onemli oldugunu gosteriyor: 41 milyonun uzerinde nufus, 1 milyonun uzerinde uluslararasi ogrenci ve PISA okumada ust siralar.
+Birazdan bu tablonun arkasindaki yapiyi birlikte acacagim.`,
       },
       'slide-1': {
         idea: 'Demografi, cok kulturluluk ve egitime ayrilan kaynaklarin etkisini goster.',
-        talk: 'Kanada cok buyuk bir cografyaya sahip ama nufusun cogu guneyde yasiyor. Nufusun yaklasik dortte biri yurt disi dogumlu oldugu icin cok kulturluluk egitime dogrudan yansiyor. Egitime ayrilan yuksek pay uluslararasi ogrenci markasini guclendiriyor.',
+        talk: `Once ulkenin baglamini netlestirelim.
+Kanada cografi olarak cok buyuk bir ulke ama nufusun buyuk bolumu guney koridorda toplaniyor.
+Nufusun yaklasik yuzde 23 unun yurt disi dogumlu olmasi, okullarda dil destegi ve kapsayici politikalarin neden kritik oldugunu acikliyor.
+Kisacasi burada cesitlilik bir risk degil; dogru yonetildiginde ogrenmeyi guclendiren bir avantaj.`,
       },
       'slide-1-5': {
         idea: 'Yerli halklari tanimadan Kanada egitim baglamini eksik birakma.',
-        talk: 'First Nations, Metis ve Inuit topluluklari bugun Indigenous Peoples basligi altinda ele aliniyor. Bu kesimlerin tarihi deneyimi, ozellikle uzlasma sonrasi donemde, Kanada nin guncel egitim politikalari icin temel bir referans.',
+        talk: `Kanada egitimini anlamak icin yerli halklari mutlaka konusmamiz gerekiyor.
+First Nations, Metis ve Inuit topluluklari bu ulkenin kurucu gercekliginin bir parcasi.
+Bugun kapsayici olarak Indigenous Peoples ifadesi kullaniliyor; bu tercih hem guncel hem de daha saygili bir kullanim.
+Bu baslik sadece tarih degil, bugun muredat, dil ve esitlik politikalarini dogrudan etkileyen canli bir alan.`,
       },
       'slide-2': {
         idea: 'En kritik fark: Federal duzeyde egitim bakanligi yok.',
-        talk: 'Kanada G7 icinde ulusal egitim bakanligi olmayan tek ulke. 1867 den beri egitim yetkisi eyalet ve bolgelere dagitilmis durumda. Buna ragmen ulusal koordine mekanizmalari ve stratejik uluslararasilasma ile ekonomik geri donus uretiyorlar.',
+        talk: `Simdi yapiyi belirleyen en kritik farka geliyoruz.
+Kanada, G7 icinde ulusal egitim bakanligi olmayan tek ulke.
+1867 sonrasinda egitim yetkisi 10 eyalet ve 3 bolgeye birakiliyor.
+Ilk bakista daginik gibi gorunse de koordinasyon CMEC ve ortak hedefler uzerinden saglaniyor; yani merkeziyet az ama sistem duzeni guclu.`,
       },
       'slide-3': {
         idea: 'Gecmisle yuzlesme ve uzlasma surecinin egitime etkisini vurgula.',
-        talk: 'Residential Schools donemi buyuk travmalar birakti. 2008 sonrasi resmi ozur ve Truth and Reconciliation sureciyle yerli tarih ve kultur muredata daha sistemli sekilde entegre edildi. Bu, egitimde guven insasi acisindan kilit bir adim.',
+        talk: `Bu bolumde daha sakin ve saygili bir cercevede ilerlemek istiyorum.
+Residential Schools donemi, yerli topluluklar icin agir bir travma birakti ve etkileri uzun yillar devam etti.
+2008 resmi ozur ve Truth and Reconciliation sureci, bu yarayi onarmak icin atilan onemli adimlar oldu.
+Bugun yerli tarih ve kulturun muredata dahil edilmesi, adalet ve guven acisindan temel bir gereklilik olarak kabul ediliyor.`,
       },
       'slide-4': {
         idea: 'Eyalet farkliliklarina ragmen ortak K-12 omurgasini anlat.',
-        talk: 'Sistem erken cocuklukta oyun temelli yaklasimla basliyor. Ortaogretimde ogrenciyi tek kaliba sokmak yerine farkli akademik ve mesleki yollar acik tutuluyor. Gecirgenlik yuksek oldugu icin sistemde ilerleme esnek kalabiliyor.',
+        talk: `Burada K-12 yapisini net bir sekilde gorelim.
+Eyaletler arasinda muredat farklari var, ancak temel omurga ulke genelinde benzer bir akista ilerliyor.
+Erken cocuklukta oyun temelli yaklasim, sadece akademik puani degil beceri gelisimini hedefliyor.
+Lisede akademik ve mesleki yollar arasindaki esnek gecisler de ogrenciyi sistemin disina itmek yerine sistemin icinde tutuyor.`,
       },
       'slide-5': {
         idea: 'Mesleki egitim ve hayat boyu ogrenmede esnek mekanizmalari one cikar.',
-        talk: 'Red Seal standardi eyaletler arasi mesleki taninirlik sagliyor. PLAR modeli ise okul disinda kazanilan deneyimi resmi krediye cevirebiliyor. Bu yapi, ogrenmenin sadece okul sinifiyla sinirli olmadigini gosteriyor.',
+        talk: `Mesleki egitim Kanada da ikinci bir secenek gibi degil, ana yollardan biri gibi kurgulaniyor.
+Red Seal standardi sayesinde bir eyalette kazanilan yeterlilik diger eyaletlerde de taninabiliyor.
+PLAR mekanizmasi da okul disinda kazanilan becerileri krediye cevirerek deneyimi resmi egitime dahil ediyor.
+Boylece hayat boyu ogrenme sadece bir hedef degil, kariyer boyunca calisan gercek bir model haline geliyor.`,
       },
       'slide-6': {
         idea: 'Merkezi sinav baskisi olmadan PISA basarisi paradoksunu acikla.',
-        talk: 'Milyonlari eleyen tek bir ulusal sinav yerine surec odakli olcme kullaniliyor. Eyalet testleri ogrenciyi elemekten cok sistemi iyilestirme amaci tasiyor. Bu sayede ogrenci baski yerine derin ogrenmeye ve urun gelistirmeye yoneliyor.',
+        talk: `Simdi en dikkat cekici paradoksa bakalim.
+Kanada da YKS benzeri tek bir merkez sinavi yok, ama PISA sonuclari yuksek.
+Bunun nedeni surec odakli degerlendirme anlayisi: Sadece sonuca bakilmiyor, ogrenme sureci de yakindan izleniyor.
+Kisa formulu su sekilde okuyabiliriz: Daha dusuk sinav baskisi, daha kaliteli geri bildirim ve daha derin ogrenme.`,
       },
       'slide-7': {
         idea: 'Destek mekanizmalari ile hicbir ogrencinin geride kalmamasi.',
-        talk: 'Rehberlik, psikolojik destek, IEP ve egitim yardimcisi gibi yapilar sinif icinde aktif calisiyor. Yeni gelen veya dil destegine ihtiyac duyan ogrenciler hizlica sisteme entegre ediliyor.',
+        talk: `Bu slayt sistemin insan odakli tarafini gosteriyor.
+Rehberlik servisleri, okul psikologlari, IEP planlari ve EA destegi erken mudahale mantigiyla birlikte calisiyor.
+Dil destegi gereken ogrenciler icin ELL ve FLL uygulamalari, akademik ilerleme ile sosyal uyumu ayni anda destekliyor.
+Yani kapsayicilik burada bir slogan degil, okulun gunluk isleyisine yerlesen somut bir uygulama bicimi.`,
       },
       'slide-8': {
         idea: 'CMEC i ulusal koordinasyonun merkezinde konumlandir.',
-        talk: 'CMEC baglayici bir super bakanlik degil, eyalet bakanlarini bir araya getiren bir uzlasi platformu. PISA temsili, denklik cerceveleri ve ortak politikalar gibi alanlarda koordinasyon sagliyor.',
+        talk: `CMEC i dogru konumlandiralim.
+Bu yapi bir ust bakanlik degil; eyaletlerin ozerkligini korurken ortak hedeflerde uzlasma saglayan bir koordinasyon platformu.
+PISA temsili, denklik, veri paylasimi ve politika diyalogu gibi basliklarda ulusal olcekte birlikte hareket etmeyi kolaylastiriyor.
+Boylece merkezi otorite sinirli olsa bile ulusal uyum korunabiliyor.`,
       },
       'slide-9': {
         idea: 'Kanada-Turkiye karsilastirmasini ders cikarimlariyla bagla.',
-        talk: 'Temel fark merkezilesme degil, yaklasim farki: sinav odakli kultur yerine surec ve ozerklik odakli kultur. Kapanista 4 cikarimi sakin ve net soyle: ozerklik, surec degerlendirmesi, yuzlesme, kapsayicilik.',
+        talk: `Burada Kanada ve Turkiye yi yargilamak icin degil, ders cikarmak icin karsilastiriyorum.
+Asil fark, sistemi yoneten felsefede ortaya cikiyor.
+Bu karsilastirmadan dort net ders cikiyor: ozerklik, surec odakli degerlendirme, gecmisle yuzlesme ve kapsayici okul kulturu.
+Bizim icin kritik soru su: Bu ilkeleri kendi baglamimiza hangi adimla ve hangi olcekte uyarlayabiliriz?`,
       },
       'slide-10': {
         idea: 'Kaynak guvenilirligini vurgula ve guclu kapanis yap.',
-        talk: 'OECD, IRCC ve resmi Kanada kaynaklarini temel aldigini belirt. Kisa bir tesekkurden sonra soru-cevap icin davet et. Son cumleyi kararlilikla bitir.',
+        talk: `Kapanista dayandigim kaynaklari acikca vurgulayayim: OECD, IRCC, StatCan ve resmi kurumsal raporlar.
+Bu veriler bize tek tip ve asiri merkezi bir modelin zorunlu olmadigini, esnek ama hesap verebilir bir egitim mimarisinin mumkun oldugunu gosteriyor.
+Dinlediginiz icin tesekkur ederim.
+Simdi soru ve goruslerinizi memnuniyetle almak isterim.`,
       },
     };
     let current = 0;
@@ -3928,12 +4056,15 @@
     let presenterStartedAt = 0;
     let presenterTimerId = null;
     let displayWindowRef = null;
+    let presenterDragState = null;
+    let presenterResizeState = null;
+    let presenterResizeObserver = null;
 
     const isDisplayWindow = new URLSearchParams(window.location.search).get('display') === '1';
 
     prepareSlideFit();
     initDisplayMode();
-    initPresenterExtraNotes();
+    initPresenterPanelInteractivity();
     document.getElementById('slideTotal').textContent = totalSlides;
 
     // Build dot nav
@@ -3981,26 +4112,233 @@
         };
       }
 
-      function getExtraNote(index) {
+      function clampNumber(value, min, max) {
+        return Math.min(Math.max(value, min), max);
+      }
+
+      function clampPresenterLayout(layout) {
+        const margin = 8;
+        const maxWidth = Math.max(PRESENTER_MIN_WIDTH, window.innerWidth - margin * 2);
+        const maxHeight = Math.max(PRESENTER_MIN_HEIGHT, window.innerHeight - margin * 2);
+
+        const width = clampNumber(layout.width || 520, PRESENTER_MIN_WIDTH, maxWidth);
+        const height = clampNumber(layout.height || 640, PRESENTER_MIN_HEIGHT, maxHeight);
+
+        const maxLeft = Math.max(margin, window.innerWidth - width - margin);
+        const maxTop = Math.max(margin, window.innerHeight - height - margin);
+
+        const left = clampNumber(layout.left ?? 24, margin, maxLeft);
+        const top = clampNumber(layout.top ?? 76, margin, maxTop);
+
+        return { left, top, width, height };
+      }
+
+      function applyPresenterLayout(layout) {
+        if (!presenterPanel) return;
+        const next = clampPresenterLayout(layout);
+        presenterPanel.style.left = `${next.left}px`;
+        presenterPanel.style.top = `${next.top}px`;
+        presenterPanel.style.width = `${next.width}px`;
+        presenterPanel.style.height = `${next.height}px`;
+      }
+
+      function savePresenterLayout() {
+        if (isDisplayWindow || !presenterPanel) return;
+        const rect = presenterPanel.getBoundingClientRect();
+        const layout = clampPresenterLayout({
+          left: rect.left,
+          top: rect.top,
+          width: rect.width,
+          height: rect.height,
+        });
+
         try {
-          return localStorage.getItem(PRESENTER_EXTRA_NOTE_PREFIX + getSlideKey(index)) || '';
+          localStorage.setItem(PRESENTER_LAYOUT_KEY, JSON.stringify(layout));
         } catch (err) {
-          return '';
+          // Ignore localStorage write errors.
         }
       }
 
-      function setExtraNote(index, value) {
+      function restorePresenterLayout() {
+        if (isDisplayWindow || !presenterPanel) return;
         try {
-          localStorage.setItem(PRESENTER_EXTRA_NOTE_PREFIX + getSlideKey(index), value);
+          const raw = localStorage.getItem(PRESENTER_LAYOUT_KEY);
+          if (!raw) return;
+          const parsed = JSON.parse(raw);
+          applyPresenterLayout(parsed || {});
         } catch (err) {
-          // Ignore write errors from privacy mode or quota limits.
+          // Ignore localStorage parse errors.
         }
       }
 
-      function initPresenterExtraNotes() {
-        if (isDisplayWindow || !presenterExtraNoteEl) return;
-        presenterExtraNoteEl.addEventListener('input', () => {
-          setExtraNote(current, presenterExtraNoteEl.value);
+      function scalePresenterPanel(multiplier) {
+        if (isDisplayWindow || !presenterPanel) return;
+        const rect = presenterPanel.getBoundingClientRect();
+        const newWidth = rect.width * multiplier;
+        const newHeight = rect.height * multiplier;
+        const centerX = rect.left + rect.width / 2;
+        const centerY = rect.top + rect.height / 2;
+
+        applyPresenterLayout({
+          left: centerX - newWidth / 2,
+          top: centerY - newHeight / 2,
+          width: newWidth,
+          height: newHeight,
+        });
+        savePresenterLayout();
+      }
+
+      function resetPresenterLayout() {
+        if (isDisplayWindow || !presenterPanel) return;
+
+        try {
+          localStorage.removeItem(PRESENTER_LAYOUT_KEY);
+        } catch (err) {
+          // Ignore localStorage errors.
+        }
+
+        applyPresenterLayout({
+          left: 24,
+          top: 76,
+          width: Math.min(520, window.innerWidth * 0.48),
+          height: Math.min(640, window.innerHeight * 0.78),
+        });
+      }
+
+      function startPresenterDrag(e) {
+        if (isDisplayWindow || !presenterPanel || !presenterHeadEl) return;
+        if (e.button !== 0) return;
+        if (e.target && e.target.closest('button,textarea,input,select,a,label,.presenter-resize-handle')) return;
+
+        e.preventDefault();
+
+        const rect = presenterPanel.getBoundingClientRect();
+        presenterDragState = {
+          offsetX: e.clientX - rect.left,
+          offsetY: e.clientY - rect.top,
+        };
+
+        presenterHeadEl.classList.add('dragging');
+        presenterPanel.classList.add('dragging');
+        document.addEventListener('mousemove', movePresenterDrag);
+        document.addEventListener('mouseup', endPresenterDrag);
+      }
+
+      function movePresenterDrag(e) {
+        if (!presenterDragState || !presenterPanel) return;
+
+        const nextLeft = e.clientX - presenterDragState.offsetX;
+        const nextTop = e.clientY - presenterDragState.offsetY;
+        const rect = presenterPanel.getBoundingClientRect();
+
+        applyPresenterLayout({
+          left: nextLeft,
+          top: nextTop,
+          width: rect.width,
+          height: rect.height,
+        });
+      }
+
+      function endPresenterDrag() {
+        if (!presenterDragState) return;
+        presenterDragState = null;
+
+        if (presenterHeadEl) presenterHeadEl.classList.remove('dragging');
+        if (presenterPanel) presenterPanel.classList.remove('dragging');
+        document.removeEventListener('mousemove', movePresenterDrag);
+        document.removeEventListener('mouseup', endPresenterDrag);
+        savePresenterLayout();
+      }
+
+      function startPresenterResize(e) {
+        if (isDisplayWindow || !presenterPanel) return;
+        if (e.button !== 0) return;
+
+        e.preventDefault();
+        e.stopPropagation();
+
+        const rect = presenterPanel.getBoundingClientRect();
+        presenterResizeState = {
+          startX: e.clientX,
+          startY: e.clientY,
+          startWidth: rect.width,
+          startHeight: rect.height,
+          startLeft: rect.left,
+          startTop: rect.top,
+        };
+
+        presenterPanel.classList.add('resizing');
+        document.addEventListener('mousemove', movePresenterResize);
+        document.addEventListener('mouseup', endPresenterResize);
+      }
+
+      function movePresenterResize(e) {
+        if (!presenterResizeState || !presenterPanel) return;
+
+        const deltaX = e.clientX - presenterResizeState.startX;
+        const deltaY = e.clientY - presenterResizeState.startY;
+
+        applyPresenterLayout({
+          left: presenterResizeState.startLeft,
+          top: presenterResizeState.startTop,
+          width: presenterResizeState.startWidth + deltaX,
+          height: presenterResizeState.startHeight + deltaY,
+        });
+      }
+
+      function endPresenterResize() {
+        if (!presenterResizeState) return;
+
+        presenterResizeState = null;
+        if (presenterPanel) presenterPanel.classList.remove('resizing');
+        document.removeEventListener('mousemove', movePresenterResize);
+        document.removeEventListener('mouseup', endPresenterResize);
+        savePresenterLayout();
+      }
+
+      function initPresenterPanelInteractivity() {
+        if (isDisplayWindow || !presenterPanel) return;
+
+        restorePresenterLayout();
+
+        if (presenterHeadEl) {
+          presenterHeadEl.addEventListener('mousedown', startPresenterDrag);
+          presenterHeadEl.addEventListener('dragstart', e => e.preventDefault());
+        }
+
+        if (presenterSmallerBtn) {
+          presenterSmallerBtn.addEventListener('click', () => scalePresenterPanel(0.9));
+        }
+
+        if (presenterLargerBtn) {
+          presenterLargerBtn.addEventListener('click', () => scalePresenterPanel(1.1));
+        }
+
+        if (presenterResetBtn) {
+          presenterResetBtn.addEventListener('click', resetPresenterLayout);
+        }
+
+        if (presenterResizeHandleEl) {
+          presenterResizeHandleEl.addEventListener('mousedown', startPresenterResize);
+        }
+
+        if (window.ResizeObserver) {
+          presenterResizeObserver = new ResizeObserver(() => {
+            if (!presenterDragState) savePresenterLayout();
+          });
+          presenterResizeObserver.observe(presenterPanel);
+        }
+
+        window.addEventListener('resize', () => {
+          if (!presenterPanel) return;
+          const rect = presenterPanel.getBoundingClientRect();
+          applyPresenterLayout({
+            left: rect.left,
+            top: rect.top,
+            width: rect.width,
+            height: rect.height,
+          });
+          savePresenterLayout();
         });
       }
 
@@ -4036,23 +4374,15 @@
         if (presenterMainIdeaEl) presenterMainIdeaEl.textContent = note.idea;
         if (presenterTalkNoteEl) presenterTalkNoteEl.textContent = note.talk;
 
-        if (presenterExtraNoteEl) {
-          const savedExtraNote = getExtraNote(current);
-          if (presenterExtraNoteEl.value !== savedExtraNote) {
-            presenterExtraNoteEl.value = savedExtraNote;
-          }
-          presenterExtraNoteEl.placeholder = `${getSlideTitle(current)} icin kisa hatirlatma yaz...`;
-        }
-
         if (!presenterMode) {
-          setPresenterStatus('P tusu ile presenter mode acilir');
+          setPresenterStatus('P ile Sunucu Modu acilir. Bu panel sadece sende gorunur, projeksiyona yansimaz.');
           return;
         }
 
         const connected = !!(displayWindowRef && !displayWindowRef.closed);
         setPresenterStatus(connected
-          ? 'Projeksiyon penceresi bagli. Bu panel sadece sunucu ekraninda gorunur.'
-          : 'Projeksiyon penceresi acilamadi. Tarayicida popup izni verin.');
+          ? 'Projeksiyon penceresi bagli. Paneli basliktan surukleyebilir, sag-alt koseden veya + / - dugmeleriyle boyutlandirabilirsin.'
+          : 'Projeksiyon penceresi acilamadi. Tarayicinda popup izni verip P tusu ile tekrar dene.');
       }
 
       function buildDisplayUrl() {
