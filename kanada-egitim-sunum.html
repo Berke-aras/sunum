@@ -286,13 +286,17 @@
       position: relative
     }
 
+    #slide-0 {
+      overflow: hidden !important;
+    }
+
     .slide {
       position: absolute;
       inset: 0;
       display: flex;
       flex-direction: column;
-      justify-content: center;
-      padding: 80px 100px 60px;
+      justify-content: flex-start;
+      padding: clamp(55px, 8vh, 80px) clamp(40px, 8vw, 100px) clamp(20px, 4vh, 60px);
       opacity: 0;
       pointer-events: none;
       visibility: hidden;
@@ -300,23 +304,7 @@
       transform: translateX(60px);
       filter: blur(4px);
       overflow-x: hidden;
-      overflow-y: auto;
-      -webkit-overflow-scrolling: touch;
-      scrollbar-width: thin;
-      scrollbar-color: rgba(200, 16, 46, 0.3) transparent;
-    }
-
-    .slide::-webkit-scrollbar {
-      width: 4px
-    }
-
-    .slide::-webkit-scrollbar-track {
-      background: transparent
-    }
-
-    .slide::-webkit-scrollbar-thumb {
-      background: rgba(200, 16, 46, 0.3);
-      border-radius: 2px
+      overflow-y: hidden;
     }
 
     .slide.active {
@@ -420,6 +408,17 @@
     .slide>*:not(.slide-bg) {
       position: relative;
       z-index: 1
+    }
+
+    .slide-content-fit {
+      width: 100%;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      z-index: 1;
+      transform-origin: top left;
+      will-change: transform;
     }
 
     /* ============================================================ */
@@ -612,10 +611,14 @@
     .nav-right {
       display: flex;
       align-items: center;
-      gap: 16px;
+      gap: clamp(8px, 1.5vh, 16px);
       font-size: 0.78rem;
       color: var(--muted);
       font-family: 'DM Mono', monospace
+    }
+
+    .nav-org {
+      white-space: nowrap;
     }
 
     .hacettepe-logo {
@@ -623,6 +626,33 @@
       width: auto;
       margin-left: 8px;
       filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.1));
+    }
+
+    .fs-btn {
+      width: 28px;
+      height: 28px;
+      border-radius: 7px;
+      border: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--muted);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      margin-left: 4px;
+      flex-shrink: 0;
+    }
+
+    .fs-btn:hover {
+      background: rgba(200, 16, 46, 0.14);
+      border-color: rgba(200, 16, 46, 0.35);
+      color: var(--white);
+      transform: translateY(-1px);
+    }
+
+    .fs-btn:active {
+      transform: translateY(0) scale(0.96);
     }
 
     .badge {
@@ -760,7 +790,7 @@
       height: 3px;
       background: linear-gradient(90deg, var(--red), var(--gold));
       border-radius: 2px;
-      margin: 20px 0;
+      margin: clamp(10px, 2vh, 20px) 0;
       position: relative;
       overflow: hidden
     }
@@ -782,7 +812,7 @@
       background: rgba(255, 255, 255, 0.03);
       border: 1px solid rgba(255, 255, 255, 0.08);
       border-radius: 16px;
-      padding: 24px 28px;
+      padding: clamp(12px, 2vh, 20px) 20px;
       transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
@@ -814,9 +844,9 @@
 
     .card h3 {
       font-family: 'Fraunces', serif;
-      font-size: 1.1rem;
+      font-size: clamp(0.95rem, 2vh, 1.1rem);
       font-weight: 700;
-      margin-bottom: 12px;
+      margin-bottom: clamp(6px, 1.5vh, 12px);
       display: flex;
       align-items: center;
       gap: 10px
@@ -827,13 +857,13 @@
     }
 
     .card ul li {
-      font-size: 0.87rem;
+      font-size: clamp(0.75rem, 1.8vh, 0.87rem);
       color: #9aa3b4;
-      padding: 7px 0;
+      padding: clamp(4px, 0.8vh, 7px) 0;
       border-bottom: 1px solid rgba(255, 255, 255, 0.04);
       display: flex;
       gap: 8px;
-      line-height: 1.55
+      line-height: clamp(1.3, 2vh, 1.55);
     }
 
     .card ul li:last-child {
@@ -857,21 +887,22 @@
     /* ============================================================ */
 
     .g2 {
+      align-items: start;
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 20px
+      gap: clamp(8px, 1.5vh, 20px)
     }
 
     .g3 {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 18px
+      gap: clamp(8px, 1.5vh, 18px)
     }
 
     .g4 {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 16px
+      gap: clamp(8px, 1.5vh, 16px)
     }
 
     .g23 {
@@ -896,7 +927,7 @@
       background: rgba(255, 255, 255, 0.03);
       border: 1px solid var(--border);
       border-radius: 12px;
-      padding: 20px 16px;
+      padding: clamp(10px, 1.5vh, 20px) 16px;
       text-align: center;
       backdrop-filter: blur(8px);
       transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
@@ -1644,8 +1675,30 @@
     }
 
     /* SLIDE SPECIFIC TWEAKS */
+    #slide-0 {
+      justify-content: center;
+    }
+
     #slide-0 .slide-title {
       font-size: clamp(3rem, 7vw, 5.5rem)
+    }
+
+    #slide-1 .g23 {
+      grid-template-columns: minmax(0, 1fr);
+      gap: clamp(10px, 1.8vh, 20px);
+    }
+
+    @media(min-width:1025px) {
+      #slide-2 .g23 {
+        grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+        gap: clamp(12px, 2vw, 26px);
+      }
+
+      #slide-3 .g2 {
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+        gap: clamp(12px, 2vw, 22px);
+        align-items: start;
+      }
     }
 
     /* ============================================================ */
@@ -1655,7 +1708,7 @@
     /* Large desktop / small laptop */
     @media(max-width:1280px) {
       .slide {
-        padding: 70px 60px 50px
+        padding: clamp(55px, 6vh, 70px) clamp(30px, 4vw, 60px) clamp(20px, 3vh, 50px)
       }
 
       .g4 {
@@ -1666,7 +1719,7 @@
     /* Tablet landscape */
     @media(max-width:1024px) {
       .slide {
-        padding: 64px 40px 40px
+        padding: clamp(55px, 6vh, 64px) clamp(20px, 4vw, 40px) clamp(20px, 3vh, 40px)
       }
 
       .nav-bar {
@@ -1678,8 +1731,13 @@
         font-size: 0.7rem
       }
 
-      .nav-right>:not(.badge) {
+      .nav-org {
         display: none
+      }
+
+      .fs-btn {
+        width: 24px;
+        height: 24px;
       }
 
       .nav-logo {
@@ -1695,6 +1753,7 @@
       }
 
       .g2 {
+        align-items: start;
         grid-template-columns: 1fr 1fr;
         gap: 14px
       }
@@ -1711,12 +1770,12 @@
 
       .g23 {
         grid-template-columns: 1fr;
-        gap: 20px
+        gap: clamp(8px, 1.5vh, 20px)
       }
 
       .g32 {
         grid-template-columns: 1fr;
-        gap: 20px
+        gap: clamp(8px, 1.5vh, 20px)
       }
 
       .hero-stats {
@@ -1783,7 +1842,8 @@
     @media(max-width:768px) {
       .slide {
         padding: 56px 24px 32px;
-        justify-content: flex-start
+        justify-content: flex-start;
+        overflow-y: auto;
       }
 
       .slide.active {
@@ -1813,6 +1873,12 @@
       .nav-right {
         gap: 8px;
         font-size: 0.65rem
+      }
+
+      .fs-btn {
+        width: 22px;
+        height: 22px;
+        border-radius: 6px;
       }
 
       .nav-center {
@@ -1851,6 +1917,7 @@
       }
 
       .g2 {
+        align-items: start;
         grid-template-columns: 1fr;
         gap: 12px
       }
@@ -1867,16 +1934,16 @@
 
       .g23 {
         grid-template-columns: 1fr;
-        gap: 16px
+        gap: clamp(8px, 1.5vh, 16px)
       }
 
       .g32 {
         grid-template-columns: 1fr;
-        gap: 16px
+        gap: clamp(8px, 1.5vh, 16px)
       }
 
       .hero-stats {
-        gap: 16px;
+        gap: clamp(8px, 1.5vh, 16px);
         margin-top: 24px
       }
 
@@ -2502,7 +2569,7 @@
 
       .hero-stats {
         margin-top: 12px;
-        gap: 16px
+        gap: clamp(8px, 1.5vh, 16px)
       }
 
       .hero-number {
@@ -2594,8 +2661,13 @@
     <div class="nav-center" id="dotNav"></div>
     <div class="nav-right">
       <span class="badge">EGT 354</span>
-      Hacettepe Üniversitesi
+      <span class="nav-org">Hacettepe Üniversitesi</span>
       <img src="https://kkm.hacettepe.edu.tr/wp-content/uploads/2018/07/cropped-logo-hacettepe.png" alt="Hacettepe Logo" class="hacettepe-logo">
+      <button class="fs-btn" id="fullscreenBtn" type="button" aria-label="Tam ekran" title="Tam ekran">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path id="fsIconPath" d="M8 3H3v5M16 3h5v5M21 16v5h-5M8 21H3v-5" />
+        </svg>
+      </button>
     </div>
   </div>
 
@@ -2617,7 +2689,7 @@
   </button>
 
   <!-- SLIDE COUNTER -->
-  <div class="slide-counter"><span id="slideNum">1</span> / <span id="slideTotal">10</span></div>
+  <div class="slide-counter"><span id="slideNum">1</span> / <span id="slideTotal">12</span></div>
 
 
 
@@ -2633,13 +2705,13 @@
         <div class="glow"></div>
         <div class="glow2"></div>
         <div class="glow3"></div>
+        <!-- Maple Leaf SVG -->
+        <svg class="hero-maple" viewBox="0 0 300 320" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M150 10 L162 50 L195 30 L180 65 L220 55 L195 80 L240 90 L200 105 L230 130 L190 125 L200 160 L165 140 L170 175 L150 155 L130 175 L135 140 L100 160 L110 125 L70 130 L100 105 L60 90 L105 80 L80 55 L120 65 L105 30 L138 50 Z M150 175 L150 300 M120 260 C120 240 150 225 150 225 C150 225 180 240 180 260" />
+        </svg>
+        <div class="hero-number">CA</div>
       </div>
-      <!-- Maple Leaf SVG -->
-      <svg class="hero-maple" viewBox="0 0 300 320" xmlns="http://www.w3.org/2000/svg">
-        <path
-          d="M150 10 L162 50 L195 30 L180 65 L220 55 L195 80 L240 90 L200 105 L230 130 L190 125 L200 160 L165 140 L170 175 L150 155 L130 175 L135 140 L100 160 L110 125 L70 130 L100 105 L60 90 L105 80 L80 55 L120 65 L105 30 L138 50 Z M150 175 L150 300 M120 260 C120 240 150 225 150 225 C150 225 180 240 180 260" />
-      </svg>
-      <div class="hero-number">CA</div>
       <div style="max-width:760px">
         <div class="eyebrow anim-item">EGT 354 · Karşılaştırmalı Eğitim · Hacettepe Üniversitesi</div>
         <h1 class="slide-title anim-item">
@@ -2679,8 +2751,8 @@
       <div class="eyebrow anim-item">01 · Ülke Bağlamı</div>
       <h2 class="slide-title anim-item">Demografik & <em>Ekonomik</em> Yapı</h2>
       <div class="divider anim-item"></div>
-      <div class="g23 anim-grid" style="margin-top:24px">
-        <div style="display:flex;flex-direction:column;gap:20px">
+      <div class="g23 anim-grid" style="margin-top:clamp(12px,2vh,24px)">
+        <div style="display:flex;flex-direction:column;gap:20px;max-width:980px">
           <!-- DEMOGRAFİK YAPI -->
           <div class="card">
             <h3>
@@ -2696,7 +2768,7 @@
               Demografik Yapı
             </h3>
             <ul>
-              <li><strong>Nüfus:</strong> ~41,3 milyon (2024, Statistics Canada)</li>
+              <li><strong>Nüfus:</strong> ~41,5 milyon (2026 Q1, Statistics Canada)</li>
               <li><strong>Çok Kültürlülük:</strong> Nüfusun %23'ü yurt dışı doğumlu; dünyanın en çok göç kabul eden
                 ülkelerinden biri</li>
               <li><strong>Resmi Diller:</strong> İngilizce & Fransızca; Anayasa her iki dilde eğitimi güvence altına alır
@@ -2704,6 +2776,7 @@
               <li><strong>Yoğunluk:</strong> Dünya'nın 2. büyük ülkesi; nüfusun %90'ı güney koridor</li>
             </ul>
           </div>
+
           <!-- EKONOMİK YAPI -->
           <div class="card">
             <h3>
@@ -2718,15 +2791,46 @@
             </h3>
             <ul>
               <li><strong>GSYİH:</strong> ~2,14 trilyon USD (2023, IMF); G7 üyesi</li>
-              <li><strong>Kişi başı GSYİH:</strong> ~53.370 USD; OECD ortalamasının üzerinde</li>
+              <li><strong>Kişi başı GSYİH:</strong> ~53-55 bin USD bandı; OECD ortalamasının üzerinde</li>
               <li><strong>Eğitim Harcaması:</strong> GSYİH'nin ~%5,3'ü; kamu finansmanı ağırlıklı</li>
-              <li><strong>Uluslararası Öğrenci:</strong> 1,04 milyon — dünyada 2. sıra</li>
-              <li><strong>İşsizlik:</strong> ~%5,8; yüksek nitelikli işgücü piyasası</li>
+              <li><strong>Uluslararası Öğrenci:</strong> 1,0M+ (IRCC 2023 stok verisi)</li>
+              <li><strong>İşsizlik:</strong> ~%6-7 bandı (dönemsel); nitelikli işgücü piyasası güçlü</li>
             </ul>
           </div>
         </div>
+      </div>
 
-        <!-- YERLİ HALKLAR FEATURE CARD -->
+      <div class="g4 anim-grid" style="margin-top:clamp(8px,1vh,18px)">
+        <div class="stat-box">
+          <div class="num"><span data-count="41">0</span><em>M</em></div>
+          <div class="lbl">Toplam Nüfus (2026 Q1)</div>
+        </div>
+        <div class="stat-box">
+          <div class="num"><span data-count="1">0</span><em>,</em>04<em>M</em></div>
+          <div class="lbl">Uluslararası Öğrenci (2023)</div>
+        </div>
+        <div class="stat-box">
+          <div class="num"><span data-count="5">0</span><em>,</em>3<em>%</em></div>
+          <div class="lbl">Eğitime GSYİH Payı</div>
+        </div>
+        <div class="stat-box">
+          <div class="num"><span data-count="13">0</span></div>
+          <div class="lbl">Eyalet & Bölge Bakanlığı</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 1.5: YERLİ HALKLAR -->
+    <div class="slide" id="slide-1-5">
+      <div class="slide-bg">
+        <div class="grid"></div>
+        <div class="glow"></div>
+        <div class="glow3"></div>
+      </div>
+      <div class="eyebrow anim-item">01 · Ülke Bağlamı</div>
+      <h2 class="slide-title anim-item">Yerli Halklar <em>Kimlerdir?</em></h2>
+      <div class="divider anim-item"></div>
+      <div class="anim-grid" style="margin-top:clamp(12px,2vh,24px);max-width:980px;">
         <div class="card" style="border-left:3px solid var(--gold);height:100%;display:flex;flex-direction:column">
           <h3 style="margin-bottom:4px">
             <div class="icon-box gold">
@@ -2741,7 +2845,7 @@
           <p
             style="font-size:0.75rem;color:var(--muted);margin-bottom:16px;font-family:'DM Mono',monospace;letter-spacing:0.05em;opacity:0.8">
             Kuzey Amerika'nın kadim toplulukları</p>
-          
+
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;flex-grow:1">
             <div style="background:rgba(255,255,255,0.02);padding:14px;border-radius:10px;border:1px solid rgba(255,255,255,0.04)">
               <div style="color:var(--gold);font-weight:700;font-size:0.9rem;margin-bottom:6px">First Nations</div>
@@ -2766,24 +2870,6 @@
           </div>
         </div>
       </div>
-      <div class="g4 anim-grid" style="margin-top:18px">
-        <div class="stat-box">
-          <div class="num"><span data-count="41">0</span><em>M</em></div>
-          <div class="lbl">Toplam Nüfus (2024)</div>
-        </div>
-        <div class="stat-box">
-          <div class="num"><span data-count="1">0</span><em>,</em>04<em>M</em></div>
-          <div class="lbl">Uluslararası Öğrenci (2023)</div>
-        </div>
-        <div class="stat-box">
-          <div class="num"><span data-count="5">0</span><em>,</em>3<em>%</em></div>
-          <div class="lbl">Eğitime GSYİH Payı</div>
-        </div>
-        <div class="stat-box">
-          <div class="num"><span data-count="13">0</span></div>
-          <div class="lbl">Eyalet & Bölge Bakanlığı</div>
-        </div>
-      </div>
     </div>
 
     <!-- SLIDE 2: POLİTİK YAPI -->
@@ -2796,7 +2882,7 @@
       <div class="eyebrow anim-item">01 · Ülke Bağlamı</div>
       <h2 class="slide-title anim-item">Politik & <em>Siyasi</em> Yapı</h2>
       <div class="divider anim-item"></div>
-      <div class="g23" style="margin-top:24px">
+      <div class="g23" style="margin-top:clamp(12px,2vh,24px)">
         <div class="anim-item">
           <div class="card">
             <h3>
@@ -2819,8 +2905,8 @@
           </div>
           <div class="alert">
             <h4>EGT 354 Bağlantısı — Küreselleşme ve Uluslararasılaşma</h4>
-            <p>Tablo-1'e göre Kanada, ABD'nin ardından <strong>1.040.985 uluslararası öğrenci</strong> ile dünyada 2.
-              sıradadır. "Study in Canada" markasının başarısı ve bilinçli Brain Gain stratejisi 2023'te 22 milyar CAD
+            <p>Tablo-1'e göre Kanada'da <strong>1.040.985 uluslararası öğrenci</strong> bulunmaktadır (IRCC 2023 stok verisi).
+              "Study in Canada" markasının başarısı ve bilinçli Brain Gain stratejisi 2023'te 22 milyar CAD
               ekonomik getiri sağlamıştır.</p>
           </div>
         </div>
@@ -2854,7 +2940,7 @@
       <div class="eyebrow anim-item">02 · Tarihsel Bağlam</div>
       <h2 class="slide-title anim-item">Eğitim <em>Tarihi</em> ve Uzlaşma</h2>
       <div class="divider anim-item"></div>
-      <div class="g2" style="margin-top:24px">
+      <div class="g2" style="margin-top:clamp(12px,2vh,24px)">
         <div class="anim-item">
           <div class="timeline">
             <div class="tl-item">
@@ -2925,7 +3011,7 @@
       <div class="eyebrow anim-item">03 · Eğitim Kademeleri</div>
       <h2 class="slide-title anim-item">K–12 Sistemi ve <em>Kademeli</em> Yapı</h2>
       <div class="divider anim-item"></div>
-      <p class="slide-sub anim-item" style="margin-bottom:20px">Her eyaletin kendi müfredatı olsa da genel K-12
+      <p class="slide-sub anim-item" style="margin-bottom:clamp(10px,2vh,20px)">Her eyaletin kendi müfredatı olsa da genel K-12
         çerçevesi ortaktır. Satıra tıkla → ayrıntıları gör.</p>
       <div class="anim-item"
         style="display:flex;flex-direction:column;gap:0;border:1px solid var(--border);border-radius:12px;overflow:hidden">
@@ -2946,7 +3032,7 @@
               <ul>
                 <li>Oyun temelli öğrenme (Play-based learning) esas pedagoji</li>
                 <li>French Immersion seçeneği — tüm dersler Fransızca</li>
-                <li>Karşılaştırma: Türkiye %40, Kanada %90+ okul öncesi katılım oranı</li>
+                <li>Karşılaştırma: Kanada'nın okul öncesi katılımı Türkiye'ye kıyasla belirgin biçimde daha yüksektir</li>
               </ul>
             </div>
           </div>
@@ -3034,7 +3120,7 @@
               <ul>
                 <li>Üniversiteler: Lisans, YL, Doktora — UBC, McGill, U of T, Waterloo</li>
                 <li>Kolejler: mesleki diploma/sertifika, co-op programları, sanayi entegrasyonu</li>
-                <li>Yetişkin nüfusun %63'ü en az yükseköğretim diploması (OECD 2023 ort: %40)</li>
+                <li>Yetişkin nüfusun %64'ü en az yükseköğretim diploması (StatCan 2025; OECD ortalaması ~%40)</li>
               </ul>
             </div>
           </div>
@@ -3052,7 +3138,7 @@
       <div class="eyebrow anim-item">03 · Eğitim Kademeleri</div>
       <h2 class="slide-title anim-item">Mesleki Eğitim & <em>Hayat Boyu</em> Öğrenme</h2>
       <div class="divider anim-item"></div>
-      <div class="g2 anim-grid" style="margin-top:24px">
+      <div class="g2 anim-grid" style="margin-top:clamp(12px,2vh,24px)">
         <div class="card">
           <h3>
             <div class="icon-box teal">
@@ -3100,8 +3186,8 @@
           <div class="lbl">Eyaletlerarası geçerli usta-çırak sertifika sistemi</div>
         </div>
         <div class="stat-box">
-          <div class="num"><em>%63</em></div>
-          <div class="lbl">Yetişkin nüfus yükseköğretim diploma oranı (OECD 2023)</div>
+          <div class="num"><em>%64</em></div>
+          <div class="lbl">Yetişkin nüfus yükseköğretim diploma oranı (StatCan 2025)</div>
         </div>
         <div class="stat-box">
           <div class="num" style="font-size:1.6rem">PLAR</div>
@@ -3120,7 +3206,7 @@
       <div class="eyebrow anim-item">04 · Ölçme ve Değerlendirme</div>
       <h2 class="slide-title anim-item">Sınavsız Başarı: <em>PISA'da</em> Küresel Liderlik</h2>
       <div class="divider anim-item"></div>
-      <div class="g2" style="margin-top:20px">
+      <div class="g2" style="margin-top:clamp(10px,1.5vh,20px)">
         <div class="anim-item">
           <div class="card" style="margin-bottom:14px">
             <h3>
@@ -3204,7 +3290,7 @@
               <div class="pisa-score">456</div>
             </div>
             <p style="font-size:0.72rem;color:var(--muted);margin-top:12px">Matematik: Kanada 497 (9. sıra) · Fen: 515
-              (7. sıra) · Kaynak: OECD PISA 2022</p>
+              (8. sıra) · Kaynak: OECD PISA 2022</p>
             <div
               style="margin-top:14px;padding:14px;background:rgba(34,197,94,0.07);border:1px solid rgba(34,197,94,0.18);border-radius:8px">
               <p style="font-size:0.82rem;color:#4ade80;font-weight:600;margin-bottom:4px">Temel Paradoks</p>
@@ -3245,7 +3331,7 @@
       <div class="eyebrow anim-item">05 · Rehberlik ve Danışma</div>
       <h2 class="slide-title anim-item"><em>Bütüncül</em> Öğrenci:<br>Rehberlik Sistemleri</h2>
       <div class="divider anim-item"></div>
-      <div class="g3 anim-grid" style="margin-top:24px">
+      <div class="g3 anim-grid" style="margin-top:clamp(12px,2vh,24px)">
         <div class="rehber-card">
           <div class="rehber-num">01</div>
           <h3>Guidance Counselors</h3>
@@ -3295,7 +3381,7 @@
       <div class="eyebrow anim-item">06 · Eğitim Bakanlığı Teşkilatlanması</div>
       <h2 class="slide-title anim-item">"Milli Eğitim <em>Bakanlığı</em><br>Olmayan" G7 Ülkesi</h2>
       <div class="divider anim-item"></div>
-      <div class="g2" style="margin-top:20px;align-items:start">
+      <div class="g2" style="margin-top:clamp(10px,1.5vh,20px);align-items:start">
         <div class="anim-item">
           <div class="no-fed-badge">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -3386,7 +3472,7 @@
       <div class="eyebrow anim-item">07 · Karşılaştırmalı Analiz & Sonuç</div>
       <h2 class="slide-title anim-item">Kanada <em>vs.</em> Türkiye</h2>
       <div class="divider anim-item"></div>
-      <div class="g32" style="margin-top:20px">
+      <div class="g32" style="margin-top:clamp(10px,1.5vh,20px)">
         <div class="anim-item table-scroll-wrapper">
           <table class="comp-table">
             <thead>
@@ -3419,8 +3505,8 @@
               </tr>
               <tr>
                 <td>Yükseköğretim Oranı</td>
-                <td><span class="badge-good">%63 diploma+</span></td>
-                <td><span class="badge-mid">~%38 diploma+</span></td>
+                <td><span class="badge-good">%64 diploma+</span></td>
+                <td><span class="badge-mid">OECD ortalamasının altında</span></td>
               </tr>
               <tr>
                 <td>Güç Mesafesi (Hofstede)</td>
@@ -3439,8 +3525,8 @@
               </tr>
               <tr>
                 <td>Uluslararası Öğrenci</td>
-                <td><span class="badge-good">1,04M — Dünya 2.</span></td>
-                <td><span class="badge-mid">~240K (Bölgesel)</span></td>
+                <td><span class="badge-good">1,0M+ (IRCC stok)</span></td>
+                <td><span class="badge-mid">Yükselişte (bölgesel merkez)</span></td>
               </tr>
             </tbody>
           </table>
@@ -3559,7 +3645,7 @@
         </div>
       </div>
       <div class="anim-item"
-        style="margin-top:24px;padding:20px 24px;background:rgba(200,16,46,0.06);border:1px solid rgba(200,16,46,0.18);border-radius:12px;text-align:center;backdrop-filter:blur(8px)">
+        style="margin-top:clamp(12px,2vh,24px);padding:20px 24px;background:rgba(200,16,46,0.06);border:1px solid rgba(200,16,46,0.18);border-radius:12px;text-align:center;backdrop-filter:blur(8px)">
         <p style="font-size:0.88rem;color:var(--muted)">Bu sunum EGT 354 Karşılaştırmalı Eğitim dersi kapsamında
           hazırlanmıştır.</p>
         <p style="font-size:0.78rem;color:rgba(122,132,153,0.6);margin-top:4px">Kapsam ve Uygunluk · Sunum Performansı ·
@@ -3572,9 +3658,15 @@
   <script>
     const slides = document.querySelectorAll('.slide');
     const totalSlides = slides.length;
+    const fullscreenBtn = document.getElementById('fullscreenBtn');
+    const fsIconPath = document.getElementById('fsIconPath');
+    const FIT_BOTTOM_GAP = 12;
+    const FIT_MIN_SCALE = 0.35;
+    const FIT_MAX_SCALE = 1.22;
     let current = 0;
     let animating = false;
 
+    prepareSlideFit();
     document.getElementById('slideTotal').textContent = totalSlides;
 
     // Build dot nav
@@ -3593,6 +3685,7 @@
       document.querySelectorAll('.nav-dot').forEach((d, i) => d.classList.toggle('active', i === current));
       document.getElementById('btnLeft').classList.toggle('disabled', current === 0);
       document.getElementById('btnRight').classList.toggle('disabled', current === totalSlides - 1);
+      fitSlide(slides[current]);
     }
 
     function goTo(n) {
@@ -3603,7 +3696,6 @@
       slides[current].classList.add(dir);
       slides[current].classList.remove('active');
       current = n;
-      slides[current].scrollTop = 0;
       slides[current].classList.add('active');
       updateUI();
       // Trigger counter animations for current slide
@@ -3621,7 +3713,10 @@
     document.addEventListener('keydown', e => {
       if (e.key === 'ArrowRight' || e.key === 'ArrowDown') nextSlide();
       if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') prevSlide();
+      if (e.key && e.key.toLowerCase() === 'f') toggleFullscreen();
     });
+
+    window.addEventListener('resize', () => fitSlide(slides[current]));
 
     // Swipe support
     let touchX = 0;
@@ -3638,7 +3733,119 @@
       const container = item.parentElement;
       container.querySelectorAll(':scope > .ladder-item').forEach(i => i.classList.remove('open'));
       if (!isOpen) item.classList.add('open');
+      setTimeout(() => fitSlide(slides[current]), 300);
     }
+
+    // Keep active slide content inside viewport with a guaranteed tiny bottom gap.
+    function prepareSlideFit() {
+      slides.forEach(slide => {
+        if (slide.querySelector(':scope > .slide-content-fit')) return;
+        const wrapper = document.createElement('div');
+        wrapper.className = 'slide-content-fit';
+        const contentNodes = Array.from(slide.children).filter(node =>
+          !node.classList.contains('slide-bg') &&
+          !node.classList.contains('hero-maple') &&
+          !node.classList.contains('hero-number')
+        );
+        contentNodes.forEach(node => wrapper.appendChild(node));
+        slide.appendChild(wrapper);
+      });
+    }
+
+    function fitSlide(slide) {
+      const wrapper = slide.querySelector(':scope > .slide-content-fit');
+      if (!wrapper) return;
+
+      // On mobile devices, disable strict scaling to allow natural scrolling
+      if (window.innerWidth <= 768) {
+        wrapper.style.width = '100%';
+        wrapper.style.transform = 'none';
+        return;
+      }
+
+      const style = window.getComputedStyle(slide);
+      const paddingY = parseFloat(style.paddingTop) + parseFloat(style.paddingBottom);
+      const targetHeight = Math.max(1, slide.clientHeight - paddingY - FIT_BOTTOM_GAP);
+
+      function applyScale(s) {
+        wrapper.style.width = `${100 / s}%`;
+        wrapper.style.transform = `scale(${s})`;
+      }
+
+      function fits(s) {
+        applyScale(s);
+        return wrapper.getBoundingClientRect().height <= targetHeight;
+      }
+
+      // Reset first to avoid drift from previous slide sizing.
+      wrapper.style.width = '100%';
+      wrapper.style.transform = 'scale(1)';
+
+      // Find the largest scale that still fits to keep text as readable as possible.
+      let lo = FIT_MIN_SCALE;
+      let hi = FIT_MAX_SCALE;
+
+      // If even max scale fits, keep it.
+      if (fits(hi)) {
+        applyScale(hi);
+        return;
+      }
+
+      // If even min scale doesn't fit, force minimum and leave as best effort.
+      if (!fits(lo)) {
+        applyScale(lo);
+        return;
+      }
+
+      // Binary search for best fit between bounds.
+      for (let i = 0; i < 12; i++) {
+        const mid = (lo + hi) / 2;
+        if (fits(mid)) {
+          lo = mid;
+        } else {
+          hi = mid;
+        }
+      }
+
+      // Tiny safety step down to avoid sub-pixel overflow on some displays.
+      const finalScale = Math.max(FIT_MIN_SCALE, lo - 0.002);
+      applyScale(finalScale);
+    }
+
+    function isFullscreenActive() {
+      return !!(document.fullscreenElement || document.webkitFullscreenElement);
+    }
+
+    function toggleFullscreen() {
+      if (isFullscreenActive()) {
+        if (document.exitFullscreen) {
+          document.exitFullscreen();
+        } else if (document.webkitExitFullscreen) {
+          document.webkitExitFullscreen();
+        }
+      } else {
+        if (document.documentElement.requestFullscreen) {
+          document.documentElement.requestFullscreen();
+        } else if (document.documentElement.webkitRequestFullscreen) {
+          document.documentElement.webkitRequestFullscreen();
+        }
+      }
+    }
+
+    function updateFullscreenButton() {
+      if (!fullscreenBtn || !fsIconPath) return;
+      const isFullscreen = isFullscreenActive();
+      fullscreenBtn.title = isFullscreen ? 'Tam ekrandan cik' : 'Tam ekran';
+      fullscreenBtn.setAttribute('aria-label', isFullscreen ? 'Tam ekrandan cik' : 'Tam ekran');
+      fsIconPath.setAttribute('d', isFullscreen ? 'M9 3H3v6M15 3h6v6M21 15v6h-6M3 15v6h6' : 'M8 3H3v5M16 3h5v5M21 16v5h-5M8 21H3v-5');
+    }
+
+    if (fullscreenBtn) {
+      fullscreenBtn.addEventListener('click', toggleFullscreen);
+    }
+    document.addEventListener('fullscreenchange', updateFullscreenButton);
+    document.addEventListener('webkitfullscreenchange', updateFullscreenButton);
+    updateFullscreenButton();
 
     // PISA bars animation
     let pisaAnimated = false;
@@ -3740,6 +3947,10 @@
     createParticles();
 
     updateUI();
+    requestAnimationFrame(() => fitSlide(slides[current]));
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(() => fitSlide(slides[current]));
+    }
   </script>
 </body>
 
