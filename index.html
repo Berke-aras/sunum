@@ -747,232 +747,162 @@
       color: var(--white)
     }
 
-    /* PRESENTER MODE */
-    .presenter-panel {
-      position: fixed;
-      left: 24px;
-      top: 76px;
-      width: min(520px, 48vw);
-      height: min(78vh, 640px);
-      min-width: 320px;
-      min-height: 280px;
-      max-width: calc(100vw - 24px);
-      max-height: calc(100vh - 24px);
-      resize: both;
-      overflow: auto;
-      z-index: 130;
-      background: rgba(10, 14, 24, 0.88);
-      border: 1px solid rgba(255, 255, 255, 0.16);
-      border-radius: 14px;
-      padding: 12px 14px 14px;
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      box-shadow: 0 18px 42px rgba(0, 0, 0, 0.35);
-      opacity: 0;
-      visibility: hidden;
-      pointer-events: none;
-      transition: opacity 0.25s ease;
-    }
-
-    body.presenter-mode .presenter-panel {
-      opacity: 1;
-      visibility: visible;
-      pointer-events: auto;
-    }
-
-    .presenter-head {
-      position: sticky;
-      top: 0;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-      margin-bottom: 10px;
-      padding-bottom: 10px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-      background: linear-gradient(180deg, rgba(10, 14, 24, 0.96), rgba(10, 14, 24, 0.78));
-      cursor: grab;
-      user-select: none;
-      touch-action: none;
-    }
-
-    .presenter-head.dragging {
-      cursor: grabbing;
-    }
-
-    .presenter-head-left {
-      display: flex;
-      flex-direction: column;
-      gap: 3px;
-    }
-
-    .presenter-title {
-      font-family: 'DM Mono', monospace;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      font-size: 0.68rem;
-      color: #fca5a5;
-    }
-
-    .presenter-subtitle {
-      font-size: 0.68rem;
-      color: var(--muted);
-      line-height: 1.3;
-    }
-
-    .presenter-head-right {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .presenter-timer {
-      font-family: 'DM Mono', monospace;
-      font-size: 0.82rem;
-      color: var(--white);
-      background: rgba(200, 16, 46, 0.16);
-      border: 1px solid rgba(200, 16, 46, 0.34);
-      border-radius: 999px;
-      padding: 4px 10px;
-      white-space: nowrap;
-    }
-
-    .presenter-controls {
-      display: flex;
-      align-items: center;
-      gap: 4px;
-    }
-
-    .presenter-btn {
-      width: 24px;
-      height: 24px;
-      border-radius: 6px;
-      border: 1px solid rgba(255, 255, 255, 0.18);
-      background: rgba(255, 255, 255, 0.06);
-      color: var(--white);
-      font-size: 0.8rem;
-      line-height: 1;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      transition: all 0.2s ease;
-    }
-
-    .presenter-btn:hover {
-      background: rgba(200, 16, 46, 0.2);
-      border-color: rgba(200, 16, 46, 0.35);
-    }
-
-    .presenter-meta {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-      margin-bottom: 10px;
-    }
-
-    .presenter-block {
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 10px;
-      padding: 8px 10px;
-    }
-
-    .presenter-label {
-      font-family: 'DM Mono', monospace;
-      font-size: 0.64rem;
-      letter-spacing: 0.05em;
-      color: var(--muted);
-      text-transform: uppercase;
-      margin-bottom: 4px;
-    }
-
-    .presenter-value {
-      font-size: 0.8rem;
-      line-height: 1.3;
-      color: var(--white);
-    }
-
-    .presenter-status {
-      margin-top: 8px;
-      font-size: 0.74rem;
-      color: #93c5fd;
-      line-height: 1.45;
-    }
-
-    .presenter-help {
-      margin-top: 8px;
-      font-size: 0.7rem;
-      color: var(--muted);
-      line-height: 1.45;
-    }
-
-    .presenter-note-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 10px;
-      margin-top: 10px;
-    }
-
-    .presenter-note-text {
-      font-size: 0.78rem;
-      line-height: 1.5;
-      color: #d7deeb;
-      white-space: pre-wrap;
-      max-height: 160px;
-      overflow: auto;
-      padding-right: 4px;
-    }
-
-    .presenter-extra-input {
-      width: 100%;
-      min-height: 72px;
-      resize: vertical;
-      border-radius: 8px;
-      border: 1px solid rgba(255, 255, 255, 0.18);
-      background: rgba(255, 255, 255, 0.04);
-      color: var(--white);
-      font-size: 0.77rem;
-      line-height: 1.45;
-      padding: 8px 10px;
-      font-family: 'Inter', sans-serif;
-    }
-
-    .presenter-extra-input:focus {
-      outline: none;
-      border-color: rgba(200, 16, 46, 0.45);
-      box-shadow: 0 0 0 2px rgba(200, 16, 46, 0.15);
-    }
-
-    .presenter-extra-hint {
-      margin-top: 6px;
-      font-size: 0.66rem;
-      color: var(--muted);
-    }
-
-    body.presenter-display .nav-bar,
-    body.presenter-display .progress-bar,
-    body.presenter-display .nav-arrow,
-    body.presenter-display .slide-counter,
-    body.presenter-display .presenter-panel {
-      display: none !important;
-    }
-
-    @media(max-width:1024px) {
+      /* PRESENTER MODE */
       .presenter-panel {
-        left: 4vw;
-        top: 64px;
-        width: 92vw;
-        height: min(66vh, 560px);
-        min-width: 0;
-        resize: vertical;
+        position: fixed;
+        left: 24px;
+        bottom: 22px;
+        width: min(480px, 48vw);
+        max-height: calc(100vh - 88px);
+        overflow: auto;
+        z-index: 130;
+        background: rgba(10, 14, 24, 0.88);
+        border: 1px solid rgba(255, 255, 255, 0.16);
+        border-radius: 14px;
+        padding: 14px 16px;
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        box-shadow: 0 18px 42px rgba(0, 0, 0, 0.35);
+        opacity: 0;
+        pointer-events: none;
+        transform: translateY(10px);
+        transition: opacity 0.25s ease, transform 0.25s ease;
+      }
+
+      body.presenter-mode .presenter-panel {
+        opacity: 1;
+        pointer-events: auto;
+        transform: translateY(0);
       }
 
       .presenter-head {
-        cursor: default;
-        touch-action: auto;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 10px;
       }
-    }
+
+      .presenter-title {
+        font-family: 'DM Mono', monospace;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        font-size: 0.68rem;
+        color: #fca5a5;
+      }
+
+      .presenter-timer {
+        font-family: 'DM Mono', monospace;
+        font-size: 0.85rem;
+        color: var(--white);
+        background: rgba(200, 16, 46, 0.16);
+        border: 1px solid rgba(200, 16, 46, 0.34);
+        border-radius: 999px;
+        padding: 4px 10px;
+      }
+
+      .presenter-meta {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        margin-bottom: 10px;
+      }
+
+      .presenter-block {
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 10px;
+        padding: 8px 10px;
+      }
+
+      .presenter-label {
+        font-family: 'DM Mono', monospace;
+        font-size: 0.64rem;
+        letter-spacing: 0.05em;
+        color: var(--muted);
+        text-transform: uppercase;
+        margin-bottom: 4px;
+      }
+
+      .presenter-value {
+        font-size: 0.8rem;
+        line-height: 1.3;
+        color: var(--white);
+      }
+
+      .presenter-status {
+        margin-top: 8px;
+        font-size: 0.74rem;
+        color: #93c5fd;
+      }
+
+      .presenter-help {
+        margin-top: 8px;
+        font-size: 0.7rem;
+        color: var(--muted);
+      }
+
+      .presenter-note-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 10px;
+        margin-top: 10px;
+      }
+
+      .presenter-note-text {
+        font-size: 0.78rem;
+        line-height: 1.5;
+        color: #d7deeb;
+        white-space: pre-wrap;
+        max-height: 160px;
+        overflow: auto;
+        padding-right: 4px;
+      }
+
+      .presenter-extra-input {
+        width: 100%;
+        min-height: 72px;
+        resize: vertical;
+        border-radius: 8px;
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        background: rgba(255, 255, 255, 0.04);
+        color: var(--white);
+        font-size: 0.77rem;
+        line-height: 1.45;
+        padding: 8px 10px;
+        font-family: 'Inter', sans-serif;
+      }
+
+      .presenter-extra-input:focus {
+        outline: none;
+        border-color: rgba(200, 16, 46, 0.45);
+        box-shadow: 0 0 0 2px rgba(200, 16, 46, 0.15);
+      }
+
+      .presenter-extra-hint {
+        margin-top: 6px;
+        font-size: 0.66rem;
+        color: var(--muted);
+      }
+
+      body.presenter-display .nav-bar,
+      body.presenter-display .progress-bar,
+      body.presenter-display .nav-arrow,
+      body.presenter-display .slide-counter,
+      body.presenter-display .presenter-panel {
+        display: none !important;
+      }
+
+      @media(max-width:1024px) {
+        .presenter-panel {
+          left: 50%;
+          width: min(92vw, 440px);
+          transform: translate(-50%, 10px);
+        }
+
+        body.presenter-mode .presenter-panel {
+          transform: translate(-50%, 0);
+        }
+      }
 
     /* ============================================================ */
     /* TYPOGRAPHY — Enhanced                                         */
@@ -2921,52 +2851,42 @@
 
     <!-- PRESENTER PANEL -->
     <div class="presenter-panel" id="presenterPanel" aria-live="polite">
-      <div class="presenter-head" id="presenterHead">
-        <div class="presenter-head-left">
-          <div class="presenter-title">Sunucu Paneli</div>
-          <div class="presenter-subtitle">Bu panel yalnizca senin ekraninda gorunur (projeksiyonda gorunmez).</div>
-        </div>
-        <div class="presenter-head-right">
-          <div class="presenter-timer" id="presenterTimer">00:00</div>
-          <div class="presenter-controls">
-            <button type="button" class="presenter-btn" id="presenterSmallerBtn" title="Paneli kucult" aria-label="Paneli kucult">-</button>
-            <button type="button" class="presenter-btn" id="presenterLargerBtn" title="Paneli buyut" aria-label="Paneli buyut">+</button>
-            <button type="button" class="presenter-btn" id="presenterResetBtn" title="Panel boyut ve konumunu sifirla" aria-label="Panel boyut ve konumunu sifirla">R</button>
-          </div>
-        </div>
+      <div class="presenter-head">
+        <div class="presenter-title">Presenter Mode</div>
+        <div class="presenter-timer" id="presenterTimer">00:00</div>
       </div>
       <div class="presenter-meta">
         <div class="presenter-block">
-          <div class="presenter-label">Aktif Slayt (Sira)</div>
+          <div class="presenter-label">Aktif Slayt</div>
           <div class="presenter-value" id="presenterCurrentNum">1 / 12</div>
         </div>
         <div class="presenter-block">
-          <div class="presenter-label">Bir Sonraki Slayt</div>
+          <div class="presenter-label">Sonraki</div>
           <div class="presenter-value" id="presenterNextTitle">-</div>
         </div>
       </div>
       <div class="presenter-block">
-        <div class="presenter-label">Bu Slaytin Basligi</div>
+        <div class="presenter-label">Baslik</div>
         <div class="presenter-value" id="presenterCurrentTitle">-</div>
       </div>
       <div class="presenter-note-grid">
         <div class="presenter-block">
-          <div class="presenter-label">Ana Fikir (Ne Vurgulanacak)</div>
+          <div class="presenter-label">Ana Fikir</div>
           <div class="presenter-note-text" id="presenterMainIdea">-</div>
         </div>
         <div class="presenter-block">
-          <div class="presenter-label">Konusma Notu (Ornek Akis)</div>
+          <div class="presenter-label">Konusma Notu</div>
           <div class="presenter-note-text" id="presenterTalkNote">-</div>
         </div>
         <div class="presenter-block">
-          <div class="presenter-label">Kisisel Ek Not (Sana Ozel)</div>
+          <div class="presenter-label">Kisisel Ek Not</div>
           <textarea class="presenter-extra-input" id="presenterExtraNote"
-            placeholder="Bu slayt icin kisa hatirlatma yaz (or: soru sor, 2 sn duraksama)..."></textarea>
-          <div class="presenter-extra-hint">Notlar slayt bazli otomatik kaydedilir.</div>
+            placeholder="Bu slayt icin kisa hatirlatma yaz..."></textarea>
+          <div class="presenter-extra-hint">Yazdiklarin tarayicinda otomatik saklanir.</div>
         </div>
       </div>
-      <div class="presenter-status" id="presenterStatus">P ile Sunucu Modu acilir. Panel sadece sende gorunur.</div>
-      <div class="presenter-help">Ipuclari: Baslik alanindan surukle. Sag-alt koseden yeniden boyutlandir. + / - ile hizli buyut-kucult yap.</div>
+      <div class="presenter-status" id="presenterStatus">P tusu ile presenter mode acilir</div>
+      <div class="presenter-help">Kisayollar: P = Presenter Mode, F = Tam ekran, Ok tuslari = Slayt gecis</div>
     </div>
 
 
@@ -3946,19 +3866,12 @@
     const presenterMainIdeaEl = document.getElementById('presenterMainIdea');
     const presenterTalkNoteEl = document.getElementById('presenterTalkNote');
     const presenterExtraNoteEl = document.getElementById('presenterExtraNote');
-    const presenterHeadEl = document.getElementById('presenterHead');
-    const presenterSmallerBtn = document.getElementById('presenterSmallerBtn');
-    const presenterLargerBtn = document.getElementById('presenterLargerBtn');
-    const presenterResetBtn = document.getElementById('presenterResetBtn');
     const presenterStatusEl = document.getElementById('presenterStatus');
     const FIT_BOTTOM_GAP = 12;
     const FIT_MIN_SCALE = 0.35;
     const FIT_MAX_SCALE = 1.22;
     const DISPLAY_WINDOW_NAME = 'kanadaSunumDisplayWindow';
     const PRESENTER_EXTRA_NOTE_PREFIX = 'kanadaSunum:extraNote:';
-    const PRESENTER_LAYOUT_KEY = 'kanadaSunum:presenterLayout:v1';
-    const PRESENTER_MIN_WIDTH = 320;
-    const PRESENTER_MIN_HEIGHT = 280;
     const SPEAKER_NOTES = {
       'slide-0': {
         idea: 'Acilista dikkat cek ve Kanada modeline merak uyandir.',
@@ -4015,15 +3928,12 @@
     let presenterStartedAt = 0;
     let presenterTimerId = null;
     let displayWindowRef = null;
-    let presenterDragState = null;
-    let presenterResizeObserver = null;
 
     const isDisplayWindow = new URLSearchParams(window.location.search).get('display') === '1';
 
     prepareSlideFit();
     initDisplayMode();
     initPresenterExtraNotes();
-    initPresenterPanelInteractivity();
     document.getElementById('slideTotal').textContent = totalSlides;
 
     // Build dot nav
@@ -4094,182 +4004,6 @@
         });
       }
 
-      function clampNumber(value, min, max) {
-        return Math.min(Math.max(value, min), max);
-      }
-
-      function clampPresenterLayout(layout) {
-        const margin = 8;
-        const maxWidth = Math.max(PRESENTER_MIN_WIDTH, window.innerWidth - margin * 2);
-        const maxHeight = Math.max(PRESENTER_MIN_HEIGHT, window.innerHeight - margin * 2);
-
-        const width = clampNumber(layout.width || 520, PRESENTER_MIN_WIDTH, maxWidth);
-        const height = clampNumber(layout.height || 640, PRESENTER_MIN_HEIGHT, maxHeight);
-
-        const maxLeft = Math.max(margin, window.innerWidth - width - margin);
-        const maxTop = Math.max(margin, window.innerHeight - height - margin);
-
-        const left = clampNumber(layout.left ?? 24, margin, maxLeft);
-        const top = clampNumber(layout.top ?? 76, margin, maxTop);
-
-        return { left, top, width, height };
-      }
-
-      function applyPresenterLayout(layout) {
-        if (!presenterPanel) return;
-        const next = clampPresenterLayout(layout);
-        presenterPanel.style.left = `${next.left}px`;
-        presenterPanel.style.top = `${next.top}px`;
-        presenterPanel.style.width = `${next.width}px`;
-        presenterPanel.style.height = `${next.height}px`;
-      }
-
-      function savePresenterLayout() {
-        if (isDisplayWindow || !presenterPanel) return;
-        const rect = presenterPanel.getBoundingClientRect();
-        const layout = clampPresenterLayout({
-          left: rect.left,
-          top: rect.top,
-          width: rect.width,
-          height: rect.height,
-        });
-
-        try {
-          localStorage.setItem(PRESENTER_LAYOUT_KEY, JSON.stringify(layout));
-        } catch (err) {
-          // Ignore localStorage write errors.
-        }
-      }
-
-      function restorePresenterLayout() {
-        if (isDisplayWindow || !presenterPanel) return;
-        try {
-          const raw = localStorage.getItem(PRESENTER_LAYOUT_KEY);
-          if (!raw) return;
-          const parsed = JSON.parse(raw);
-          applyPresenterLayout(parsed || {});
-        } catch (err) {
-          // Ignore localStorage parse errors.
-        }
-      }
-
-      function scalePresenterPanel(multiplier) {
-        if (isDisplayWindow || !presenterPanel) return;
-        const rect = presenterPanel.getBoundingClientRect();
-        const newWidth = rect.width * multiplier;
-        const newHeight = rect.height * multiplier;
-        const centerX = rect.left + rect.width / 2;
-        const centerY = rect.top + rect.height / 2;
-
-        applyPresenterLayout({
-          left: centerX - newWidth / 2,
-          top: centerY - newHeight / 2,
-          width: newWidth,
-          height: newHeight,
-        });
-        savePresenterLayout();
-      }
-
-      function resetPresenterLayout() {
-        if (isDisplayWindow || !presenterPanel) return;
-
-        try {
-          localStorage.removeItem(PRESENTER_LAYOUT_KEY);
-        } catch (err) {
-          // Ignore localStorage errors.
-        }
-
-        applyPresenterLayout({
-          left: 24,
-          top: 76,
-          width: Math.min(520, window.innerWidth * 0.48),
-          height: Math.min(640, window.innerHeight * 0.78),
-        });
-      }
-
-      function startPresenterDrag(e) {
-        if (isDisplayWindow || !presenterPanel || !presenterHeadEl) return;
-        if (window.innerWidth <= 1024) return;
-        if (e.button !== 0) return;
-        if (e.target && e.target.closest('button,textarea,input,select,a,label')) return;
-
-        const rect = presenterPanel.getBoundingClientRect();
-        presenterDragState = {
-          offsetX: e.clientX - rect.left,
-          offsetY: e.clientY - rect.top,
-        };
-
-        presenterHeadEl.classList.add('dragging');
-        document.addEventListener('pointermove', movePresenterDrag);
-        document.addEventListener('pointerup', endPresenterDrag);
-      }
-
-      function movePresenterDrag(e) {
-        if (!presenterDragState || !presenterPanel) return;
-
-        const nextLeft = e.clientX - presenterDragState.offsetX;
-        const nextTop = e.clientY - presenterDragState.offsetY;
-        const rect = presenterPanel.getBoundingClientRect();
-
-        applyPresenterLayout({
-          left: nextLeft,
-          top: nextTop,
-          width: rect.width,
-          height: rect.height,
-        });
-      }
-
-      function endPresenterDrag() {
-        if (!presenterDragState) return;
-        presenterDragState = null;
-
-        if (presenterHeadEl) presenterHeadEl.classList.remove('dragging');
-        document.removeEventListener('pointermove', movePresenterDrag);
-        document.removeEventListener('pointerup', endPresenterDrag);
-        savePresenterLayout();
-      }
-
-      function initPresenterPanelInteractivity() {
-        if (isDisplayWindow || !presenterPanel) return;
-
-        restorePresenterLayout();
-
-        if (presenterHeadEl) {
-          presenterHeadEl.addEventListener('pointerdown', startPresenterDrag);
-        }
-
-        if (presenterSmallerBtn) {
-          presenterSmallerBtn.addEventListener('click', () => scalePresenterPanel(0.9));
-        }
-
-        if (presenterLargerBtn) {
-          presenterLargerBtn.addEventListener('click', () => scalePresenterPanel(1.1));
-        }
-
-        if (presenterResetBtn) {
-          presenterResetBtn.addEventListener('click', resetPresenterLayout);
-        }
-
-        if (window.ResizeObserver) {
-          presenterResizeObserver = new ResizeObserver(() => {
-            if (!presenterDragState) savePresenterLayout();
-          });
-          presenterResizeObserver.observe(presenterPanel);
-        }
-
-        window.addEventListener('resize', () => {
-          if (!presenterPanel) return;
-          const rect = presenterPanel.getBoundingClientRect();
-          applyPresenterLayout({
-            left: rect.left,
-            top: rect.top,
-            width: rect.width,
-            height: rect.height,
-          });
-          savePresenterLayout();
-        });
-      }
-
       function formatPresenterTime(ms) {
         const totalSec = Math.floor(ms / 1000);
         const min = String(Math.floor(totalSec / 60)).padStart(2, '0');
@@ -4311,14 +4045,14 @@
         }
 
         if (!presenterMode) {
-          setPresenterStatus('P ile Sunucu Modu acilir. Bu panel sadece sende gorunur, projeksiyona yansimaz.');
+          setPresenterStatus('P tusu ile presenter mode acilir');
           return;
         }
 
         const connected = !!(displayWindowRef && !displayWindowRef.closed);
         setPresenterStatus(connected
-          ? 'Projeksiyon penceresi bagli. Paneli basliktan surukleyebilir, sag-alt koseden veya + / - dugmeleriyle boyutlandirabilirsin.'
-          : 'Projeksiyon penceresi acilamadi. Tarayicinda popup izni verip P tusu ile tekrar dene.');
+          ? 'Projeksiyon penceresi bagli. Bu panel sadece sunucu ekraninda gorunur.'
+          : 'Projeksiyon penceresi acilamadi. Tarayicida popup izni verin.');
       }
 
       function buildDisplayUrl() {
