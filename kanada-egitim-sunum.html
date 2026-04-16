@@ -804,6 +804,8 @@
       display: flex;
       flex-direction: column;
       gap: 3px;
+      min-width: 0;
+      flex: 1;
     }
 
     .presenter-title {
@@ -823,7 +825,8 @@
     .presenter-head-right {
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 8px;
+      flex-shrink: 0;
     }
 
     .presenter-timer {
@@ -841,27 +844,62 @@
       display: flex;
       align-items: center;
       gap: 4px;
+      padding: 2px;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.12);
     }
 
     .presenter-btn {
-      width: 24px;
-      height: 24px;
+      min-width: 30px;
+      height: 26px;
       border-radius: 6px;
       border: 1px solid rgba(255, 255, 255, 0.18);
       background: rgba(255, 255, 255, 0.06);
       color: var(--white);
-      font-size: 0.8rem;
+      font-size: 0.74rem;
+      font-weight: 600;
       line-height: 1;
       display: inline-flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
       transition: all 0.2s ease;
+      padding: 0 8px;
     }
 
     .presenter-btn:hover {
       background: rgba(200, 16, 46, 0.2);
       border-color: rgba(200, 16, 46, 0.35);
+    }
+
+    .presenter-btn.reset {
+      min-width: 56px;
+      font-size: 0.68rem;
+    }
+
+    .presenter-panel.dragging,
+    .presenter-panel.resizing {
+      user-select: none;
+    }
+
+    .presenter-resize-handle {
+      position: absolute;
+      right: 8px;
+      bottom: 8px;
+      width: 16px;
+      height: 16px;
+      border-right: 2px solid rgba(255, 255, 255, 0.38);
+      border-bottom: 2px solid rgba(255, 255, 255, 0.38);
+      border-bottom-right-radius: 3px;
+      cursor: nwse-resize;
+      opacity: 0.85;
+      z-index: 2;
+    }
+
+    .presenter-resize-handle:hover {
+      border-right-color: rgba(200, 16, 46, 0.8);
+      border-bottom-color: rgba(200, 16, 46, 0.8);
     }
 
     .presenter-meta {
@@ -971,6 +1009,10 @@
       .presenter-head {
         cursor: default;
         touch-action: auto;
+      }
+
+      .presenter-resize-handle {
+        display: none;
       }
     }
 
@@ -2929,9 +2971,9 @@
         <div class="presenter-head-right">
           <div class="presenter-timer" id="presenterTimer">00:00</div>
           <div class="presenter-controls">
-            <button type="button" class="presenter-btn" id="presenterSmallerBtn" title="Paneli kucult" aria-label="Paneli kucult">-</button>
-            <button type="button" class="presenter-btn" id="presenterLargerBtn" title="Paneli buyut" aria-label="Paneli buyut">+</button>
-            <button type="button" class="presenter-btn" id="presenterResetBtn" title="Panel boyut ve konumunu sifirla" aria-label="Panel boyut ve konumunu sifirla">R</button>
+            <button type="button" class="presenter-btn" id="presenterSmallerBtn" title="Paneli kucult" aria-label="Paneli kucult">A-</button>
+            <button type="button" class="presenter-btn" id="presenterLargerBtn" title="Paneli buyut" aria-label="Paneli buyut">A+</button>
+            <button type="button" class="presenter-btn reset" id="presenterResetBtn" title="Panel boyut ve konumunu sifirla" aria-label="Panel boyut ve konumunu sifirla">Sifirla</button>
           </div>
         </div>
       </div>
@@ -2967,6 +3009,7 @@
       </div>
       <div class="presenter-status" id="presenterStatus">P ile Sunucu Modu acilir. Panel sadece sende gorunur.</div>
       <div class="presenter-help">Ipuclari: Baslik alanindan surukle. Sag-alt koseden yeniden boyutlandir. + / - ile hizli buyut-kucult yap.</div>
+      <div class="presenter-resize-handle" id="presenterResizeHandle" title="Paneli surukleyerek boyutlandir"></div>
     </div>
 
 
@@ -3950,6 +3993,7 @@
     const presenterSmallerBtn = document.getElementById('presenterSmallerBtn');
     const presenterLargerBtn = document.getElementById('presenterLargerBtn');
     const presenterResetBtn = document.getElementById('presenterResetBtn');
+    const presenterResizeHandleEl = document.getElementById('presenterResizeHandle');
     const presenterStatusEl = document.getElementById('presenterStatus');
     const FIT_BOTTOM_GAP = 12;
     const FIT_MIN_SCALE = 0.35;
@@ -3962,51 +4006,87 @@
     const SPEAKER_NOTES = {
       'slide-0': {
         idea: 'Acilista dikkat cek ve Kanada modeline merak uyandir.',
-        talk: 'Herkese merhaba. Bugun Kanada Egitim Sistemi nin dikkat ceken basari hikayesini inceleyecegiz. 41M+ nufus, 1M+ uluslararasi ogrenci ve PISA okuma 8. sira gibi verilerle baslayip su soruyu sor: Merkezi bir bakanlik olmadan bunu nasil yapiyorlar?',
+        talk: `Herkese merhaba. Bugun Kanada Egitim Sistemi nin neden bu kadar farkli bir model oldugunu adim adim inceleyecegiz.
+Ilk 20 saniyede ekrandaki 3 veriyi tek tek isaret et: 41 milyon+ nufus, 1 milyon+ uluslararasi ogrenci, PISA okumada ust siralar.
+Ardindan vurucu soruyu sor: Merkezi bir egitim bakanligi olmadan bu performans nasil korunuyor?
+Bu soruyu sunumun omurgasi olarak belirle ve bir sonraki slayta gecmeden 1-2 saniye duraksayip merak duygusunu artir.`,
       },
       'slide-1': {
         idea: 'Demografi, cok kulturluluk ve egitime ayrilan kaynaklarin etkisini goster.',
-        talk: 'Kanada cok buyuk bir cografyaya sahip ama nufusun cogu guneyde yasiyor. Nufusun yaklasik dortte biri yurt disi dogumlu oldugu icin cok kulturluluk egitime dogrudan yansiyor. Egitime ayrilan yuksek pay uluslararasi ogrenci markasini guclendiriyor.',
+        talk: `Bu slaytta once cografya-nufus iliskisini acikla: Ulke cok buyuk ama yerlesim yogunlugu guney koridorda toplanmis.
+Sonra cok kulturlulugu bir risk degil, sinif ici ogrenme cesitliligini besleyen bir unsur olarak cercevele.
+Nufusun yaklasik %23 unun yurt disi dogumlu olmasi, dil destegi ve kapsayici okul politikalarini zorunlu hale getiriyor.
+Kapanista "Kaynak + Dogru politika = Uluslararasi cekim merkezi" baglantisini kur ve Study in Canada markasina referans ver.`,
       },
       'slide-1-5': {
         idea: 'Yerli halklari tanimadan Kanada egitim baglamini eksik birakma.',
-        talk: 'First Nations, Metis ve Inuit topluluklari bugun Indigenous Peoples basligi altinda ele aliniyor. Bu kesimlerin tarihi deneyimi, ozellikle uzlasma sonrasi donemde, Kanada nin guncel egitim politikalari icin temel bir referans.',
+        talk: `Burada hizli bir tarihsel cati kur: First Nations, Metis ve Inuit topluluklari Kanada nin kurucu gercekliklerinden biri.
+"Indigenous Peoples" teriminin guncel ve kapsayici kullanim oldugunu belirt; hukuki metinlerdeki eski terminolojiyle farki netlestir.
+Bu slayti baglayici cumleyle bitir: Yerli halklarin deneyimi sadece tarih konusu degil, bugunun muredat, dil ve esitlik politikalarini sekillendiren aktif bir alan.
+Bir sonraki slaytta siyasi yapiya gecerken "yetki dagilimi" temasiyla kopru kur.`,
       },
       'slide-2': {
         idea: 'En kritik fark: Federal duzeyde egitim bakanligi yok.',
-        talk: 'Kanada G7 icinde ulusal egitim bakanligi olmayan tek ulke. 1867 den beri egitim yetkisi eyalet ve bolgelere dagitilmis durumda. Buna ragmen ulusal koordine mekanizmalari ve stratejik uluslararasilasma ile ekonomik geri donus uretiyorlar.',
+        talk: `Bu slayt sunumun en kritik kirilma noktasi: Kanada G7 icinde ulusal egitim bakanligi olmayan tek ulke.
+1867 Anayasasi sonrasinda egitim yetkisinin 10 eyalet ve 3 bolgeye birakildigini sade bir dille acikla.
+Ardindan "merkeziyet yoksa kaos olur" beklentisini tersine cevir: Koordinasyon CMEC ve ortak hedefler uzerinden saglaniyor.
+Uluslararasi ogrencilerden elde edilen ekonomik katkidan bahsedip, egitimin ayni zamanda bir kalkinma stratejisi oldugunu vurgula.`,
       },
       'slide-3': {
         idea: 'Gecmisle yuzlesme ve uzlasma surecinin egitime etkisini vurgula.',
-        talk: 'Residential Schools donemi buyuk travmalar birakti. 2008 sonrasi resmi ozur ve Truth and Reconciliation sureciyle yerli tarih ve kultur muredata daha sistemli sekilde entegre edildi. Bu, egitimde guven insasi acisindan kilit bir adim.',
+        talk: `Bu bolumde tonunu daha sakin ve saygili tut: Residential Schools donemi egitim tarihinde agir bir travma birakti.
+1880 lerden 1996 ya uzanan donemin sadece bir politika degil, toplumsal etkileri bugune tasinan bir kriz oldugunu belirt.
+2008 resmi ozur ve Truth and Reconciliation surecini "onarici adimlar" olarak anlat; yerli tarih ve kulturun muredata dahil edilmesini somut ornekle bagla.
+Kapanista su mesaji ver: Guven veren bir egitim sistemi, gecmisle yuzlesme cesareti olan sistemdir.`,
       },
       'slide-4': {
         idea: 'Eyalet farkliliklarina ragmen ortak K-12 omurgasini anlat.',
-        talk: 'Sistem erken cocuklukta oyun temelli yaklasimla basliyor. Ortaogretimde ogrenciyi tek kaliba sokmak yerine farkli akademik ve mesleki yollar acik tutuluyor. Gecirgenlik yuksek oldugu icin sistemde ilerleme esnek kalabiliyor.',
+        talk: `Bu slaytta yapisal resmi netlestir: Farkli eyalet muredatlari olsa da K-12 omurgasi ulke genelinde anlasilir bir cizgi sunuyor.
+Erken cocuklukta oyun temelli ogrenmenin beceri gelisimine etkisini vurgula; salt akademik basariya indirgenmedigini soyle.
+Lise kademesinde akademik ve mesleki yollarin ayni sistemde esnek gecislerle sunulmasi, ogrenciyi erken etiketlemeyi azaltir.
+Yuksekogretime gecis oranlarini bu gecirgenlikle iliskilendirip, "sistem disina itme" yerine "sistemde tutma" mantigini one cikar.`,
       },
       'slide-5': {
         idea: 'Mesleki egitim ve hayat boyu ogrenmede esnek mekanizmalari one cikar.',
-        talk: 'Red Seal standardi eyaletler arasi mesleki taninirlik sagliyor. PLAR modeli ise okul disinda kazanilan deneyimi resmi krediye cevirebiliyor. Bu yapi, ogrenmenin sadece okul sinifiyla sinirli olmadigini gosteriyor.',
+        talk: `Mesleki egitimi "ikinci yol" gibi degil, sistemin ana damari gibi konumlandir.
+Red Seal standardinin eyaletler arasi hareketliligi artirdigini ve isveren icin yeterlilik guvencesi sagladigini acikla.
+PLAR mekanizmasinda okul disi becerinin krediye donusmesini somut bir senaryo ile anlat: Calisma hayatinda kazanilan deneyim, resmi egitimde karsilik buluyor.
+Kapanista hayat boyu ogrenme fikrini guclendir: Diploma tek seferlik degil, kariyer boyunca yenilenen bir surec.`,
       },
       'slide-6': {
         idea: 'Merkezi sinav baskisi olmadan PISA basarisi paradoksunu acikla.',
-        talk: 'Milyonlari eleyen tek bir ulusal sinav yerine surec odakli olcme kullaniliyor. Eyalet testleri ogrenciyi elemekten cok sistemi iyilestirme amaci tasiyor. Bu sayede ogrenci baski yerine derin ogrenmeye ve urun gelistirmeye yoneliyor.',
+        talk: `Sunumun ikinci zirve noktasi burasi: YKS benzeri tek merkezli bir eleme sinavi yok ama PISA performansi yuksek.
+Formative degerlendirme kavramini basitlestir: "Sadece sonucu olcmuyorlar, sureci de olcuyorlar."
+Eyalet testlerinin ogrenciyi elemeye degil, sistemde hangi beceride destek gerektigini gormeye yaradigini belirt.
+Son cumlede paradoksu cozen formulu soyle: Dusuk sinav baskisi + yuksek geri bildirim kalitesi = daha derin ogrenme.`,
       },
       'slide-7': {
         idea: 'Destek mekanizmalari ile hicbir ogrencinin geride kalmamasi.',
-        talk: 'Rehberlik, psikolojik destek, IEP ve egitim yardimcisi gibi yapilar sinif icinde aktif calisiyor. Yeni gelen veya dil destegine ihtiyac duyan ogrenciler hizlica sisteme entegre ediliyor.',
+        talk: `Bu slaytta insan odakli yonu one cikar: Egitim sadece akademik skor uretme mekanizmasi degil.
+Rehberlik servisleri, okul psikologlari, IEP ve EA gibi yapilarin "erken destek" mantigiyla calistigini belirt.
+Dil destegi gereken ogrenciler icin ELL/FLL turu uygulamalari sosyal uyumla birlikte anlat.
+Mesajini su cizgiyle tamamla: Kapsayicilik bir slogan degil, okulun gunluk isleyisine gomulu bir uygulama setidir.`,
       },
       'slide-8': {
         idea: 'CMEC i ulusal koordinasyonun merkezinde konumlandir.',
-        talk: 'CMEC baglayici bir super bakanlik degil, eyalet bakanlarini bir araya getiren bir uzlasi platformu. PISA temsili, denklik cerceveleri ve ortak politikalar gibi alanlarda koordinasyon sagliyor.',
+        talk: `Bu slaytta CMEC in rolunu dogru cercevele: Bu yapi bir "ust bakanlik" degil, koordinasyon ve uzlasi platformu.
+Eyaletlerin ozerkligini korurken ortak alanlarda birlikte hareket etmelerini saglayan bir masa oldugunu vurgula.
+PISA temsili, denklik, veri paylasimi ve ortak politika diyalogu gibi islevleri kisa kisa say.
+Boylece "merkezi otorite yok ama ulusal uyum var" mesaji netlesir.`,
       },
       'slide-9': {
         idea: 'Kanada-Turkiye karsilastirmasini ders cikarimlariyla bagla.',
-        talk: 'Temel fark merkezilesme degil, yaklasim farki: sinav odakli kultur yerine surec ve ozerklik odakli kultur. Kapanista 4 cikarimi sakin ve net soyle: ozerklik, surec degerlendirmesi, yuzlesme, kapsayicilik.',
+        talk: `Karsilastirmayi yargilayici degil, analitik bir dille yap: Fark sistemi yoneten felsefede ortaya cikiyor.
+Merkeziyetcilik-merkeziyetsizlik ikiligini "tek dogru" tartismasi gibi degil, hangi arac hangi amaca hizmet ediyor sorusuyla ele al.
+Bu noktada 4 ana dersi tek tek, net ve yavas bir tempoyla ver: ozerklik, surec degerlendirmesi, gecmisle yuzlesme, kapsayici kultur.
+Sorulara gecmeden once "biz ne uyarlayabiliriz" cagrisi yaparak kapanis etkisini artir.`,
       },
       'slide-10': {
         idea: 'Kaynak guvenilirligini vurgula ve guclu kapanis yap.',
-        talk: 'OECD, IRCC ve resmi Kanada kaynaklarini temel aldigini belirt. Kisa bir tesekkurden sonra soru-cevap icin davet et. Son cumleyi kararlilikla bitir.',
+        talk: `Son slaytta kaynak guvenilirligini 1 cumlede netlestir: OECD, IRCC, StatCan ve resmi kurumsal raporlar temel alinmistir.
+Kisa ama guclu bir kapanis yap: "Bu model bize tek tip degil, esnek ama hesap verebilir bir egitim mimarisi mumkun" diyor.
+Ardindan tesekkur et ve soru-cevap davetini acik bir tonla yap.
+Soru gelmezse hazir bir kapanis sorusu sor: "Turkiye de ilk adim olarak sizce hangi alanda pilot uygulama baslatilmali?"`,
       },
     };
     let current = 0;
@@ -4016,6 +4096,7 @@
     let presenterTimerId = null;
     let displayWindowRef = null;
     let presenterDragState = null;
+    let presenterResizeState = null;
     let presenterResizeObserver = null;
 
     const isDisplayWindow = new URLSearchParams(window.location.search).get('display') === '1';
@@ -4193,6 +4274,8 @@
         if (e.button !== 0) return;
         if (e.target && e.target.closest('button,textarea,input,select,a,label')) return;
 
+        e.preventDefault();
+
         const rect = presenterPanel.getBoundingClientRect();
         presenterDragState = {
           offsetX: e.clientX - rect.left,
@@ -4200,8 +4283,9 @@
         };
 
         presenterHeadEl.classList.add('dragging');
-        document.addEventListener('pointermove', movePresenterDrag);
-        document.addEventListener('pointerup', endPresenterDrag);
+        presenterPanel.classList.add('dragging');
+        document.addEventListener('mousemove', movePresenterDrag);
+        document.addEventListener('mouseup', endPresenterDrag);
       }
 
       function movePresenterDrag(e) {
@@ -4224,8 +4308,56 @@
         presenterDragState = null;
 
         if (presenterHeadEl) presenterHeadEl.classList.remove('dragging');
-        document.removeEventListener('pointermove', movePresenterDrag);
-        document.removeEventListener('pointerup', endPresenterDrag);
+        if (presenterPanel) presenterPanel.classList.remove('dragging');
+        document.removeEventListener('mousemove', movePresenterDrag);
+        document.removeEventListener('mouseup', endPresenterDrag);
+        savePresenterLayout();
+      }
+
+      function startPresenterResize(e) {
+        if (isDisplayWindow || !presenterPanel) return;
+        if (window.innerWidth <= 1024) return;
+        if (e.button !== 0) return;
+
+        e.preventDefault();
+        e.stopPropagation();
+
+        const rect = presenterPanel.getBoundingClientRect();
+        presenterResizeState = {
+          startX: e.clientX,
+          startY: e.clientY,
+          startWidth: rect.width,
+          startHeight: rect.height,
+          startLeft: rect.left,
+          startTop: rect.top,
+        };
+
+        presenterPanel.classList.add('resizing');
+        document.addEventListener('mousemove', movePresenterResize);
+        document.addEventListener('mouseup', endPresenterResize);
+      }
+
+      function movePresenterResize(e) {
+        if (!presenterResizeState || !presenterPanel) return;
+
+        const deltaX = e.clientX - presenterResizeState.startX;
+        const deltaY = e.clientY - presenterResizeState.startY;
+
+        applyPresenterLayout({
+          left: presenterResizeState.startLeft,
+          top: presenterResizeState.startTop,
+          width: presenterResizeState.startWidth + deltaX,
+          height: presenterResizeState.startHeight + deltaY,
+        });
+      }
+
+      function endPresenterResize() {
+        if (!presenterResizeState) return;
+
+        presenterResizeState = null;
+        if (presenterPanel) presenterPanel.classList.remove('resizing');
+        document.removeEventListener('mousemove', movePresenterResize);
+        document.removeEventListener('mouseup', endPresenterResize);
         savePresenterLayout();
       }
 
@@ -4235,7 +4367,8 @@
         restorePresenterLayout();
 
         if (presenterHeadEl) {
-          presenterHeadEl.addEventListener('pointerdown', startPresenterDrag);
+          presenterHeadEl.addEventListener('mousedown', startPresenterDrag);
+          presenterHeadEl.addEventListener('dragstart', e => e.preventDefault());
         }
 
         if (presenterSmallerBtn) {
@@ -4248,6 +4381,10 @@
 
         if (presenterResetBtn) {
           presenterResetBtn.addEventListener('click', resetPresenterLayout);
+        }
+
+        if (presenterResizeHandleEl) {
+          presenterResizeHandleEl.addEventListener('mousedown', startPresenterResize);
         }
 
         if (window.ResizeObserver) {
