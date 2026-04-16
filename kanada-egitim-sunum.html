@@ -1,0 +1,3746 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kanada Eğitim Sistemi — EGT 354</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;0,9..144,900;1,9..144,400&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --red: #c8102e;
+      --red-light: #e63950;
+      --gold: #d4a843;
+      --dark: #0b0d12;
+      --dark2: #111420;
+      --dark3: #181d2e;
+      --white: #f0ede8;
+      --muted: #7a8499;
+      --border: rgba(255, 255, 255, 0.07);
+      --card: rgba(255, 255, 255, 0.04);
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0
+    }
+
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      font-family: 'DM Sans', sans-serif;
+      background: var(--dark);
+      color: var(--white);
+      -webkit-text-size-adjust: 100%
+    }
+
+    /* ============================================================ */
+    /* KEYFRAME ANIMATIONS                                           */
+    /* ============================================================ */
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(28px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeInScale {
+      from {
+        opacity: 0;
+        transform: scale(0.92) translateY(16px);
+      }
+
+      to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+      }
+    }
+
+    @keyframes pulseGlow {
+
+      0%,
+      100% {
+        box-shadow: 0 0 0 0 rgba(200, 16, 46, 0.4);
+      }
+
+      50% {
+        box-shadow: 0 0 0 8px rgba(200, 16, 46, 0);
+      }
+    }
+
+    @keyframes float {
+
+      0%,
+      100% {
+        transform: translateY(0) rotate(0deg);
+      }
+
+      33% {
+        transform: translateY(-8px) rotate(1deg);
+      }
+
+      66% {
+        transform: translateY(4px) rotate(-0.5deg);
+      }
+    }
+
+    @keyframes shimmer {
+      0% {
+        background-position: 200% center;
+      }
+
+      100% {
+        background-position: -200% center;
+      }
+    }
+
+    @keyframes meshMove {
+      0% {
+        transform: translate(0, 0) scale(1);
+      }
+
+      25% {
+        transform: translate(30px, -20px) scale(1.05);
+      }
+
+      50% {
+        transform: translate(-10px, 25px) scale(0.98);
+      }
+
+      75% {
+        transform: translate(-25px, -10px) scale(1.03);
+      }
+
+      100% {
+        transform: translate(0, 0) scale(1);
+      }
+    }
+
+    @keyframes meshMove2 {
+      0% {
+        transform: translate(0, 0) scale(1);
+      }
+
+      25% {
+        transform: translate(-20px, 30px) scale(1.03);
+      }
+
+      50% {
+        transform: translate(25px, 10px) scale(0.97);
+      }
+
+      75% {
+        transform: translate(15px, -25px) scale(1.05);
+      }
+
+      100% {
+        transform: translate(0, 0) scale(1);
+      }
+    }
+
+    @keyframes grain {
+
+      0%,
+      100% {
+        transform: translate(0, 0);
+      }
+
+      10% {
+        transform: translate(-2%, -3%);
+      }
+
+      20% {
+        transform: translate(3%, 2%);
+      }
+
+      30% {
+        transform: translate(-1%, 4%);
+      }
+
+      40% {
+        transform: translate(4%, -1%);
+      }
+
+      50% {
+        transform: translate(-3%, 3%);
+      }
+
+      60% {
+        transform: translate(2%, -4%);
+      }
+
+      70% {
+        transform: translate(-4%, 1%);
+      }
+
+      80% {
+        transform: translate(1%, 3%);
+      }
+
+      90% {
+        transform: translate(3%, -2%);
+      }
+    }
+
+    @keyframes borderGradient {
+      0% {
+        --angle: 0deg;
+      }
+
+      100% {
+        --angle: 360deg;
+      }
+    }
+
+    @keyframes particleFloat {
+      0% {
+        transform: translateY(100vh) scale(0);
+        opacity: 0;
+      }
+
+      10% {
+        opacity: 1;
+      }
+
+      90% {
+        opacity: 0.6;
+      }
+
+      100% {
+        transform: translateY(-10vh) scale(1);
+        opacity: 0;
+      }
+    }
+
+    @keyframes mapleReveal {
+      from {
+        stroke-dashoffset: 1200;
+        opacity: 0.05;
+      }
+
+      to {
+        stroke-dashoffset: 0;
+        opacity: 0.08;
+      }
+    }
+
+    @keyframes textReveal {
+      from {
+        clip-path: inset(0 100% 0 0);
+      }
+
+      to {
+        clip-path: inset(0 0% 0 0);
+      }
+    }
+
+    @keyframes slideInBlur {
+      from {
+        opacity: 0;
+        filter: blur(8px);
+        transform: translateX(60px);
+      }
+
+      to {
+        opacity: 1;
+        filter: blur(0);
+        transform: translateX(0);
+      }
+    }
+
+    @keyframes counterPop {
+      0% {
+        transform: scale(1);
+      }
+
+      50% {
+        transform: scale(1.08);
+      }
+
+      100% {
+        transform: scale(1);
+      }
+    }
+
+    /* ============================================================ */
+    /* SLIDE CONTAINER                                               */
+    /* ============================================================ */
+
+    .deck {
+      width: 100vw;
+      height: 100vh;
+      position: relative
+    }
+
+    .slide {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 80px 100px 60px;
+      opacity: 0;
+      pointer-events: none;
+      visibility: hidden;
+      transition: opacity 0.6s ease, transform 0.6s ease, filter 0.6s ease, visibility 0s 0.6s;
+      transform: translateX(60px);
+      filter: blur(4px);
+      overflow-x: hidden;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(200, 16, 46, 0.3) transparent;
+    }
+
+    .slide::-webkit-scrollbar {
+      width: 4px
+    }
+
+    .slide::-webkit-scrollbar-track {
+      background: transparent
+    }
+
+    .slide::-webkit-scrollbar-thumb {
+      background: rgba(200, 16, 46, 0.3);
+      border-radius: 2px
+    }
+
+    .slide.active {
+      opacity: 1;
+      pointer-events: all;
+      transform: translateX(0);
+      filter: blur(0);
+      visibility: visible;
+      transition: opacity 0.6s ease, transform 0.6s ease, filter 0.6s ease, visibility 0s 0s
+    }
+
+    .slide.exit-left {
+      opacity: 0;
+      transform: translateX(-60px);
+      filter: blur(4px);
+      visibility: visible;
+      transition: opacity 0.6s ease, transform 0.6s ease, filter 0.6s ease, visibility 0s 0.6s
+    }
+
+    .slide.exit-right {
+      opacity: 0;
+      transform: translateX(60px);
+      filter: blur(4px);
+      visibility: visible;
+      transition: opacity 0.6s ease, transform 0.6s ease, filter 0.6s ease, visibility 0s 0.6s
+    }
+
+    /* ============================================================ */
+    /* SLIDE BG PATTERNS — Enhanced                                  */
+    /* ============================================================ */
+
+    .slide-bg {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden
+    }
+
+    .slide-bg .grid {
+      position: absolute;
+      inset: 0;
+      opacity: 0.025;
+      background-image: linear-gradient(rgba(255, 255, 255, 1) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 1) 1px, transparent 1px);
+      background-size: 64px 64px;
+    }
+
+    .slide-bg .glow {
+      position: absolute;
+      top: -20%;
+      right: -10%;
+      width: 60%;
+      height: 80%;
+      background: radial-gradient(ellipse, rgba(200, 16, 46, 0.09) 0%, transparent 70%);
+      animation: meshMove 20s ease-in-out infinite;
+    }
+
+    .slide-bg .glow2 {
+      position: absolute;
+      bottom: -20%;
+      left: -5%;
+      width: 40%;
+      height: 60%;
+      background: radial-gradient(ellipse, rgba(212, 168, 67, 0.05) 0%, transparent 70%);
+      animation: meshMove2 25s ease-in-out infinite;
+    }
+
+    .slide-bg .glow3 {
+      position: absolute;
+      top: 30%;
+      left: 40%;
+      width: 30%;
+      height: 40%;
+      background: radial-gradient(ellipse, rgba(96, 165, 250, 0.04) 0%, transparent 70%);
+      animation: meshMove 18s ease-in-out infinite reverse;
+    }
+
+    /* Noise Texture Overlay */
+    .slide-bg::after {
+      content: '';
+      position: absolute;
+      inset: -50%;
+      width: 200%;
+      height: 200%;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+      animation: grain 8s steps(10) infinite;
+      pointer-events: none;
+      opacity: 0.4;
+    }
+
+    /* Floating Particles */
+    .particle {
+      position: absolute;
+      border-radius: 50%;
+      pointer-events: none;
+      background: radial-gradient(circle, rgba(200, 16, 46, 0.3), transparent 70%);
+      animation: particleFloat linear infinite;
+    }
+
+    /* CONTENT LAYER */
+    .slide>*:not(.slide-bg) {
+      position: relative;
+      z-index: 1
+    }
+
+    /* ============================================================ */
+    /* STAGGERED ANIMATION SYSTEM                                    */
+    /* ============================================================ */
+
+    .anim-item {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .slide.active .anim-item {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .slide.active .anim-item:nth-child(1) {
+      transition-delay: 0.08s
+    }
+
+    .slide.active .anim-item:nth-child(2) {
+      transition-delay: 0.16s
+    }
+
+    .slide.active .anim-item:nth-child(3) {
+      transition-delay: 0.24s
+    }
+
+    .slide.active .anim-item:nth-child(4) {
+      transition-delay: 0.32s
+    }
+
+    .slide.active .anim-item:nth-child(5) {
+      transition-delay: 0.40s
+    }
+
+    .slide.active .anim-item:nth-child(6) {
+      transition-delay: 0.48s
+    }
+
+    /* For grid children */
+    .anim-grid>* {
+      opacity: 0;
+      transform: translateY(22px) scale(0.96);
+      transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .slide.active .anim-grid>*:nth-child(1) {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      transition-delay: 0.15s
+    }
+
+    .slide.active .anim-grid>*:nth-child(2) {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      transition-delay: 0.25s
+    }
+
+    .slide.active .anim-grid>*:nth-child(3) {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      transition-delay: 0.35s
+    }
+
+    .slide.active .anim-grid>*:nth-child(4) {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      transition-delay: 0.45s
+    }
+
+    .slide.active .anim-grid>*:nth-child(5) {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      transition-delay: 0.55s
+    }
+
+    .slide.active .anim-grid>*:nth-child(6) {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      transition-delay: 0.65s
+    }
+
+    .slide.active .anim-grid>*:nth-child(7) {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      transition-delay: 0.70s
+    }
+
+    .slide.active .anim-grid>*:nth-child(8) {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      transition-delay: 0.75s
+    }
+
+    .slide.active .anim-grid>*:nth-child(9) {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      transition-delay: 0.80s
+    }
+
+    .slide.active .anim-grid>*:nth-child(10) {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      transition-delay: 0.85s
+    }
+
+    .slide.active .anim-grid>*:nth-child(11) {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      transition-delay: 0.88s
+    }
+
+    .slide.active .anim-grid>*:nth-child(12) {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      transition-delay: 0.91s
+    }
+
+    .slide.active .anim-grid>*:nth-child(13) {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      transition-delay: 0.94s
+    }
+
+    /* ============================================================ */
+    /* NAV BAR                                                       */
+    /* ============================================================ */
+
+    .nav-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      height: 52px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 32px;
+      background: rgba(11, 13, 18, 0.85);
+      backdrop-filter: blur(20px) saturate(1.8);
+      -webkit-backdrop-filter: blur(20px) saturate(1.8);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      font-family: 'Fraunces', serif;
+      font-weight: 700;
+      font-size: 0.95rem;
+      display: flex;
+      align-items: center;
+      gap: 8px
+    }
+
+    .nav-logo svg {
+      color: var(--red);
+      filter: drop-shadow(0 0 6px rgba(200, 16, 46, 0.3))
+    }
+
+    .nav-center {
+      display: flex;
+      align-items: center;
+      gap: 6px
+    }
+
+    .nav-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--border);
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      border: none;
+      outline: none
+    }
+
+    .nav-dot:hover {
+      background: rgba(200, 16, 46, 0.4);
+      transform: scale(1.3)
+    }
+
+    .nav-dot.active {
+      background: var(--red);
+      transform: scale(1.5);
+      box-shadow: 0 0 10px rgba(200, 16, 46, 0.5)
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 0.78rem;
+      color: var(--muted);
+      font-family: 'DM Mono', monospace
+    }
+
+    .hacettepe-logo {
+      height: 28px;
+      width: auto;
+      margin-left: 8px;
+      filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.1));
+    }
+
+    .badge {
+      background: rgba(200, 16, 46, 0.15);
+      color: var(--red);
+      border: 1px solid rgba(200, 16, 46, 0.3);
+      padding: 3px 12px;
+      border-radius: 20px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      transition: all 0.3s;
+      backdrop-filter: blur(8px)
+    }
+
+    .badge:hover {
+      background: rgba(200, 16, 46, 0.25);
+      border-color: rgba(200, 16, 46, 0.5)
+    }
+
+    /* PROGRESS */
+    .progress-bar {
+      position: fixed;
+      top: 52px;
+      left: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--red), var(--gold), var(--red-light));
+      z-index: 100;
+      transition: width 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 0 8px rgba(200, 16, 46, 0.4)
+    }
+
+    /* NAVIGATION ARROWS */
+    .nav-arrow {
+      position: fixed;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 100;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      color: var(--muted);
+    }
+
+    .nav-arrow:hover {
+      background: rgba(200, 16, 46, 0.15);
+      border-color: rgba(200, 16, 46, 0.4);
+      color: var(--white);
+      transform: translateY(-50%) scale(1.1);
+      box-shadow: 0 0 20px rgba(200, 16, 46, 0.2)
+    }
+
+    .nav-arrow:active {
+      transform: translateY(-50%) scale(0.95)
+    }
+
+    .nav-arrow.left {
+      left: 20px
+    }
+
+    .nav-arrow.right {
+      right: 20px
+    }
+
+    .nav-arrow.disabled {
+      opacity: 0.2;
+      cursor: default;
+      pointer-events: none
+    }
+
+    /* SLIDE COUNTER */
+    .slide-counter {
+      position: fixed;
+      bottom: 24px;
+      right: 32px;
+      z-index: 100;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--muted)
+    }
+
+    .slide-counter span {
+      color: var(--white)
+    }
+
+    /* ============================================================ */
+    /* TYPOGRAPHY — Enhanced                                         */
+    /* ============================================================ */
+
+    .eyebrow {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 14px;
+      text-shadow: 0 0 20px rgba(200, 16, 46, 0.3)
+    }
+
+    .slide-title {
+      font-family: 'Fraunces', serif;
+      font-weight: 900;
+      font-size: clamp(2.6rem, 5.5vw, 4.2rem);
+      line-height: 1.05;
+      letter-spacing: -0.02em
+    }
+
+    .slide-title em {
+      font-style: italic;
+      background: linear-gradient(135deg, var(--red), var(--red-light), var(--gold));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text
+    }
+
+    .slide-sub {
+      font-size: 1rem;
+      color: var(--muted);
+      max-width: 600px;
+      line-height: 1.75;
+      margin-top: 14px
+    }
+
+    .divider {
+      width: 44px;
+      height: 3px;
+      background: linear-gradient(90deg, var(--red), var(--gold));
+      border-radius: 2px;
+      margin: 20px 0;
+      position: relative;
+      overflow: hidden
+    }
+
+    .divider::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+      animation: shimmer 2.5s linear infinite;
+      background-size: 200% 100%
+    }
+
+    /* ============================================================ */
+    /* CARDS — Glassmorphism Enhanced                                */
+    /* ============================================================ */
+
+    .card {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 16px;
+      padding: 24px 28px;
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 16px;
+      background: linear-gradient(135deg, rgba(200, 16, 46, 0.05), transparent 50%, rgba(212, 168, 67, 0.03));
+      opacity: 0;
+      transition: opacity 0.4s;
+      pointer-events: none;
+    }
+
+    .card:hover {
+      background: rgba(255, 255, 255, 0.06);
+      border-color: rgba(200, 16, 46, 0.25);
+      transform: translateY(-3px);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(200, 16, 46, 0.1);
+    }
+
+    .card:hover::before {
+      opacity: 1
+    }
+
+    .card h3 {
+      font-family: 'Fraunces', serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 10px
+    }
+
+    .card ul {
+      list-style: none
+    }
+
+    .card ul li {
+      font-size: 0.87rem;
+      color: #9aa3b4;
+      padding: 7px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+      display: flex;
+      gap: 8px;
+      line-height: 1.55
+    }
+
+    .card ul li:last-child {
+      border-bottom: none
+    }
+
+    .card ul li::before {
+      content: '→';
+      color: var(--red);
+      flex-shrink: 0;
+      margin-top: 1px;
+      font-size: 0.8rem
+    }
+
+    .card ul li strong {
+      color: var(--white)
+    }
+
+    /* ============================================================ */
+    /* GRIDS                                                         */
+    /* ============================================================ */
+
+    .g2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px
+    }
+
+    .g3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px
+    }
+
+    .g4 {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px
+    }
+
+    .g23 {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 32px;
+      align-items: start
+    }
+
+    .g32 {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 32px;
+      align-items: start
+    }
+
+    /* ============================================================ */
+    /* STAT BOXES — Enhanced with glow                               */
+    /* ============================================================ */
+
+    .stat-box {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px 16px;
+      text-align: center;
+      backdrop-filter: blur(8px);
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .stat-box::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: conic-gradient(from 0deg, transparent, rgba(200, 16, 46, 0.08), transparent 30%);
+      animation: meshMove 15s linear infinite;
+      pointer-events: none;
+    }
+
+    .stat-box:hover {
+      border-color: rgba(200, 16, 46, 0.25);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+    }
+
+    .stat-box .num {
+      font-family: 'Fraunces', serif;
+      font-size: 2.2rem;
+      font-weight: 900;
+      line-height: 1;
+      position: relative
+    }
+
+    .stat-box .num em {
+      color: var(--red);
+      font-style: normal
+    }
+
+    .stat-box .lbl {
+      font-size: 0.72rem;
+      color: var(--muted);
+      margin-top: 6px;
+      letter-spacing: 0.05em;
+      line-height: 1.4
+    }
+
+    /* ICON */
+    .icon-box {
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: all 0.3s;
+      position: relative
+    }
+
+    .icon-box::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 10px;
+      opacity: 0;
+      transition: opacity 0.3s
+    }
+
+    .icon-box.red {
+      background: rgba(200, 16, 46, 0.15)
+    }
+
+    .icon-box.red::after {
+      box-shadow: 0 0 16px rgba(200, 16, 46, 0.3)
+    }
+
+    .icon-box.gold {
+      background: rgba(212, 168, 67, 0.15)
+    }
+
+    .icon-box.gold::after {
+      box-shadow: 0 0 16px rgba(212, 168, 67, 0.3)
+    }
+
+    .icon-box.blue {
+      background: rgba(59, 130, 246, 0.15)
+    }
+
+    .icon-box.blue::after {
+      box-shadow: 0 0 16px rgba(59, 130, 246, 0.3)
+    }
+
+    .icon-box.green {
+      background: rgba(34, 197, 94, 0.15)
+    }
+
+    .icon-box.green::after {
+      box-shadow: 0 0 16px rgba(34, 197, 94, 0.3)
+    }
+
+    .icon-box.purple {
+      background: rgba(168, 85, 247, 0.15)
+    }
+
+    .icon-box.purple::after {
+      box-shadow: 0 0 16px rgba(168, 85, 247, 0.3)
+    }
+
+    .icon-box.teal {
+      background: rgba(20, 184, 166, 0.15)
+    }
+
+    .icon-box.teal::after {
+      box-shadow: 0 0 16px rgba(20, 184, 166, 0.3)
+    }
+
+    .card:hover .icon-box::after {
+      opacity: 1
+    }
+
+    /* ============================================================ */
+    /* TIMELINE — Enhanced with pulse                                */
+    /* ============================================================ */
+
+    .timeline {
+      position: relative;
+      padding-left: 28px
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 10px;
+      top: 8px;
+      bottom: 8px;
+      width: 1px;
+      background: linear-gradient(to bottom, var(--red), rgba(212, 168, 67, 0.5), transparent)
+    }
+
+    .tl-item {
+      position: relative;
+      margin-bottom: 28px;
+      transition: all 0.3s
+    }
+
+    .tl-item:hover {
+      transform: translateX(4px)
+    }
+
+    .tl-item::before {
+      content: '';
+      position: absolute;
+      left: -22px;
+      top: 6px;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--red);
+      box-shadow: 0 0 0 3px rgba(200, 16, 46, 0.2);
+      animation: pulseGlow 2.5s ease-in-out infinite;
+    }
+
+    .tl-item:nth-child(2)::before {
+      animation-delay: 0.5s
+    }
+
+    .tl-item:nth-child(3)::before {
+      animation-delay: 1s
+    }
+
+    .tl-item:nth-child(4)::before {
+      animation-delay: 1.5s
+    }
+
+    .tl-year {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.68rem;
+      color: var(--red);
+      letter-spacing: 0.1em;
+      margin-bottom: 3px;
+      text-shadow: 0 0 12px rgba(200, 16, 46, 0.3)
+    }
+
+    .tl-title {
+      font-weight: 600;
+      font-size: 0.92rem;
+      margin-bottom: 4px
+    }
+
+    .tl-body {
+      font-size: 0.83rem;
+      color: var(--muted);
+      line-height: 1.6
+    }
+
+    /* PISA BARS */
+    .pisa-bar {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 12px
+    }
+
+    .pisa-bar-label {
+      width: 72px;
+      font-size: 0.8rem;
+      color: var(--muted);
+      text-align: right;
+      flex-shrink: 0
+    }
+
+    .pisa-bar-track {
+      flex: 1;
+      height: 28px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 6px;
+      overflow: hidden;
+      position: relative
+    }
+
+    .pisa-bar-fill {
+      height: 100%;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      padding-left: 10px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      width: 0%;
+      transition: width 1.6s cubic-bezier(0.16, 1, 0.3, 1);
+      white-space: nowrap;
+      position: relative;
+      overflow: hidden
+    }
+
+    .pisa-bar-fill::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, transparent 40%, rgba(255, 255, 255, 0.1), transparent 60%);
+      animation: shimmer 3s linear infinite;
+      background-size: 200% 100%
+    }
+
+    .pisa-bar-fill.canada {
+      background: linear-gradient(90deg, #c8102e, #e63950)
+    }
+
+    .pisa-bar-fill.finland {
+      background: linear-gradient(90deg, #10b981, #34d399)
+    }
+
+    .pisa-bar-fill.oecd {
+      background: linear-gradient(90deg, #3b82f6, #60a5fa)
+    }
+
+    .pisa-bar-fill.turkey {
+      background: linear-gradient(90deg, #f59e0b, #fbbf24)
+    }
+
+    .pisa-score {
+      width: 36px;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.78rem;
+      color: var(--muted)
+    }
+
+    /* LADDER / ACCORDION */
+    .ladder-item {
+      border-bottom: 1px solid var(--border);
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .ladder-item:hover {
+      background: rgba(255, 255, 255, 0.02)
+    }
+
+    .ladder-head {
+      display: grid;
+      grid-template-columns: 120px 1fr auto;
+      gap: 0
+    }
+
+    .ladder-left {
+      background: rgba(200, 16, 46, 0.06);
+      padding: 14px 18px;
+      border-right: 1px solid var(--border);
+      transition: background 0.3s
+    }
+
+    .ladder-item:hover .ladder-left {
+      background: rgba(200, 16, 46, 0.1)
+    }
+
+    .ladder-left .age {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      color: var(--red);
+      margin-bottom: 3px
+    }
+
+    .ladder-left .lvl {
+      font-family: 'Fraunces', serif;
+      font-weight: 700;
+      font-size: 0.85rem
+    }
+
+    .ladder-right {
+      padding: 14px 20px
+    }
+
+    .ladder-right h4 {
+      font-size: 0.88rem;
+      font-weight: 600;
+      margin-bottom: 4px
+    }
+
+    .ladder-right p {
+      font-size: 0.8rem;
+      color: var(--muted);
+      line-height: 1.5
+    }
+
+    .ladder-arrow {
+      padding: 14px 16px;
+      display: flex;
+      align-items: center;
+      color: var(--muted);
+      font-size: 0.75rem;
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), color 0.3s
+    }
+
+    .ladder-item.open .ladder-arrow {
+      transform: rotate(90deg);
+      color: var(--red)
+    }
+
+    .ladder-detail {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+      background: rgba(255, 255, 255, 0.02);
+      border-left: 2px solid var(--red)
+    }
+
+    .ladder-item.open .ladder-detail {
+      max-height: 200px
+    }
+
+    .ladder-detail-inner {
+      padding: 14px 20px
+    }
+
+    .ladder-detail-inner ul {
+      list-style: none
+    }
+
+    .ladder-detail-inner ul li {
+      font-size: 0.8rem;
+      color: #8892a4;
+      padding: 3px 0;
+      padding-left: 12px;
+      position: relative
+    }
+
+    .ladder-detail-inner ul li::before {
+      content: '✦';
+      position: absolute;
+      left: 0;
+      color: var(--gold);
+      font-size: 0.6rem
+    }
+
+    /* ORG */
+    .org-prov {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 10px 8px;
+      font-size: 0.78rem;
+      text-align: center;
+      color: var(--muted);
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      backdrop-filter: blur(4px)
+    }
+
+    .org-prov:hover {
+      border-color: rgba(200, 16, 46, 0.4);
+      color: var(--white);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2)
+    }
+
+    .org-prov strong {
+      display: block;
+      color: var(--white);
+      font-size: 0.85rem;
+      margin-bottom: 2px
+    }
+
+    /* COMPARISON TABLE */
+    .comp-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.82rem
+    }
+
+    .comp-table th {
+      background: rgba(200, 16, 46, 0.12);
+      color: var(--white);
+      padding: 12px 14px;
+      text-align: left;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      border-bottom: 2px solid rgba(200, 16, 46, 0.35);
+      backdrop-filter: blur(4px)
+    }
+
+    .comp-table td {
+      padding: 11px 14px;
+      color: #9aa3b4;
+      border-bottom: 1px solid var(--border);
+      transition: all 0.25s
+    }
+
+    .comp-table tr {
+      transition: all 0.3s
+    }
+
+    .comp-table tr:hover td {
+      background: rgba(255, 255, 255, 0.04);
+      transform: scale(1.01)
+    }
+
+    .comp-table td:first-child {
+      color: var(--white);
+      font-weight: 600
+    }
+
+    .badge-good {
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+      background: rgba(34, 197, 94, 0.12);
+      color: #4ade80;
+      padding: 2px 8px;
+      border-radius: 16px;
+      font-size: 0.72rem;
+      border: 1px solid rgba(34, 197, 94, 0.15)
+    }
+
+    .badge-mid {
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+      background: rgba(251, 191, 36, 0.12);
+      color: #fbbf24;
+      padding: 2px 8px;
+      border-radius: 16px;
+      font-size: 0.72rem;
+      border: 1px solid rgba(251, 191, 36, 0.15)
+    }
+
+    .badge-red {
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+      background: rgba(239, 68, 68, 0.12);
+      color: #f87171;
+      padding: 2px 8px;
+      border-radius: 16px;
+      font-size: 0.72rem;
+      border: 1px solid rgba(239, 68, 68, 0.15)
+    }
+
+    /* QUOTE */
+    .quote-block {
+      background: linear-gradient(135deg, var(--dark3), rgba(200, 16, 46, 0.04));
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--red);
+      border-radius: 12px;
+      padding: 24px 28px;
+      backdrop-filter: blur(8px);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .quote-block::before {
+      content: '"';
+      position: absolute;
+      top: -10px;
+      left: 16px;
+      font-family: 'Fraunces', serif;
+      font-size: 6rem;
+      color: rgba(200, 16, 46, 0.06);
+      line-height: 1;
+      pointer-events: none;
+    }
+
+    .quote-block blockquote {
+      font-family: 'Fraunces', serif;
+      font-style: italic;
+      font-size: 1rem;
+      color: var(--white);
+      line-height: 1.7;
+      margin-bottom: 12px;
+      position: relative
+    }
+
+    .quote-block cite {
+      font-size: 0.78rem;
+      color: var(--muted)
+    }
+
+    /* ALERT */
+    .alert {
+      background: linear-gradient(135deg, rgba(200, 16, 46, 0.1), rgba(200, 16, 46, 0.04));
+      border: 1px solid rgba(200, 16, 46, 0.25);
+      border-radius: 12px;
+      padding: 18px 22px;
+      margin-top: 16px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .alert::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 3px;
+      height: 100%;
+      background: linear-gradient(to bottom, var(--red), var(--gold));
+    }
+
+    .alert h4 {
+      color: var(--red);
+      font-weight: 700;
+      margin-bottom: 5px;
+      font-size: 0.88rem
+    }
+
+    .alert p {
+      font-size: 0.83rem;
+      color: #d0a0a8;
+      line-height: 1.6
+    }
+
+    /* NO FED */
+    .no-fed-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(200, 16, 46, 0.1);
+      border: 1px solid rgba(200, 16, 46, 0.3);
+      color: #f87171;
+      padding: 5px 14px;
+      border-radius: 6px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      margin-bottom: 14px;
+      animation: pulseGlow 3s ease-in-out infinite
+    }
+
+    /* REHBER CARDS */
+    .rehber-card {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 20px;
+      backdrop-filter: blur(8px);
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .rehber-card::before {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--red), var(--gold), transparent);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .rehber-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(200, 16, 46, 0.2);
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.25);
+    }
+
+    .rehber-card:hover::before {
+      transform: scaleX(1)
+    }
+
+    .rehber-num {
+      font-family: 'Fraunces', serif;
+      font-size: 2rem;
+      font-weight: 900;
+      background: linear-gradient(135deg, rgba(200, 16, 46, 0.2), rgba(212, 168, 67, 0.15));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1;
+      margin-bottom: 6px
+    }
+
+    .rehber-card h3 {
+      font-family: 'Fraunces', serif;
+      font-size: 0.95rem;
+      font-weight: 700;
+      margin-bottom: 8px
+    }
+
+    .rehber-card p {
+      font-size: 0.8rem;
+      color: var(--muted);
+      line-height: 1.65
+    }
+
+    /* ============================================================ */
+    /* HERO SLIDE                                                    */
+    /* ============================================================ */
+
+    .hero-maple {
+      position: absolute;
+      top: 50%;
+      right: 5%;
+      transform: translateY(-50%);
+      width: clamp(300px, 35vw, 500px);
+      height: auto;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .hero-maple path {
+      fill: none;
+      stroke: rgba(200, 16, 46, 0.08);
+      stroke-width: 1.5;
+      stroke-dasharray: 1200;
+      stroke-dashoffset: 1200;
+      animation: mapleReveal 3s ease forwards 0.5s;
+    }
+
+    .hero-number {
+      position: absolute;
+      font-family: 'DM Mono', monospace;
+      font-size: clamp(10rem, 22vw, 20rem);
+      font-weight: 500;
+      color: transparent;
+      -webkit-text-stroke: 1px rgba(200, 16, 46, 0.1);
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -52%);
+      letter-spacing: -0.05em;
+      pointer-events: none;
+      user-select: none;
+      white-space: nowrap;
+    }
+
+    .hero-stats {
+      display: flex;
+      gap: 40px;
+      margin-top: 40px
+    }
+
+    .hero-stat {
+      position: relative;
+      padding: 16px 0;
+    }
+
+    .hero-stat::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, var(--red), transparent);
+    }
+
+    .hero-stat-num {
+      font-family: 'Fraunces', serif;
+      font-size: 2rem;
+      font-weight: 700;
+      line-height: 1
+    }
+
+    .hero-stat-num span {
+      background: linear-gradient(135deg, var(--red), var(--red-light));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text
+    }
+
+    .hero-stat-label {
+      font-size: 0.72rem;
+      color: var(--muted);
+      margin-top: 3px;
+      letter-spacing: 0.07em;
+      text-transform: uppercase
+    }
+
+    /* KEYBOARD HINT */
+    .kb-hint {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 100;
+      font-size: 0.72rem;
+      color: rgba(122, 132, 153, 0.6);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-family: 'DM Mono', monospace
+    }
+
+    .kb-key {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 22px;
+      height: 18px;
+      background: rgba(255, 255, 255, 0.07);
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      font-size: 0.65rem
+    }
+
+    /* ICON SVGs inline */
+    .ic {
+      display: flex;
+      align-items: center;
+      justify-content: center
+    }
+
+    /* SLIDE SPECIFIC TWEAKS */
+    #slide-0 .slide-title {
+      font-size: clamp(3rem, 7vw, 5.5rem)
+    }
+
+    /* ============================================================ */
+    /* RESPONSIVE DESIGN                                             */
+    /* ============================================================ */
+
+    /* Large desktop / small laptop */
+    @media(max-width:1280px) {
+      .slide {
+        padding: 70px 60px 50px
+      }
+
+      .g4 {
+        grid-template-columns: repeat(2, 1fr)
+      }
+    }
+
+    /* Tablet landscape */
+    @media(max-width:1024px) {
+      .slide {
+        padding: 64px 40px 40px
+      }
+
+      .nav-bar {
+        padding: 0 16px;
+        height: 48px
+      }
+
+      .nav-right {
+        font-size: 0.7rem
+      }
+
+      .nav-right>:not(.badge) {
+        display: none
+      }
+
+      .nav-logo {
+        font-size: 0.85rem
+      }
+
+      .slide-title {
+        font-size: clamp(1.8rem, 4.5vw, 2.8rem)
+      }
+
+      #slide-0 .slide-title {
+        font-size: clamp(2.2rem, 5.5vw, 3.8rem)
+      }
+
+      .g2 {
+        grid-template-columns: 1fr 1fr;
+        gap: 14px
+      }
+
+      .g3 {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 14px
+      }
+
+      .g4 {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px
+      }
+
+      .g23 {
+        grid-template-columns: 1fr;
+        gap: 20px
+      }
+
+      .g32 {
+        grid-template-columns: 1fr;
+        gap: 20px
+      }
+
+      .hero-stats {
+        gap: 24px;
+        flex-wrap: wrap
+      }
+
+      .hero-number {
+        font-size: clamp(8rem, 18vw, 14rem)
+      }
+
+      .hero-maple {
+        width: clamp(200px, 28vw, 350px);
+        right: 2%
+      }
+
+      .card {
+        padding: 18px 20px
+      }
+
+      .card h3 {
+        font-size: 1rem
+      }
+
+      .stat-box .num {
+        font-size: 1.8rem
+      }
+
+      .nav-arrow {
+        width: 40px;
+        height: 40px
+      }
+
+      .nav-arrow.left {
+        left: 10px
+      }
+
+      .nav-arrow.right {
+        right: 10px
+      }
+
+      .ladder-head {
+        grid-template-columns: 100px 1fr auto
+      }
+
+      .rehber-card {
+        padding: 16px
+      }
+
+      .comp-table {
+        font-size: 0.76rem
+      }
+
+      .comp-table th {
+        padding: 9px 10px
+      }
+
+      .comp-table td {
+        padding: 9px 10px
+      }
+    }
+
+    /* Tablet portrait */
+    @media(max-width:768px) {
+      .slide {
+        padding: 56px 24px 32px;
+        justify-content: flex-start
+      }
+
+      .slide.active {
+        padding-top: 60px
+      }
+
+      .nav-bar {
+        height: 44px;
+        padding: 0 12px
+      }
+
+      .nav-logo {
+        font-size: 0.8rem;
+        gap: 5px
+      }
+
+      .nav-logo svg {
+        width: 15px;
+        height: 15px
+      }
+
+      .nav-right .badge {
+        padding: 2px 8px;
+        font-size: 0.65rem
+      }
+
+      .nav-right {
+        gap: 8px;
+        font-size: 0.65rem
+      }
+
+      .nav-center {
+        gap: 4px
+      }
+
+      .nav-dot {
+        width: 5px;
+        height: 5px
+      }
+
+      .progress-bar {
+        top: 44px
+      }
+
+      .slide-title {
+        font-size: clamp(1.5rem, 4vw, 2.2rem)
+      }
+
+      #slide-0 .slide-title {
+        font-size: clamp(1.8rem, 5vw, 3rem)
+      }
+
+      .slide-sub {
+        font-size: 0.88rem;
+        max-width: 100%
+      }
+
+      .eyebrow {
+        font-size: 0.65rem;
+        margin-bottom: 10px
+      }
+
+      .divider {
+        margin: 14px 0
+      }
+
+      .g2 {
+        grid-template-columns: 1fr;
+        gap: 12px
+      }
+
+      .g3 {
+        grid-template-columns: 1fr;
+        gap: 12px
+      }
+
+      .g4 {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px
+      }
+
+      .g23 {
+        grid-template-columns: 1fr;
+        gap: 16px
+      }
+
+      .g32 {
+        grid-template-columns: 1fr;
+        gap: 16px
+      }
+
+      .hero-stats {
+        gap: 16px;
+        margin-top: 24px
+      }
+
+      .hero-stat-num {
+        font-size: 1.5rem
+      }
+
+      .hero-stat-label {
+        font-size: 0.62rem
+      }
+
+      .hero-number {
+        font-size: clamp(6rem, 16vw, 10rem)
+      }
+
+      .hero-maple {
+        display: none
+      }
+
+      .card {
+        padding: 16px 18px;
+        border-radius: 10px
+      }
+
+      .card h3 {
+        font-size: 0.95rem;
+        gap: 8px
+      }
+
+      .card ul li {
+        font-size: 0.82rem;
+        padding: 6px 0
+      }
+
+      .stat-box {
+        padding: 14px 12px
+      }
+
+      .stat-box .num {
+        font-size: 1.5rem
+      }
+
+      .stat-box .lbl {
+        font-size: 0.65rem
+      }
+
+      .nav-arrow {
+        width: 36px;
+        height: 36px
+      }
+
+      .nav-arrow.left {
+        left: 6px
+      }
+
+      .nav-arrow.right {
+        right: 6px
+      }
+
+      .nav-arrow svg {
+        width: 14px;
+        height: 14px
+      }
+
+      .slide-counter {
+        bottom: 16px;
+        right: 16px;
+        font-size: 0.65rem
+      }
+
+      .kb-hint {
+        display: none
+      }
+
+      .ladder-head {
+        grid-template-columns: 90px 1fr auto
+      }
+
+      .ladder-left {
+        padding: 10px 12px
+      }
+
+      .ladder-left .age {
+        font-size: 0.6rem
+      }
+
+      .ladder-left .lvl {
+        font-size: 0.78rem
+      }
+
+      .ladder-right {
+        padding: 10px 14px
+      }
+
+      .ladder-right h4 {
+        font-size: 0.82rem
+      }
+
+      .ladder-right p {
+        font-size: 0.75rem
+      }
+
+      .ladder-arrow {
+        padding: 10px 12px
+      }
+
+      .ladder-detail-inner {
+        padding: 10px 14px
+      }
+
+      .rehber-card {
+        padding: 14px
+      }
+
+      .rehber-card h3 {
+        font-size: 0.88rem
+      }
+
+      .rehber-card p {
+        font-size: 0.75rem
+      }
+
+      .rehber-num {
+        font-size: 1.6rem
+      }
+
+      .timeline {
+        padding-left: 22px
+      }
+
+      .tl-item {
+        margin-bottom: 20px
+      }
+
+      .tl-title {
+        font-size: 0.85rem
+      }
+
+      .tl-body {
+        font-size: 0.78rem
+      }
+
+      .quote-block {
+        padding: 18px 20px
+      }
+
+      .quote-block blockquote {
+        font-size: 0.88rem
+      }
+
+      .alert h4 {
+        font-size: 0.82rem
+      }
+
+      .alert p {
+        font-size: 0.78rem
+      }
+
+      .pisa-bar-label {
+        width: 56px;
+        font-size: 0.7rem
+      }
+
+      .pisa-bar-fill {
+        font-size: 0.68rem;
+        padding-left: 6px
+      }
+
+      .pisa-bar-track {
+        height: 24px
+      }
+
+      .pisa-score {
+        font-size: 0.7rem;
+        width: 30px
+      }
+
+      .org-prov {
+        padding: 8px 6px;
+        font-size: 0.72rem
+      }
+
+      .org-prov strong {
+        font-size: 0.78rem
+      }
+
+      /* Comparison table horizontal scroll */
+      .table-scroll-wrapper {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        margin: 0 -4px;
+        padding: 0 4px
+      }
+
+      .comp-table {
+        min-width: 500px;
+        font-size: 0.74rem
+      }
+
+      .comp-table th {
+        padding: 8px 8px;
+        font-size: 0.68rem
+      }
+
+      .comp-table td {
+        padding: 8px 8px
+      }
+
+      .no-fed-badge {
+        font-size: 0.72rem;
+        padding: 4px 10px
+      }
+
+      .icon-box {
+        width: 36px;
+        height: 36px;
+        border-radius: 8px
+      }
+    }
+
+    /* Mobile */
+    @media(max-width:480px) {
+      .slide {
+        padding: 52px 16px 24px;
+        justify-content: flex-start
+      }
+
+      .slide.active {
+        padding-top: 54px
+      }
+
+      .nav-bar {
+        height: 42px;
+        padding: 0 10px
+      }
+
+      .nav-logo {
+        font-size: 0.72rem;
+        gap: 4px
+      }
+
+      .nav-logo svg {
+        width: 14px;
+        height: 14px
+      }
+
+      .nav-right {
+        display: none
+      }
+
+      .nav-center {
+        gap: 3px
+      }
+
+      .nav-dot {
+        width: 4px;
+        height: 4px
+      }
+
+      .progress-bar {
+        top: 42px
+      }
+
+      .slide-title {
+        font-size: clamp(1.3rem, 5vw, 1.8rem)
+      }
+
+      #slide-0 .slide-title {
+        font-size: clamp(1.5rem, 6vw, 2.4rem)
+      }
+
+      .slide-sub {
+        font-size: 0.8rem;
+        line-height: 1.6
+      }
+
+      .eyebrow {
+        font-size: 0.6rem;
+        letter-spacing: 0.12em;
+        margin-bottom: 8px
+      }
+
+      .divider {
+        width: 32px;
+        height: 2px;
+        margin: 10px 0
+      }
+
+      .g2,
+      .g3,
+      .g23,
+      .g32 {
+        grid-template-columns: 1fr;
+        gap: 10px
+      }
+
+      .g4 {
+        grid-template-columns: 1fr 1fr;
+        gap: 8px
+      }
+
+      .hero-stats {
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-top: 20px
+      }
+
+      .hero-stats>div {
+        min-width: calc(50% - 8px)
+      }
+
+      .hero-stat-num {
+        font-size: 1.3rem
+      }
+
+      .hero-stat-label {
+        font-size: 0.58rem
+      }
+
+      .hero-number {
+        font-size: clamp(4rem, 14vw, 7rem);
+        opacity: 0.6
+      }
+
+      .card {
+        padding: 14px 16px;
+        border-radius: 8px
+      }
+
+      .card h3 {
+        font-size: 0.88rem;
+        gap: 6px
+      }
+
+      .card ul li {
+        font-size: 0.78rem;
+        padding: 5px 0;
+        gap: 6px;
+        line-height: 1.45
+      }
+
+      .stat-box {
+        padding: 12px 10px;
+        border-radius: 8px
+      }
+
+      .stat-box .num {
+        font-size: 1.3rem
+      }
+
+      .stat-box .lbl {
+        font-size: 0.6rem;
+        margin-top: 4px
+      }
+
+      .nav-arrow {
+        width: 32px;
+        height: 32px
+      }
+
+      .nav-arrow.left {
+        left: 4px
+      }
+
+      .nav-arrow.right {
+        right: 4px
+      }
+
+      .nav-arrow svg {
+        width: 12px;
+        height: 12px
+      }
+
+      .slide-counter {
+        bottom: 10px;
+        right: 12px;
+        font-size: 0.6rem
+      }
+
+      .ladder-head {
+        grid-template-columns: 70px 1fr 28px
+      }
+
+      .ladder-left {
+        padding: 8px 10px
+      }
+
+      .ladder-left .age {
+        font-size: 0.55rem
+      }
+
+      .ladder-left .lvl {
+        font-size: 0.72rem
+      }
+
+      .ladder-right {
+        padding: 8px 10px
+      }
+
+      .ladder-right h4 {
+        font-size: 0.76rem
+      }
+
+      .ladder-right p {
+        font-size: 0.7rem;
+        line-height: 1.4
+      }
+
+      .ladder-arrow {
+        padding: 8px;
+        font-size: 0.65rem
+      }
+
+      .ladder-detail-inner {
+        padding: 8px 10px
+      }
+
+      .ladder-detail-inner ul li {
+        font-size: 0.72rem
+      }
+
+      .ladder-item.open .ladder-detail {
+        max-height: 250px
+      }
+
+      .rehber-card {
+        padding: 12px
+      }
+
+      .rehber-card h3 {
+        font-size: 0.82rem
+      }
+
+      .rehber-card p {
+        font-size: 0.72rem;
+        line-height: 1.55
+      }
+
+      .rehber-num {
+        font-size: 1.3rem
+      }
+
+      .timeline {
+        padding-left: 18px
+      }
+
+      .timeline::before {
+        left: 6px
+      }
+
+      .tl-item {
+        margin-bottom: 16px
+      }
+
+      .tl-item::before {
+        left: -16px;
+        width: 8px;
+        height: 8px
+      }
+
+      .tl-year {
+        font-size: 0.6rem
+      }
+
+      .tl-title {
+        font-size: 0.8rem
+      }
+
+      .tl-body {
+        font-size: 0.73rem;
+        line-height: 1.5
+      }
+
+      .quote-block {
+        padding: 14px 16px
+      }
+
+      .quote-block blockquote {
+        font-size: 0.82rem;
+        line-height: 1.6
+      }
+
+      .quote-block cite {
+        font-size: 0.7rem
+      }
+
+      .alert {
+        padding: 14px 16px;
+        margin-top: 12px
+      }
+
+      .alert h4 {
+        font-size: 0.78rem
+      }
+
+      .alert p {
+        font-size: 0.73rem
+      }
+
+      .pisa-bar {
+        margin-bottom: 8px;
+        gap: 6px
+      }
+
+      .pisa-bar-label {
+        width: 48px;
+        font-size: 0.64rem
+      }
+
+      .pisa-bar-fill {
+        font-size: 0.6rem;
+        padding-left: 4px
+      }
+
+      .pisa-bar-track {
+        height: 20px
+      }
+
+      .pisa-score {
+        font-size: 0.64rem;
+        width: 26px
+      }
+
+      .org-prov {
+        padding: 6px 4px;
+        font-size: 0.65rem
+      }
+
+      .org-prov strong {
+        font-size: 0.72rem
+      }
+
+      .comp-table {
+        min-width: 440px;
+        font-size: 0.7rem
+      }
+
+      .comp-table th {
+        padding: 6px 6px;
+        font-size: 0.62rem
+      }
+
+      .comp-table td {
+        padding: 6px 6px
+      }
+
+      .badge-good,
+      .badge-mid,
+      .badge-red {
+        font-size: 0.62rem;
+        padding: 1px 5px
+      }
+
+      .no-fed-badge {
+        font-size: 0.65rem;
+        padding: 3px 8px;
+        gap: 5px
+      }
+
+      .icon-box {
+        width: 32px;
+        height: 32px;
+        border-radius: 7px
+      }
+
+      .icon-box svg {
+        width: 16px;
+        height: 16px
+      }
+    }
+
+    /* Very small screens */
+    @media(max-width:360px) {
+      .slide {
+        padding: 48px 12px 20px
+      }
+
+      .slide-title {
+        font-size: clamp(1.1rem, 5vw, 1.5rem)
+      }
+
+      #slide-0 .slide-title {
+        font-size: clamp(1.3rem, 6vw, 2rem)
+      }
+
+      .g4 {
+        grid-template-columns: 1fr;
+        gap: 8px
+      }
+
+      .hero-stats>div {
+        min-width: calc(50% - 6px)
+      }
+
+      .ladder-head {
+        grid-template-columns: 60px 1fr 24px
+      }
+    }
+
+    /* Landscape phones */
+    @media(max-height:500px) and (orientation:landscape) {
+      .slide {
+        padding: 48px 40px 20px;
+        justify-content: flex-start
+      }
+
+      .nav-bar {
+        height: 36px
+      }
+
+      .progress-bar {
+        top: 36px
+      }
+
+      .slide-title {
+        font-size: clamp(1.2rem, 3vw, 1.6rem)
+      }
+
+      .divider {
+        margin: 8px 0
+      }
+
+      .hero-stats {
+        margin-top: 12px;
+        gap: 16px
+      }
+
+      .hero-number {
+        font-size: clamp(4rem, 10vw, 6rem)
+      }
+
+      .hero-maple {
+        display: none
+      }
+
+      .nav-arrow {
+        width: 32px;
+        height: 32px
+      }
+
+      .card {
+        padding: 10px 14px
+      }
+
+      .stat-box {
+        padding: 8px
+      }
+
+      .stat-box .num {
+        font-size: 1.2rem
+      }
+    }
+
+    /* Print support */
+    @media print {
+
+      .nav-bar,
+      .progress-bar,
+      .nav-arrow,
+      .slide-counter,
+      .kb-hint,
+      .nav-center {
+        display: none !important
+      }
+
+      .slide {
+        position: relative !important;
+        opacity: 1 !important;
+        pointer-events: all !important;
+        transform: none !important;
+        filter: none !important;
+        page-break-after: always;
+        padding: 40px;
+        height: auto;
+        overflow: visible
+      }
+
+      .deck {
+        height: auto;
+        overflow: visible
+      }
+
+      html,
+      body {
+        overflow: visible;
+        height: auto
+      }
+
+      .anim-item,
+      .anim-grid>* {
+        opacity: 1 !important;
+        transform: none !important
+      }
+
+      .particle {
+        display: none
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- NAV BAR -->
+  <div class="nav-bar">
+    <div class="nav-logo">
+      <svg width="18" height="18" viewBox="0 0 36 36" fill="currentColor">
+        <path d="M18 2l1.5 5.5L24 4l-2 5 5 1-5 2.5L23.5 18 18 14.5 12.5 18 14 12.5 9 10l5-1L12 4l4.5 3.5z" />
+        <path d="M18 14.5v19" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" />
+        <path d="M14 28c0-3 4-5 4-5s4 2 4 5" stroke="currentColor" stroke-width="1.5" fill="none" />
+      </svg>
+      Kanada Eğitim Sistemi
+    </div>
+    <div class="nav-center" id="dotNav"></div>
+    <div class="nav-right">
+      <span class="badge">EGT 354</span>
+      Hacettepe Üniversitesi
+      <img src="https://kkm.hacettepe.edu.tr/wp-content/uploads/2018/07/cropped-logo-hacettepe.png" alt="Hacettepe Logo" class="hacettepe-logo">
+    </div>
+  </div>
+
+  <!-- PROGRESS -->
+  <div class="progress-bar" id="progressBar"></div>
+
+  <!-- NAV ARROWS -->
+  <button class="nav-arrow left" id="btnLeft" onclick="prevSlide()">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+      stroke-linecap="round">
+      <path d="M15 18l-6-6 6-6" />
+    </svg>
+  </button>
+  <button class="nav-arrow right" id="btnRight" onclick="nextSlide()">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+      stroke-linecap="round">
+      <path d="M9 18l6-6-6-6" />
+    </svg>
+  </button>
+
+  <!-- SLIDE COUNTER -->
+  <div class="slide-counter"><span id="slideNum">1</span> / <span id="slideTotal">10</span></div>
+
+
+
+  <!-- ============================================================ -->
+  <!-- SLIDES                                                        -->
+  <!-- ============================================================ -->
+  <div class="deck" id="deck">
+
+    <!-- SLIDE 0: HERO -->
+    <div class="slide active" id="slide-0">
+      <div class="slide-bg">
+        <div class="grid"></div>
+        <div class="glow"></div>
+        <div class="glow2"></div>
+        <div class="glow3"></div>
+      </div>
+      <!-- Maple Leaf SVG -->
+      <svg class="hero-maple" viewBox="0 0 300 320" xmlns="http://www.w3.org/2000/svg">
+        <path
+          d="M150 10 L162 50 L195 30 L180 65 L220 55 L195 80 L240 90 L200 105 L230 130 L190 125 L200 160 L165 140 L170 175 L150 155 L130 175 L135 140 L100 160 L110 125 L70 130 L100 105 L60 90 L105 80 L80 55 L120 65 L105 30 L138 50 Z M150 175 L150 300 M120 260 C120 240 150 225 150 225 C150 225 180 240 180 260" />
+      </svg>
+      <div class="hero-number">CA</div>
+      <div style="max-width:760px">
+        <div class="eyebrow anim-item">EGT 354 · Karşılaştırmalı Eğitim · Hacettepe Üniversitesi</div>
+        <h1 class="slide-title anim-item">
+          Kuzeyin<br>
+          <em>Eğitim Modeli</em>
+        </h1>
+        <p class="slide-sub anim-item">Merkeziyetsiz, kapsayıcı ve PISA'da küresel lider: <strong
+            style="color:var(--white)">Kanada Eğitim Sistemi</strong>'nin kapsamlı karşılaştırmalı analizi.</p>
+        <div class="hero-stats anim-item">
+          <div class="hero-stat">
+            <div class="hero-stat-num"><span data-count="41">0</span>M+</div>
+            <div class="hero-stat-label">Nüfus</div>
+          </div>
+          <div class="hero-stat">
+            <div class="hero-stat-num"><span data-count="8">0</span>.Sıra</div>
+            <div class="hero-stat-label">PISA Okuma</div>
+          </div>
+          <div class="hero-stat">
+            <div class="hero-stat-num"><span data-count="1">0</span>,04M</div>
+            <div class="hero-stat-label">Uluslararası Öğrenci</div>
+          </div>
+          <div class="hero-stat">
+            <div class="hero-stat-num"><span data-count="13">0</span></div>
+            <div class="hero-stat-label">Eyalet + Bölge</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 1: ÜLKE BAĞLAMI - DEMOGRAFİ -->
+    <div class="slide" id="slide-1">
+      <div class="slide-bg">
+        <div class="grid"></div>
+        <div class="glow"></div>
+        <div class="glow3"></div>
+      </div>
+      <div class="eyebrow anim-item">01 · Ülke Bağlamı</div>
+      <h2 class="slide-title anim-item">Demografik & <em>Ekonomik</em> Yapı</h2>
+      <div class="divider anim-item"></div>
+      <div class="g23 anim-grid" style="margin-top:24px">
+        <div style="display:flex;flex-direction:column;gap:20px">
+          <!-- DEMOGRAFİK YAPI -->
+          <div class="card">
+            <h3>
+              <div class="icon-box red">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#c8102e" stroke-width="2"
+                  stroke-linecap="round">
+                  <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                  <circle cx="9" cy="7" r="4" />
+                  <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+                  <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                </svg>
+              </div>
+              Demografik Yapı
+            </h3>
+            <ul>
+              <li><strong>Nüfus:</strong> ~41,3 milyon (2024, Statistics Canada)</li>
+              <li><strong>Çok Kültürlülük:</strong> Nüfusun %23'ü yurt dışı doğumlu; dünyanın en çok göç kabul eden
+                ülkelerinden biri</li>
+              <li><strong>Resmi Diller:</strong> İngilizce & Fransızca; Anayasa her iki dilde eğitimi güvence altına alır
+              </li>
+              <li><strong>Yoğunluk:</strong> Dünya'nın 2. büyük ülkesi; nüfusun %90'ı güney koridor</li>
+            </ul>
+          </div>
+          <!-- EKONOMİK YAPI -->
+          <div class="card">
+            <h3>
+              <div class="icon-box gold">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#d4a843" stroke-width="2"
+                  stroke-linecap="round">
+                  <line x1="12" y1="1" x2="12" y2="23" />
+                  <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+                </svg>
+              </div>
+              Ekonomik Yapı
+            </h3>
+            <ul>
+              <li><strong>GSYİH:</strong> ~2,14 trilyon USD (2023, IMF); G7 üyesi</li>
+              <li><strong>Kişi başı GSYİH:</strong> ~53.370 USD; OECD ortalamasının üzerinde</li>
+              <li><strong>Eğitim Harcaması:</strong> GSYİH'nin ~%5,3'ü; kamu finansmanı ağırlıklı</li>
+              <li><strong>Uluslararası Öğrenci:</strong> 1,04 milyon — dünyada 2. sıra</li>
+              <li><strong>İşsizlik:</strong> ~%5,8; yüksek nitelikli işgücü piyasası</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- YERLİ HALKLAR FEATURE CARD -->
+        <div class="card" style="border-left:3px solid var(--gold);height:100%;display:flex;flex-direction:column">
+          <h3 style="margin-bottom:4px">
+            <div class="icon-box gold">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#d4a843" stroke-width="2"
+                stroke-linecap="round">
+                <circle cx="12" cy="12" r="10" />
+                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+              </svg>
+            </div>
+            Yerli Halklar — Kimlerdir?
+          </h3>
+          <p
+            style="font-size:0.75rem;color:var(--muted);margin-bottom:16px;font-family:'DM Mono',monospace;letter-spacing:0.05em;opacity:0.8">
+            Kuzey Amerika'nın kadim toplulukları</p>
+          
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;flex-grow:1">
+            <div style="background:rgba(255,255,255,0.02);padding:14px;border-radius:10px;border:1px solid rgba(255,255,255,0.04)">
+              <div style="color:var(--gold);font-weight:700;font-size:0.9rem;margin-bottom:6px">First Nations</div>
+              <div style="font-size:0.8rem;color:#9aa3b4;line-height:1.6">Sömürge öncesinden beri var olan 600'den fazla topluluk (ör. Cree, Mohawk). Kuzey Kutbu dışında yaşarlar.</div>
+            </div>
+            <div style="background:rgba(255,255,255,0.02);padding:14px;border-radius:10px;border:1px solid rgba(255,255,255,0.04)">
+              <div style="color:var(--gold);font-weight:700;font-size:0.9rem;margin-bottom:6px">Métis</div>
+              <div style="font-size:0.8rem;color:#9aa3b4;line-height:1.6">Avrupalı yerleşimciler ile Yerli halkların birlikteliğinden doğan, kendine özgü Michif diline sahip ulus.</div>
+            </div>
+            <div style="grid-column:span 2;background:rgba(200,16,46,0.03);padding:14px;border-radius:10px;border:1px solid rgba(200,16,46,0.08)">
+              <div style="color:var(--red-light);font-weight:700;font-size:0.9rem;margin-bottom:6px">Inuit</div>
+              <div style="font-size:0.8rem;color:#9aa3b4;line-height:1.6">Kanada'nın Kuzey Kutup bölgesinde yaşayan halk. "Inuit" terimi kendi dillerinde "insanlar" anlamına gelir.</div>
+            </div>
+          </div>
+
+          <div style="margin-top:16px;padding:12px 16px;background:rgba(212,168,67,0.08);border:1px dashed rgba(212,168,67,0.3);border-radius:10px">
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+              <strong style="color:var(--gold);font-size:0.75rem;text-transform:uppercase;letter-spacing:0.05em">Akademik Terim</strong>
+            </div>
+            <p style="font-size:0.78rem;color:var(--muted);line-height:1.5">"Indigenous Peoples" güncel akademik şemsiye terimdir. "Aboriginal" terimi artık yalnızca hukuki bağlamda (1867/1982 Anayasası) kullanılır.</p>
+          </div>
+        </div>
+      </div>
+      <div class="g4 anim-grid" style="margin-top:18px">
+        <div class="stat-box">
+          <div class="num"><span data-count="41">0</span><em>M</em></div>
+          <div class="lbl">Toplam Nüfus (2024)</div>
+        </div>
+        <div class="stat-box">
+          <div class="num"><span data-count="1">0</span><em>,</em>04<em>M</em></div>
+          <div class="lbl">Uluslararası Öğrenci (2023)</div>
+        </div>
+        <div class="stat-box">
+          <div class="num"><span data-count="5">0</span><em>,</em>3<em>%</em></div>
+          <div class="lbl">Eğitime GSYİH Payı</div>
+        </div>
+        <div class="stat-box">
+          <div class="num"><span data-count="13">0</span></div>
+          <div class="lbl">Eyalet & Bölge Bakanlığı</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 2: POLİTİK YAPI -->
+    <div class="slide" id="slide-2">
+      <div class="slide-bg">
+        <div class="grid"></div>
+        <div class="glow"></div>
+        <div class="glow2"></div>
+      </div>
+      <div class="eyebrow anim-item">01 · Ülke Bağlamı</div>
+      <h2 class="slide-title anim-item">Politik & <em>Siyasi</em> Yapı</h2>
+      <div class="divider anim-item"></div>
+      <div class="g23" style="margin-top:24px">
+        <div class="anim-item">
+          <div class="card">
+            <h3>
+              <div class="icon-box blue">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#60a5fa" stroke-width="2"
+                  stroke-linecap="round">
+                  <rect x="2" y="7" width="20" height="14" rx="2" />
+                  <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
+                </svg>
+              </div>
+              Yönetim Biçimi
+            </h3>
+            <ul>
+              <li><strong>Yönetim:</strong> Federal Parlamenter Demokrasi + Anayasal Monarşi</li>
+              <li><strong>Yapı:</strong> 10 Eyalet (Province) + 3 Bölge (Territory)</li>
+              <li><strong>Anayasa (1867, Md. 93):</strong> Eğitimi yalnızca Eyaletlerin yetkisine verir</li>
+              <li><strong>Federal Bakanlık:</strong> Mevcut değil — tek G7 ülkesi</li>
+              <li><strong>Charter of Rights (1982):</strong> Eğitimde eşit erişim anayasal hak</li>
+            </ul>
+          </div>
+          <div class="alert">
+            <h4>EGT 354 Bağlantısı — Küreselleşme ve Uluslararasılaşma</h4>
+            <p>Tablo-1'e göre Kanada, ABD'nin ardından <strong>1.040.985 uluslararası öğrenci</strong> ile dünyada 2.
+              sıradadır. "Study in Canada" markasının başarısı ve bilinçli Brain Gain stratejisi 2023'te 22 milyar CAD
+              ekonomik getiri sağlamıştır.</p>
+          </div>
+        </div>
+        <div class="anim-item" style="display:flex;flex-direction:column;gap:14px">
+          <div class="stat-box" style="text-align:left;padding:20px">
+            <div style="font-size:0.72rem;color:var(--muted);margin-bottom:6px;font-family:'DM Mono',monospace;letter-spacing:0.1em">FEDERAL EĞİTİM BAKANLIĞI</div>
+            <div style="font-family:'Fraunces',serif;font-size:2.4rem;font-weight:900;color:#f87171;line-height:1">YOK</div>
+            <div style="font-size:0.8rem;color:var(--muted);margin-top:8px;line-height:1.6">Kanada, G7 ülkeleri arasında ulusal düzeyde bir eğitim bakanlığına sahip <strong style="color:var(--white)">olmayan tek ülkedir</strong>. 1867 Anayasası (BNA Act) Madde 93, eğitim yetkisini münhasıran eyaletlere devreder. Diğer G7 ülkelerindeki merkezi müfredat, ulusal sınav ve öğretmen standartları gibi yapılar Kanada'da yoktur — bunun yerine her eyalet kendi sistemini bağımsız olarak yönetir.</div>
+          </div>
+          <div class="stat-box" style="text-align:left;padding:20px">
+            <div style="font-size:0.72rem;color:var(--muted);margin-bottom:6px;font-family:'DM Mono',monospace;letter-spacing:0.1em">KOORDİNASYON ORGANI</div>
+            <div style="font-family:'Fraunces',serif;font-size:1.6rem;font-weight:900;line-height:1">CMEC</div>
+            <div style="font-size:0.8rem;color:var(--muted);margin-top:8px;line-height:1.6"><strong style="color:var(--white)">Council of Ministers of Education, Canada</strong> — 13 eyalet ve bölgenin eğitim bakanlarından oluşan hükümetler arası bir forum. Bağlayıcı kararlar alamaz; yalnızca uzlaşı yoluyla ortak politikalar geliştirir. PISA testlerinde Kanada'yı temsil eder, diploma denkliği çerçevelerini koordine eder ve Pan-Canadian Assessment Program'ı (PCAP) yürütür.</div>
+          </div>
+          <div class="stat-box" style="text-align:left;padding:20px">
+            <div style="font-size:0.72rem;color:var(--muted);margin-bottom:6px;font-family:'DM Mono',monospace;letter-spacing:0.1em">ULUSLARARASI ÖĞRENCİ GELİRİ</div>
+            <div style="font-family:'Fraunces',serif;font-size:1.6rem;font-weight:900;color:var(--gold);line-height:1">22 Milyar CAD</div>
+            <div style="font-size:0.8rem;color:var(--muted);margin-top:8px;line-height:1.6">IRCC (Immigration, Refugees and Citizenship Canada) 2023 verilerine göre, <strong style="color:var(--white)">1.040.985 uluslararası öğrenci</strong> Kanada ekonomisine yıllık 22 milyar Kanada Doları katkı sağlamaktadır. Bu rakam öğrenim ücreti, barınma, yaşam giderleri ve vergi gelirlerini kapsar. Kanada'nın bilinçli "Brain Gain" stratejisi, nitelikli göçmen kazanımını eğitim üzerinden gerçekleştirir.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 3: TARİHÇE -->
+    <div class="slide" id="slide-3">
+      <div class="slide-bg">
+        <div class="grid"></div>
+        <div class="glow"></div>
+        <div class="glow3"></div>
+      </div>
+      <div class="eyebrow anim-item">02 · Tarihsel Bağlam</div>
+      <h2 class="slide-title anim-item">Eğitim <em>Tarihi</em> ve Uzlaşma</h2>
+      <div class="divider anim-item"></div>
+      <div class="g2" style="margin-top:24px">
+        <div class="anim-item">
+          <div class="timeline">
+            <div class="tl-item">
+              <div class="tl-year">1600'LER — 1860'LAR</div>
+              <div class="tl-title">Sömürge Dönemi</div>
+              <div class="tl-body">İngiliz ve Fransız sömürge sistemleri; kilise okulları hâkim. Katolik ve Protestan
+                kiliseleri ayrı okul sistemleri kurdu.</div>
+            </div>
+            <div class="tl-item">
+              <div class="tl-year">1867</div>
+              <div class="tl-title">Anayasal Devir — BNA Act</div>
+              <div class="tl-body">Kanada Konfederasyonu kuruldu. Eğitim kiliseden alınarak Eyaletlerin münhasır
+                yetkisine devredildi. Merkeziyetsizliğin anayasal temeli.</div>
+            </div>
+            <div class="tl-item">
+              <div class="tl-year">1880 — 1996</div>
+              <div class="tl-title">Yatılı Okullar (Residential Schools)</div>
+              <div class="tl-body">150.000'den fazla Yerli çocuk ailelerinden koparıldı. Kültürel asimilasyon aracı;
+                fiziksel ve kültürel şiddet. Son okul 1996'da kapandı.</div>
+            </div>
+            <div class="tl-item">
+              <div class="tl-year">2008 — GÜNÜMÜZ</div>
+              <div class="tl-title">Truth & Reconciliation (TRC)</div>
+              <div class="tl-body">Resmi Özür (2008) + TRC Raporu (2015). Tüm eyaletlerde Yerli Halklar tarihi ve
+                kültürü müfredatta zorunlu.</div>
+            </div>
+          </div>
+        </div>
+        <div class="anim-item">
+          <div class="quote-block" style="margin-bottom:16px">
+            <blockquote>"Asimilasyon amacıyla kurulan yatılı okul sistemi, Kanada Yerli topluluklarına yönelik kültürel
+              soykırım niteliğinde bir politikaydı."</blockquote>
+            <cite>— Truth and Reconciliation Commission of Canada, 2015 Final Report</cite>
+          </div>
+          <div class="card">
+            <h3>
+              <div class="icon-box purple">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#c084fc" stroke-width="2"
+                  stroke-linecap="round">
+                  <circle cx="12" cy="12" r="10" />
+                  <line x1="2" y1="12" x2="22" y2="12" />
+                  <path
+                    d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+                </svg>
+              </div>
+              Hofstede Kültür Kuramı
+            </h3>
+            <ul>
+              <li><strong>Güç Mesafesi (PDI: 39 — Düşük):</strong> Sınıf demokratik, diyalog temelli, yatay ilişki</li>
+              <li><strong>Bireycilik (IDV: 80 — Yüksek):</strong> Öğrencinin özerkliği ve eleştirel düşüncesi ön planda
+              </li>
+              <li><strong>Belirsizlikten Kaçınma (48 — Düşük):</strong> Müfredatta esneklik ve yaratıcılığa alan</li>
+              <li><strong>Dünya Kültürü Kuramı (Meyer):</strong> Çok kültürlülük entegre; farklılık asimilasyon değil
+                zenginlik</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 4: EĞİTİM KADEMELERİ -->
+    <div class="slide" id="slide-4">
+      <div class="slide-bg">
+        <div class="grid"></div>
+        <div class="glow"></div>
+        <div class="glow2"></div>
+      </div>
+      <div class="eyebrow anim-item">03 · Eğitim Kademeleri</div>
+      <h2 class="slide-title anim-item">K–12 Sistemi ve <em>Kademeli</em> Yapı</h2>
+      <div class="divider anim-item"></div>
+      <p class="slide-sub anim-item" style="margin-bottom:20px">Her eyaletin kendi müfredatı olsa da genel K-12
+        çerçevesi ortaktır. Satıra tıkla → ayrıntıları gör.</p>
+      <div class="anim-item"
+        style="display:flex;flex-direction:column;gap:0;border:1px solid var(--border);border-radius:12px;overflow:hidden">
+        <div class="ladder-item" onclick="toggleLadder(this)">
+          <div class="ladder-head">
+            <div class="ladder-left">
+              <div class="age">3–5 YAŞ</div>
+              <div class="lvl">Okul Öncesi</div>
+            </div>
+            <div class="ladder-right">
+              <h4>Pre-K / Kindergarten (JK & SK)</h4>
+              <p>Oyun temelli öğrenme; sosyal-duygusal gelişim. Çoğu eyalette ücretsiz devlet okulu.</p>
+            </div>
+            <div class="ladder-arrow">▶</div>
+          </div>
+          <div class="ladder-detail">
+            <div class="ladder-detail-inner">
+              <ul>
+                <li>Oyun temelli öğrenme (Play-based learning) esas pedagoji</li>
+                <li>French Immersion seçeneği — tüm dersler Fransızca</li>
+                <li>Karşılaştırma: Türkiye %40, Kanada %90+ okul öncesi katılım oranı</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="ladder-item" onclick="toggleLadder(this)">
+          <div class="ladder-head">
+            <div class="ladder-left">
+              <div class="age">6–11 YAŞ</div>
+              <div class="lvl">İlkokul</div>
+            </div>
+            <div class="ladder-right">
+              <h4>Elementary School (Grades 1–6 ya da 1–8)</h4>
+              <p>Temel okuryazarlık, matematik, fen, sanat. Sınıf öğretmeni tüm derslere girer.</p>
+            </div>
+            <div class="ladder-arrow">▶</div>
+          </div>
+          <div class="ladder-detail">
+            <div class="ladder-detail-inner">
+              <ul>
+                <li>Kaynaştırma eğitimi: özel gereksinimli öğrenciler aynı sınıfta, EA desteği ile</li>
+                <li>Formative assessment ağırlıklı; merkezi sınav yok</li>
+                <li>Parent Councils — toplum katılımı aktif</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="ladder-item" onclick="toggleLadder(this)">
+          <div class="ladder-head">
+            <div class="ladder-left">
+              <div class="age">12–14 YAŞ</div>
+              <div class="lvl">Ortaokul</div>
+            </div>
+            <div class="ladder-right">
+              <h4>Middle / Junior High (Grades 7–9)</h4>
+              <p>Branş öğretmenine geçiş. Kariyer keşif dersleri başlar.</p>
+            </div>
+            <div class="ladder-arrow">▶</div>
+          </div>
+          <div class="ladder-detail">
+            <div class="ladder-detail-inner">
+              <ul>
+                <li>Seçmeli dersler: sanat, müzik, drama, beden eğitimi</li>
+                <li>Kariyer ve Kişisel Gelişim (Career & Personal Planning) dersleri</li>
+                <li>Teknoloji ve kodlama entegrasyonu</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="ladder-item" onclick="toggleLadder(this)">
+          <div class="ladder-head">
+            <div class="ladder-left">
+              <div class="age">15–18 YAŞ</div>
+              <div class="lvl">Lise</div>
+            </div>
+            <div class="ladder-right">
+              <h4>Secondary / High School (Grades 9–12)</h4>
+              <p>Kredili sistem. Üniversite, kolej veya mesleki yol için ayrı seviyeli dersler.</p>
+            </div>
+            <div class="ladder-arrow">▶</div>
+          </div>
+          <div class="ladder-detail">
+            <div class="ladder-detail-inner">
+              <ul>
+                <li>Akademik / Uygulamalı / İş Yeri seviyeleri aynı çatı altında</li>
+                <li>Ontario: 30 kredi + 40 saat toplum hizmeti + OSSLT (Okuryazarlık Testi)</li>
+                <li>IB (Uluslararası Bakalorya): ~500+ Kanada okulu sunar</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="ladder-item" onclick="toggleLadder(this)">
+          <div class="ladder-head">
+            <div class="ladder-left">
+              <div class="age">18+ YAŞ</div>
+              <div class="lvl">Yükseköğretim</div>
+            </div>
+            <div class="ladder-right">
+              <h4>Universities & Colleges — İki Kollu Yapı</h4>
+              <p>Akademik üniversiteler + mesleki kolejler. Aralarında geçirgenlik yüksek.</p>
+            </div>
+            <div class="ladder-arrow">▶</div>
+          </div>
+          <div class="ladder-detail">
+            <div class="ladder-detail-inner">
+              <ul>
+                <li>Üniversiteler: Lisans, YL, Doktora — UBC, McGill, U of T, Waterloo</li>
+                <li>Kolejler: mesleki diploma/sertifika, co-op programları, sanayi entegrasyonu</li>
+                <li>Yetişkin nüfusun %63'ü en az yükseköğretim diploması (OECD 2023 ort: %40)</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 5: MESLEKİ EĞİTİM & HBÖ -->
+    <div class="slide" id="slide-5">
+      <div class="slide-bg">
+        <div class="grid"></div>
+        <div class="glow"></div>
+        <div class="glow3"></div>
+      </div>
+      <div class="eyebrow anim-item">03 · Eğitim Kademeleri</div>
+      <h2 class="slide-title anim-item">Mesleki Eğitim & <em>Hayat Boyu</em> Öğrenme</h2>
+      <div class="divider anim-item"></div>
+      <div class="g2 anim-grid" style="margin-top:24px">
+        <div class="card">
+          <h3>
+            <div class="icon-box teal">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2dd4bf" stroke-width="2"
+                stroke-linecap="round">
+                <path
+                  d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" />
+              </svg>
+            </div>
+            Mesleki Eğitim Yapısı
+          </h3>
+          <ul>
+            <li><strong>Apprenticeship (Çıraklık):</strong> Elektrik, Sıhhi Tesisat, Oto Tamiri — "Red Seal" usta-çırak
+              eğitimi</li>
+            <li><strong>College Continuing Education:</strong> Her yaştan yetişkine açık gündüz/gece/online kurslar</li>
+            <li><strong>Mikro-Sertifikalar:</strong> Dijital beceriler, sağlık, teknoloji — modüler kısa programlar</li>
+            <li><strong>PLAR — Prior Learning Assessment:</strong> Deneyimle edinilen becerinin resmi krediyle tanınması
+            </li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>
+            <div class="icon-box blue">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#60a5fa" stroke-width="2"
+                stroke-linecap="round">
+                <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z" />
+                <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z" />
+              </svg>
+            </div>
+            Öğretmen & Öğrenci Rolü
+          </h3>
+          <ul>
+            <li><strong>Öğretmen Özerkliği (Teacher Autonomy):</strong> Yüksek; pedagojik yöntem öğretmene bırakılır
+            </li>
+            <li><strong>Öğrenci Merkezlilik:</strong> Proje, tartışma, araştırma odaklı aktif öğrenici rolü</li>
+            <li><strong>Kapsayıcılık (Inclusivity):</strong> Özel gereksinimli, göçmen, LGBTQ+ öğrenciler için yasal
+              güvence</li>
+            <li><strong>Neoliberal Perspektif:</strong> Değişen iş piyasasına sürekli adaptasyon odaklı tasarım</li>
+          </ul>
+        </div>
+      </div>
+      <div class="g3 anim-grid" style="margin-top:16px">
+        <div class="stat-box">
+          <div class="num" style="font-size:1.6rem">Red Seal</div>
+          <div class="lbl">Eyaletlerarası geçerli usta-çırak sertifika sistemi</div>
+        </div>
+        <div class="stat-box">
+          <div class="num"><em>%63</em></div>
+          <div class="lbl">Yetişkin nüfus yükseköğretim diploma oranı (OECD 2023)</div>
+        </div>
+        <div class="stat-box">
+          <div class="num" style="font-size:1.6rem">PLAR</div>
+          <div class="lbl">Deneyimle edinilen becerinin resmi kredi olarak tanınması</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 6: ÖLÇME DEĞERLENDİRME -->
+    <div class="slide" id="slide-6">
+      <div class="slide-bg">
+        <div class="grid"></div>
+        <div class="glow"></div>
+        <div class="glow2"></div>
+      </div>
+      <div class="eyebrow anim-item">04 · Ölçme ve Değerlendirme</div>
+      <h2 class="slide-title anim-item">Sınavsız Başarı: <em>PISA'da</em> Küresel Liderlik</h2>
+      <div class="divider anim-item"></div>
+      <div class="g2" style="margin-top:20px">
+        <div class="anim-item">
+          <div class="card" style="margin-bottom:14px">
+            <h3>
+              <div class="icon-box green">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#4ade80" stroke-width="2"
+                  stroke-linecap="round">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                  <polyline points="14 2 14 8 20 8" />
+                  <line x1="16" y1="13" x2="8" y2="13" />
+                  <line x1="16" y1="17" x2="8" y2="17" />
+                  <polyline points="10 9 9 9 8 9" />
+                </svg>
+              </div>
+              Formative Değerlendirme
+            </h3>
+            <ul>
+              <li><strong>Portfolyo:</strong> Süreç görünür; tek seferlik sınav değil</li>
+              <li><strong>Proje & Sunum:</strong> Eleştirel düşünce ve uzun vadeli çalışma ölçülür</li>
+              <li><strong>Öz-Değerlendirme:</strong> Öğrenci kendi öğrenme sürecini raporlar</li>
+              <li><strong>Summative:</strong> Dönem sonu sınavları sınırlı ağırlık taşır</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>
+              <div class="icon-box blue">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#60a5fa" stroke-width="2"
+                  stroke-linecap="round">
+                  <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+                  <circle cx="12" cy="10" r="3" />
+                </svg>
+              </div>
+              Eyalet Standart Testleri
+            </h3>
+            <ul>
+              <li><strong>Amaç:</strong> Öğrenci elemek için değil — sistemi ölçmek için</li>
+              <li><strong>Ontario EQAO:</strong> 3./6./9. sınıf okuma-yazma ve matematik; kamuya açık</li>
+              <li><strong>BC FSA:</strong> 4. ve 7. sınıfta Foundation Skills Assessment</li>
+              <li><strong>Sonuçlar:</strong> Not yansımaz; kaynak planlaması için kullanılır</li>
+            </ul>
+          </div>
+        </div>
+        <div class="anim-item">
+          <div class="card">
+            <h3>
+              <div class="icon-box red">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#c8102e" stroke-width="2"
+                  stroke-linecap="round">
+                  <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
+                </svg>
+              </div>
+              PISA 2022 Karşılaştırması — Okuma
+            </h3>
+            <p style="font-size:0.75rem;color:var(--muted);margin-bottom:16px">Maksimum ~560 puan ölçeğinde göreli
+              gösterim</p>
+            <div class="pisa-bar">
+              <div class="pisa-bar-label">Kanada</div>
+              <div class="pisa-bar-track">
+                <div class="pisa-bar-fill canada" data-target="90">507 — 8. sıra</div>
+              </div>
+              <div class="pisa-score">507</div>
+            </div>
+            <div class="pisa-bar">
+              <div class="pisa-bar-label">Finlandiya</div>
+              <div class="pisa-bar-track">
+                <div class="pisa-bar-fill finland" data-target="87">490 puan</div>
+              </div>
+              <div class="pisa-score">490</div>
+            </div>
+            <div class="pisa-bar">
+              <div class="pisa-bar-label">OECD Ort.</div>
+              <div class="pisa-bar-track">
+                <div class="pisa-bar-fill oecd" data-target="80">476 puan</div>
+              </div>
+              <div class="pisa-score">476</div>
+            </div>
+            <div class="pisa-bar">
+              <div class="pisa-bar-label">Türkiye</div>
+              <div class="pisa-bar-track">
+                <div class="pisa-bar-fill turkey" data-target="68">456 puan</div>
+              </div>
+              <div class="pisa-score">456</div>
+            </div>
+            <p style="font-size:0.72rem;color:var(--muted);margin-top:12px">Matematik: Kanada 497 (9. sıra) · Fen: 515
+              (7. sıra) · Kaynak: OECD PISA 2022</p>
+            <div
+              style="margin-top:14px;padding:14px;background:rgba(34,197,94,0.07);border:1px solid rgba(34,197,94,0.18);border-radius:8px">
+              <p style="font-size:0.82rem;color:#4ade80;font-weight:600;margin-bottom:4px">Temel Paradoks</p>
+              <p style="font-size:0.79rem;color:var(--muted)">13 ayrı bakanlık, merkezi müfredat yok — ama tutarlı
+                biçimde PISA ilk 10'unda. Merkeziyetsizlik kalite güvencesiyle bağdaşabilir.</p>
+            </div>
+          </div>
+          <div class="card" style="margin-top:14px">
+            <h3>
+              <div class="icon-box gold">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#d4a843" stroke-width="2"
+                  stroke-linecap="round">
+                  <polyline points="17 1 21 5 17 9" />
+                  <path d="M3 11V9a4 4 0 0 1 4-4h14" />
+                  <polyline points="7 23 3 19 7 15" />
+                  <path d="M21 13v2a4 4 0 0 1-4 4H3" />
+                </svg>
+              </div>
+              Kademeler Arası Geçiş
+            </h3>
+            <ul>
+              <li><strong>Kanada modeli:</strong> 11.–12. sınıf not ortalaması + öğretmen referansı + niyet mektubu</li>
+              <li><strong>Türkiye / G. Kore:</strong> Tek merkezi sınav (YKS/Suneung) → yüksek öğrenci stresi</li>
+              <li><strong>SAT/ACT:</strong> Kanada üniversiteleri genellikle talep etmez</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 7: REHBERLİK -->
+    <div class="slide" id="slide-7">
+      <div class="slide-bg">
+        <div class="grid"></div>
+        <div class="glow"></div>
+        <div class="glow3"></div>
+      </div>
+      <div class="eyebrow anim-item">05 · Rehberlik ve Danışma</div>
+      <h2 class="slide-title anim-item"><em>Bütüncül</em> Öğrenci:<br>Rehberlik Sistemleri</h2>
+      <div class="divider anim-item"></div>
+      <div class="g3 anim-grid" style="margin-top:24px">
+        <div class="rehber-card">
+          <div class="rehber-num">01</div>
+          <h3>Guidance Counselors</h3>
+          <p>Her ortaöğretim okulunda profesyonel rehber danışmanlar; ders seçimi, üniversite başvurusu ve kariyer
+            planlaması. Hedef oran: 250:1 (bazı eyaletlerde yasal zorunluluk).</p>
+        </div>
+        <div class="rehber-card">
+          <div class="rehber-num">02</div>
+          <h3>Okul Psikoloğu</h3>
+          <p>Her school board'da School Psychologists görev yapar. Mental sağlık taramaları, anksiyete/depresyon
+            müdahaleleri, kriz protokolleri. COVID sonrası güçlendirildi.</p>
+        </div>
+        <div class="rehber-card">
+          <div class="rehber-num">03</div>
+          <h3>Özel Eğitim — IEP</h3>
+          <p>Bireyselleştirilmiş Eğitim Planı yasal zorunluluk. Her öğrenciye özgü hedefler ve destek stratejileri. Özel
+            Eğitim Danışma Komiteleri (SEAC) ebeveyn katılımını güvence altına alır.</p>
+        </div>
+        <div class="rehber-card">
+          <div class="rehber-num">04</div>
+          <h3>Eğitim Yardımcısı (EA)</h3>
+          <p>Educational Assistants sınıfta branş öğretmeniyle birlikte çalışır; kaynaştırma eğitimi alan öğrencilere
+            bireysel destek. Ayrı okul yerine kapsayıcı sınıf ilkesi.</p>
+        </div>
+        <div class="rehber-card">
+          <div class="rehber-num">05</div>
+          <h3>ELL / FLL Desteği</h3>
+          <p>Yeni göçmen öğrenciler için ek dil desteği öğretmenleri. Sınıf içi destek ve değerlendirme uyarlamaları.
+            Dil engeli akademik başarısızlık gerekçesi olamaz.</p>
+        </div>
+        <div class="rehber-card">
+          <div class="rehber-num">06</div>
+          <h3>Toplum & Aile Katılımı</h3>
+          <p>Parent Advisory Councils (PAC) resmi karar kanalı. Community Schools modeli: okul sağlık, sosyal hizmet ve
+            kültürel programların merkezi. Yerli kültür köprücüleri (liaisoner).</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 8: TEŞKİLATLANMA -->
+    <div class="slide" id="slide-8">
+      <div class="slide-bg">
+        <div class="grid"></div>
+        <div class="glow"></div>
+        <div class="glow2"></div>
+      </div>
+      <div class="eyebrow anim-item">06 · Eğitim Bakanlığı Teşkilatlanması</div>
+      <h2 class="slide-title anim-item">"Milli Eğitim <em>Bakanlığı</em><br>Olmayan" G7 Ülkesi</h2>
+      <div class="divider anim-item"></div>
+      <div class="g2" style="margin-top:20px;align-items:start">
+        <div class="anim-item">
+          <div class="no-fed-badge">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" />
+              <line x1="12" y1="9" x2="12" y2="13" />
+              <line x1="12" y1="17" x2="12.01" y2="17" />
+            </svg>
+            Federal Eğitim Bakanlığı Mevcut Değil
+          </div>
+          <p style="color:var(--muted);font-size:0.9rem;line-height:1.75;margin-bottom:18px">1867 Kanada Anayasası Md.
+            93 — eğitim münhasıran Eyaletlerin yetkisi. <strong style="color:var(--white)">CMEC</strong> koordinasyon
+            organıdır, bağlayıcı kararlar almaz.</p>
+          <div
+            style="background:rgba(200,16,46,0.06);border:1px solid rgba(200,16,46,0.2);border-radius:10px;padding:16px;margin-bottom:14px;text-align:center">
+            <div style="font-family:'Fraunces',serif;font-size:1rem;font-weight:700;margin-bottom:4px">CMEC</div>
+            <div style="font-size:0.72rem;color:var(--muted)">Council of Ministers of Education, Canada<br>Koordinasyon
+              — resmi bakanlık değil</div>
+          </div>
+          <div style="width:1px;height:28px;background:linear-gradient(to bottom,var(--red),transparent);margin:0 auto">
+          </div>
+          <div class="g3 anim-grid" style="margin-top:8px;gap:8px">
+            <div class="org-prov"><strong>ON</strong>Ontario</div>
+            <div class="org-prov"><strong>QC</strong>Quebec</div>
+            <div class="org-prov"><strong>BC</strong>Brit. Columbia</div>
+            <div class="org-prov"><strong>AB</strong>Alberta</div>
+            <div class="org-prov"><strong>MB</strong>Manitoba</div>
+            <div class="org-prov"><strong>SK</strong>Saskatchewan</div>
+            <div class="org-prov"><strong>NS</strong>Nova Scotia</div>
+            <div class="org-prov"><strong>NB</strong>New Brunswick</div>
+            <div class="org-prov"><strong>NL</strong>Newfoundland</div>
+            <div class="org-prov"><strong>PEI</strong>P.E. Island</div>
+            <div class="org-prov"><strong>NT</strong>N.W. Territories</div>
+            <div class="org-prov"><strong>YT</strong>Yukon</div>
+            <div class="org-prov" style="grid-column:span 1"><strong>NU</strong>Nunavut</div>
+          </div>
+        </div>
+        <div class="anim-item">
+          <div class="card">
+            <h3>
+              <div class="icon-box gold">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#d4a843" stroke-width="2"
+                  stroke-linecap="round">
+                  <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                  <circle cx="9" cy="7" r="4" />
+                  <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+                  <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                </svg>
+              </div>
+              CMEC'in Rolü
+            </h3>
+            <ul>
+              <li>Eyalet/Bölge Eğitim Bakanlarını bir araya getirir; kararlar uzlaşıyla</li>
+              <li>PISA ve OECD süreçlerinde Kanada'yı uluslararası arenada temsil eder</li>
+              <li>Diploma denkliği ve üniversite transferlerinde ortak çerçeve geliştirir</li>
+              <li>Pan-Canadian Assessment Program (PCAP) koordinasyonu</li>
+            </ul>
+          </div>
+          <div class="card" style="margin-top:14px">
+            <h3>
+              <div class="icon-box blue">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#60a5fa" stroke-width="2"
+                  stroke-linecap="round">
+                  <rect x="3" y="3" width="18" height="18" rx="2" />
+                  <line x1="3" y1="9" x2="21" y2="9" />
+                  <line x1="9" y1="21" x2="9" y2="9" />
+                </svg>
+              </div>
+              Eyalet Bazlı Yetkiler
+            </h3>
+            <ul>
+              <li>Müfredat geliştirme ve güncelleme tamamen eyalet yetkisinde</li>
+              <li>Öğretmen sertifikasyonu ve lisansı eyalet standartlarına göre</li>
+              <li>Okul finansmanı eyalet bütçesinden; mülkiyet vergisi önemli kaynak</li>
+              <li>Özel okul düzenlemeleri eyaletten eyalete farklılık gösterir</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 9: KARŞILAŞTIRMA & SONUÇ -->
+    <div class="slide" id="slide-9">
+      <div class="slide-bg">
+        <div class="grid"></div>
+        <div class="glow"></div>
+        <div class="glow3"></div>
+      </div>
+      <div class="eyebrow anim-item">07 · Karşılaştırmalı Analiz & Sonuç</div>
+      <h2 class="slide-title anim-item">Kanada <em>vs.</em> Türkiye</h2>
+      <div class="divider anim-item"></div>
+      <div class="g32" style="margin-top:20px">
+        <div class="anim-item table-scroll-wrapper">
+          <table class="comp-table">
+            <thead>
+              <tr>
+                <th>Boyut</th>
+                <th>Kanada</th>
+                <th>Türkiye</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Yönetim Yapısı</td>
+                <td><span class="badge-good">Merkeziyetsiz</span></td>
+                <td><span class="badge-red">Merkeziyetçi (MEB)</span></td>
+              </tr>
+              <tr>
+                <td>Federal Bakanlık</td>
+                <td><span class="badge-good">Yok (Anayasal)</span></td>
+                <td><span class="badge-mid">Var — MEB, Ankara</span></td>
+              </tr>
+              <tr>
+                <td>Üniversiteye Geçiş</td>
+                <td><span class="badge-good">Transcript + Portfolyo</span></td>
+                <td><span class="badge-red">YKS (Merkezi Sınav)</span></td>
+              </tr>
+              <tr>
+                <td>PISA 2022 Okuma</td>
+                <td><span class="badge-good">507 puan / 8. sıra</span></td>
+                <td><span class="badge-mid">456 puan / 36. sıra</span></td>
+              </tr>
+              <tr>
+                <td>Yükseköğretim Oranı</td>
+                <td><span class="badge-good">%63 diploma+</span></td>
+                <td><span class="badge-mid">~%38 diploma+</span></td>
+              </tr>
+              <tr>
+                <td>Güç Mesafesi (Hofstede)</td>
+                <td><span class="badge-good">Düşük (39)</span></td>
+                <td><span class="badge-red">Yüksek (66)</span></td>
+              </tr>
+              <tr>
+                <td>Öğretmen Özerkliği</td>
+                <td><span class="badge-good">Yüksek</span></td>
+                <td><span class="badge-mid">Sınırlı / Müfredat bağlı</span></td>
+              </tr>
+              <tr>
+                <td>IEP (Kapsayıcı Eğitim)</td>
+                <td><span class="badge-good">Yasal Zorunluluk</span></td>
+                <td><span class="badge-mid">Gelişmekte</span></td>
+              </tr>
+              <tr>
+                <td>Uluslararası Öğrenci</td>
+                <td><span class="badge-good">1,04M — Dünya 2.</span></td>
+                <td><span class="badge-mid">~240K (Bölgesel)</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="anim-item" style="display:flex;flex-direction:column;gap:12px">
+          <div
+            style="background:rgba(200,16,46,0.07);border:1px solid rgba(200,16,46,0.2);border-radius:12px;padding:16px;backdrop-filter:blur(4px);transition:all 0.3s"
+            onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform=''">
+            <div
+              style="font-size:0.72rem;color:var(--red);font-family:'DM Mono',monospace;letter-spacing:0.1em;margin-bottom:6px">
+              DERS 1</div>
+            <div style="font-size:0.88rem;font-weight:600;margin-bottom:4px">Merkeziyetsizlik ≠ Başarısızlık</div>
+            <div style="font-size:0.78rem;color:var(--muted);line-height:1.6">13 ayrı bakanlık — ama PISA'da sürekli ilk
+              10. Özerkliğin kaliteyi engellemediği kanıtlanmış.</div>
+          </div>
+          <div
+            style="background:rgba(212,168,67,0.07);border:1px solid rgba(212,168,67,0.2);border-radius:12px;padding:16px;backdrop-filter:blur(4px);transition:all 0.3s"
+            onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform=''">
+            <div
+              style="font-size:0.72rem;color:var(--gold);font-family:'DM Mono',monospace;letter-spacing:0.1em;margin-bottom:6px">
+              DERS 2</div>
+            <div style="font-size:0.88rem;font-weight:600;margin-bottom:4px">Sınav → Süreç Dönüşümü</div>
+            <div style="font-size:0.78rem;color:var(--muted);line-height:1.6">Portfolyo ve süreç değerlendirmesi baskıyı
+              azaltır, otantik öğrenmeyi teşvik eder.</div>
+          </div>
+          <div
+            style="background:rgba(96,165,250,0.07);border:1px solid rgba(96,165,250,0.2);border-radius:12px;padding:16px;backdrop-filter:blur(4px);transition:all 0.3s"
+            onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform=''">
+            <div
+              style="font-size:0.72rem;color:#60a5fa;font-family:'DM Mono',monospace;letter-spacing:0.1em;margin-bottom:6px">
+              DERS 3</div>
+            <div style="font-size:0.88rem;font-weight:600;margin-bottom:4px">Geçmişle Yüzleşme</div>
+            <div style="font-size:0.78rem;color:var(--muted);line-height:1.6">TRC — eğitimde güven inşası ve uzlaşı
+              kültürünün küresel modeli.</div>
+          </div>
+          <div
+            style="background:rgba(74,222,128,0.07);border:1px solid rgba(74,222,128,0.2);border-radius:12px;padding:16px;backdrop-filter:blur(4px);transition:all 0.3s"
+            onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform=''">
+            <div
+              style="font-size:0.72rem;color:#4ade80;font-family:'DM Mono',monospace;letter-spacing:0.1em;margin-bottom:6px">
+              DERS 4</div>
+            <div style="font-size:0.88rem;font-weight:600;margin-bottom:4px">Kapsayıcılık Politika Değil Kültür</div>
+            <div style="font-size:0.78rem;color:var(--muted);line-height:1.6">IEP yasal zorunluluk, ELL/FLL programları,
+              French Immersion — farklılık sistem içine entegre.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 10: KAYNAKLAR -->
+    <div class="slide" id="slide-10">
+      <div class="slide-bg">
+        <div class="grid"></div>
+        <div class="glow"></div>
+        <div class="glow2"></div>
+        <div class="glow3"></div>
+      </div>
+      <div class="eyebrow anim-item">Kaynaklar</div>
+      <h2 class="slide-title anim-item"><em>Teşekkürler</em></h2>
+      <div class="divider anim-item"></div>
+      <p class="slide-sub anim-item">EGT 354 Karşılaştırmalı Eğitim — Hacettepe Üniversitesi</p>
+      <div class="g3 anim-grid" style="margin-top:28px">
+        <div class="card" style="padding:18px 20px">
+          <h3 style="font-size:0.88rem;margin-bottom:10px">
+            <div class="icon-box blue">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#60a5fa" stroke-width="2"
+                stroke-linecap="round">
+                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+              </svg>
+            </div>
+            Uluslararası Kaynaklar
+          </h3>
+          <ul>
+            <li><a href="https://www.oecd.org/education/education-at-a-glance/" target="_blank" style="color:#60a5fa;text-decoration:none;border-bottom:1px solid rgba(96,165,250,0.3);transition:border-color 0.2s" onmouseover="this.style.borderColor='#60a5fa'" onmouseout="this.style.borderColor='rgba(96,165,250,0.3)'">OECD Education at a Glance 2023</a></li>
+            <li><a href="https://www.oecd.org/pisa/" target="_blank" style="color:#60a5fa;text-decoration:none;border-bottom:1px solid rgba(96,165,250,0.3);transition:border-color 0.2s" onmouseover="this.style.borderColor='#60a5fa'" onmouseout="this.style.borderColor='rgba(96,165,250,0.3)'">OECD PISA 2022 Results</a></li>
+            <li><a href="https://www.canada.ca/en/immigration-refugees-citizenship.html" target="_blank" style="color:#60a5fa;text-decoration:none;border-bottom:1px solid rgba(96,165,250,0.3);transition:border-color 0.2s" onmouseover="this.style.borderColor='#60a5fa'" onmouseout="this.style.borderColor='rgba(96,165,250,0.3)'">IRCC International Students 2023</a></li>
+            <li><a href="https://www.worldbank.org/en/topic/education" target="_blank" style="color:#60a5fa;text-decoration:none;border-bottom:1px solid rgba(96,165,250,0.3);transition:border-color 0.2s" onmouseover="this.style.borderColor='#60a5fa'" onmouseout="this.style.borderColor='rgba(96,165,250,0.3)'">Dünya Bankası Eğitim Raporları</a></li>
+          </ul>
+        </div>
+        <div class="card" style="padding:18px 20px">
+          <h3 style="font-size:0.88rem;margin-bottom:10px">
+            <div class="icon-box red">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#c8102e" stroke-width="2"
+                stroke-linecap="round">
+                <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z" />
+                <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z" />
+              </svg>
+            </div>
+            Kanada Resmi Kaynakları
+          </h3>
+          <ul>
+            <li><a href="https://www.cmec.ca" target="_blank" style="color:#e63950;text-decoration:none;border-bottom:1px solid rgba(200,16,46,0.3);transition:border-color 0.2s" onmouseover="this.style.borderColor='#e63950'" onmouseout="this.style.borderColor='rgba(200,16,46,0.3)'">CMEC — cmec.ca</a></li>
+            <li><a href="https://www.statcan.gc.ca" target="_blank" style="color:#e63950;text-decoration:none;border-bottom:1px solid rgba(200,16,46,0.3);transition:border-color 0.2s" onmouseover="this.style.borderColor='#e63950'" onmouseout="this.style.borderColor='rgba(200,16,46,0.3)'">Statistics Canada — statcan.gc.ca</a></li>
+            <li><a href="https://www.ontario.ca/page/ministry-education" target="_blank" style="color:#e63950;text-decoration:none;border-bottom:1px solid rgba(200,16,46,0.3);transition:border-color 0.2s" onmouseover="this.style.borderColor='#e63950'" onmouseout="this.style.borderColor='rgba(200,16,46,0.3)'">Ontario Ministry of Education</a></li>
+            <li><a href="https://www.canada.ca" target="_blank" style="color:#e63950;text-decoration:none;border-bottom:1px solid rgba(200,16,46,0.3);transition:border-color 0.2s" onmouseover="this.style.borderColor='#e63950'" onmouseout="this.style.borderColor='rgba(200,16,46,0.3)'">Government of Canada — canada.ca</a></li>
+          </ul>
+        </div>
+        <div class="card" style="padding:18px 20px">
+          <h3 style="font-size:0.88rem;margin-bottom:10px">
+            <div class="icon-box purple">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#c084fc" stroke-width="2"
+                stroke-linecap="round">
+                <circle cx="12" cy="12" r="10" />
+                <line x1="12" y1="8" x2="12" y2="12" />
+                <line x1="12" y1="16" x2="12.01" y2="16" />
+              </svg>
+            </div>
+            Diğer Kaynaklar
+          </h3>
+          <ul>
+            <li><a href="https://nctr.ca/records/reports/" target="_blank" style="color:#c084fc;text-decoration:none;border-bottom:1px solid rgba(168,85,247,0.3);transition:border-color 0.2s" onmouseover="this.style.borderColor='#c084fc'" onmouseout="this.style.borderColor='rgba(168,85,247,0.3)'">Truth & Reconciliation Commission 2015</a></li>
+            <li><a href="https://www.hofstede-insights.com/country/canada/" target="_blank" style="color:#c084fc;text-decoration:none;border-bottom:1px solid rgba(168,85,247,0.3);transition:border-color 0.2s" onmouseover="this.style.borderColor='#c084fc'" onmouseout="this.style.borderColor='rgba(168,85,247,0.3)'">Hofstede Insights — Country Canada</a></li>
+            <li><a href="https://eurydice.eacea.ec.europa.eu/" target="_blank" style="color:#c084fc;text-decoration:none;border-bottom:1px solid rgba(168,85,247,0.3);transition:border-color 0.2s" onmouseover="this.style.borderColor='#c084fc'" onmouseout="this.style.borderColor='rgba(168,85,247,0.3)'">Eurydice — Avrupa Eğitim Bilgi Ağı</a></li>
+            <li>EGT 354 Ders Notları</li>
+          </ul>
+        </div>
+      </div>
+      <div class="anim-item"
+        style="margin-top:24px;padding:20px 24px;background:rgba(200,16,46,0.06);border:1px solid rgba(200,16,46,0.18);border-radius:12px;text-align:center;backdrop-filter:blur(8px)">
+        <p style="font-size:0.88rem;color:var(--muted)">Bu sunum EGT 354 Karşılaştırmalı Eğitim dersi kapsamında
+          hazırlanmıştır.</p>
+        <p style="font-size:0.78rem;color:rgba(122,132,153,0.6);margin-top:4px">Kapsam ve Uygunluk · Sunum Performansı ·
+          İşbirliği · Sunum Raporu</p>
+      </div>
+    </div>
+
+  </div><!-- end deck -->
+
+  <script>
+    const slides = document.querySelectorAll('.slide');
+    const totalSlides = slides.length;
+    let current = 0;
+    let animating = false;
+
+    document.getElementById('slideTotal').textContent = totalSlides;
+
+    // Build dot nav
+    const dotNav = document.getElementById('dotNav');
+    slides.forEach((_, i) => {
+      const dot = document.createElement('button');
+      dot.className = 'nav-dot' + (i === 0 ? ' active' : '');
+      dot.onclick = () => goTo(i);
+      dotNav.appendChild(dot);
+    });
+
+    function updateUI() {
+      document.getElementById('slideNum').textContent = current + 1;
+      const pct = (current / (totalSlides - 1)) * 100;
+      document.getElementById('progressBar').style.width = pct + '%';
+      document.querySelectorAll('.nav-dot').forEach((d, i) => d.classList.toggle('active', i === current));
+      document.getElementById('btnLeft').classList.toggle('disabled', current === 0);
+      document.getElementById('btnRight').classList.toggle('disabled', current === totalSlides - 1);
+    }
+
+    function goTo(n) {
+      if (animating || n === current || n < 0 || n >= totalSlides) return;
+      animating = true;
+      const forward = n > current;
+      const dir = forward ? 'exit-left' : 'exit-right';
+      slides[current].classList.add(dir);
+      slides[current].classList.remove('active');
+      current = n;
+      slides[current].scrollTop = 0;
+      slides[current].classList.add('active');
+      updateUI();
+      // Trigger counter animations for current slide
+      animateCounters(slides[current]);
+      if (current === 6) setTimeout(animatePisa, 400);
+      setTimeout(() => {
+        document.querySelectorAll('.slide').forEach(s => { s.classList.remove('exit-left', 'exit-right'); });
+        animating = false;
+      }, 620);
+    }
+
+    function nextSlide() { goTo(current + 1); }
+    function prevSlide() { goTo(current - 1); }
+
+    document.addEventListener('keydown', e => {
+      if (e.key === 'ArrowRight' || e.key === 'ArrowDown') nextSlide();
+      if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') prevSlide();
+    });
+
+    // Swipe support
+    let touchX = 0;
+    document.addEventListener('touchstart', e => touchX = e.touches[0].clientX, { passive: true });
+    document.addEventListener('touchend', e => {
+      const dx = e.changedTouches[0].clientX - touchX;
+      if (Math.abs(dx) > 50) dx < 0 ? nextSlide() : prevSlide();
+    }, { passive: true });
+
+    // Ladder accordion
+    function toggleLadder(item) {
+      const isOpen = item.classList.contains('open');
+      // Find all sibling ladder-items in the same container
+      const container = item.parentElement;
+      container.querySelectorAll(':scope > .ladder-item').forEach(i => i.classList.remove('open'));
+      if (!isOpen) item.classList.add('open');
+    }
+
+    // PISA bars animation
+    let pisaAnimated = false;
+    function animatePisa() {
+      if (pisaAnimated) return;
+      pisaAnimated = true;
+      document.querySelectorAll('.pisa-bar-fill').forEach((bar, i) => {
+        const t = bar.dataset.target;
+        setTimeout(() => bar.style.width = t + '%', 200 + i * 150);
+      });
+    }
+
+    // ============================================================
+    // COUNTER ANIMATION SYSTEM
+    // ============================================================
+
+    function animateCounter(el, target, duration = 1200) {
+      if (el.dataset.animated === 'true') return;
+      el.dataset.animated = 'true';
+      const start = 0;
+      const startTime = performance.now();
+
+      function update(currentTime) {
+        const elapsed = currentTime - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        // Ease out cubic
+        const eased = 1 - Math.pow(1 - progress, 3);
+        const currentVal = Math.round(start + (target - start) * eased);
+        el.textContent = currentVal;
+        if (progress < 1) {
+          requestAnimationFrame(update);
+        } else {
+          el.textContent = target;
+          // Pop effect
+          el.style.animation = 'counterPop 0.3s ease';
+        }
+      }
+      requestAnimationFrame(update);
+    }
+
+    function animateCounters(slideEl) {
+      const counters = slideEl.querySelectorAll('[data-count]');
+      counters.forEach((el, i) => {
+        const target = parseInt(el.dataset.count, 10);
+        setTimeout(() => animateCounter(el, target), 300 + i * 200);
+      });
+    }
+
+    // Animate counters for the first slide on load
+    setTimeout(() => animateCounters(slides[0]), 600);
+
+    // ============================================================
+    // 3D CARD TILT EFFECT
+    // ============================================================
+
+    function initTiltCards() {
+      const cards = document.querySelectorAll('.card, .rehber-card, .stat-box');
+      cards.forEach(card => {
+        card.addEventListener('mousemove', (e) => {
+          const rect = card.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+          const centerX = rect.width / 2;
+          const centerY = rect.height / 2;
+          const rotateX = (y - centerY) / centerY * -4;
+          const rotateY = (x - centerX) / centerX * 4;
+          card.style.transform = `perspective(800px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-3px)`;
+        });
+        card.addEventListener('mouseleave', () => {
+          card.style.transform = '';
+        });
+      });
+    }
+
+    initTiltCards();
+
+    // ============================================================
+    // FLOATING PARTICLES
+    // ============================================================
+
+    function createParticles() {
+      const slideBgs = document.querySelectorAll('.slide-bg');
+      slideBgs.forEach(bg => {
+        for (let i = 0; i < 6; i++) {
+          const particle = document.createElement('div');
+          particle.className = 'particle';
+          const size = Math.random() * 4 + 2;
+          particle.style.width = size + 'px';
+          particle.style.height = size + 'px';
+          particle.style.left = Math.random() * 100 + '%';
+          particle.style.animationDuration = (Math.random() * 15 + 15) + 's';
+          particle.style.animationDelay = (Math.random() * 10) + 's';
+          particle.style.opacity = Math.random() * 0.4 + 0.1;
+          bg.appendChild(particle);
+        }
+      });
+    }
+
+    createParticles();
+
+    updateUI();
+  </script>
+</body>
+
+</html>
