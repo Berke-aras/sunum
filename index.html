@@ -841,49 +841,39 @@
     }
 
     .presenter-toolbar {
-      display: flex;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 6px;
-      margin: 8px 0 10px;
-      padding: 8px;
-      border-radius: 8px;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.15);
-    }
-
-    .presenter-toolbar-hint {
-      font-size: 0.67rem;
-      color: #b8c2d8;
-      margin-left: 4px;
+      display: none; /* Hide old toolbar */
     }
 
     .presenter-btn {
-      min-width: 76px;
+      width: 28px;
       height: 28px;
       border-radius: 6px;
-      border: 1px solid rgba(255, 255, 255, 0.28);
-      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      background: rgba(255, 255, 255, 0.06);
       color: var(--white);
-      font-size: 0.71rem;
-      font-weight: 600;
-      line-height: 1;
       display: inline-flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
       transition: all 0.2s ease;
-      padding: 0 10px;
+      padding: 0;
     }
 
     .presenter-btn:hover {
-      background: rgba(200, 16, 46, 0.2);
-      border-color: rgba(200, 16, 46, 0.35);
+      background: rgba(200, 16, 46, 0.25);
+      border-color: rgba(200, 16, 46, 0.4);
+      transform: translateY(-1px);
+    }
+
+    .presenter-btn svg {
+      width: 14px;
+      height: 14px;
+      stroke: currentColor;
+      stroke-width: 2.5;
     }
 
     .presenter-btn.reset {
-      min-width: 72px;
-      font-size: 0.68rem;
+      color: #93c5fd;
     }
 
     .presenter-panel.dragging,
@@ -921,7 +911,8 @@
       background: rgba(255, 255, 255, 0.03);
       border: 1px solid rgba(255, 255, 255, 0.08);
       border-radius: 10px;
-      padding: 8px 10px;
+      padding: 10px 12px;
+      position: relative;
     }
 
     .presenter-label {
@@ -961,13 +952,57 @@
     }
 
     .presenter-note-text {
-      font-size: 0.78rem;
-      line-height: 1.5;
+      font-size: var(--note-fs, 0.86rem);
+      line-height: 1.6;
       color: #d7deeb;
       white-space: pre-wrap;
-      max-height: 160px;
-      overflow: auto;
+      max-height: 320px;
+      min-height: 80px;
+      overflow-y: auto;
       padding-right: 4px;
+      transition: font-size 0.2s ease;
+    }
+
+    .presenter-font-controls {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      display: flex;
+      gap: 3px;
+      opacity: 0.4;
+      transition: opacity 0.2s;
+      z-index: 5;
+    }
+
+    .presenter-block:hover .presenter-font-controls {
+      opacity: 1;
+    }
+
+    .font-btn {
+      width: 22px;
+      height: 22px;
+      border-radius: 4px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .font-btn:hover {
+      background: rgba(255, 255, 255, 0.12);
+      color: var(--white);
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .font-btn svg {
+      width: 12px;
+      height: 12px;
+      stroke: currentColor;
+      stroke-width: 2.5;
     }
 
     body.presenter-display .nav-bar,
@@ -1694,6 +1729,21 @@
       color: var(--muted)
     }
 
+    .quote-block.visual-history {
+      background-image: linear-gradient(120deg, rgba(11, 13, 18, 0.9), rgba(11, 13, 18, 0.78) 45%, rgba(11, 13, 18, 0.92)), url('https://upload.wikimedia.org/wikipedia/commons/a/a7/Classroom_at_Central_Public_School_in_Bowmanville%2C_1894.jpg');
+      background-size: cover;
+      background-position: center;
+      border-left-color: var(--gold);
+    }
+
+    .quote-block.visual-history blockquote,
+    .quote-block.visual-history cite {
+      text-shadow: 0 2px 12px rgba(0, 0, 0, 0.45);
+      position: relative;
+      z-index: 1;
+      max-width: 84%;
+    }
+
     /* ALERT */
     .alert {
       background: linear-gradient(135deg, rgba(200, 16, 46, 0.1), rgba(200, 16, 46, 0.04));
@@ -1844,6 +1894,54 @@
       white-space: nowrap;
     }
 
+    .hero-photo {
+      position: absolute;
+      right: 3%;
+      top: 14%;
+      width: min(38vw, 620px);
+      aspect-ratio: 16 / 9;
+      border-radius: 18px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      box-shadow: 0 24px 64px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(200, 16, 46, 0.18);
+      transform: perspective(1400px) rotateY(-9deg);
+      transform-origin: right center;
+      opacity: 0.66;
+      pointer-events: none;
+      z-index: 0;
+      animation: fadeInScale 1s ease both 0.25s;
+    }
+
+    .hero-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: saturate(1.05) contrast(1.04) brightness(0.72);
+    }
+
+    .hero-photo::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(140deg, rgba(200, 16, 46, 0.35), rgba(11, 13, 18, 0.1) 45%, rgba(11, 13, 18, 0.65));
+    }
+
+    .hero-photo-caption {
+      position: absolute;
+      left: 14px;
+      bottom: 10px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: rgba(11, 13, 18, 0.58);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: #e2e8f0;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      z-index: 1;
+    }
+
     .hero-stats {
       display: flex;
       gap: 40px;
@@ -1961,6 +2059,11 @@
       .g4 {
         grid-template-columns: repeat(2, 1fr)
       }
+
+      .hero-photo {
+        width: min(42vw, 540px);
+        opacity: 0.62;
+      }
     }
 
     /* Tablet landscape */
@@ -2037,6 +2140,13 @@
       .hero-maple {
         width: clamp(200px, 28vw, 350px);
         right: 2%
+      }
+
+      .hero-photo {
+        width: min(40vw, 430px);
+        top: 15%;
+        right: 1.5%;
+        opacity: 0.56;
       }
 
       .card {
@@ -2207,6 +2317,10 @@
       }
 
       .hero-maple {
+        display: none
+      }
+
+      .hero-photo {
         display: none
       }
 
@@ -2827,6 +2941,10 @@
         display: none
       }
 
+      .hero-photo {
+        display: none
+      }
+
       .nav-arrow {
         width: 32px;
         height: 32px
@@ -2842,6 +2960,33 @@
 
       .stat-box .num {
         font-size: 1.2rem
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+
+      .slide,
+      .slide.active,
+      .slide.exit-left,
+      .slide.exit-right {
+        transform: none !important;
+        filter: none !important;
+      }
+
+      .particle,
+      .slide-bg::after,
+      .hero-maple path,
+      .divider::after {
+        animation: none !important;
       }
     }
 
@@ -2910,7 +3055,7 @@
     <div class="nav-right">
       <span class="badge">EGT 354</span>
       <span class="nav-org">Hacettepe Üniversitesi</span>
-      <img src="https://kkm.hacettepe.edu.tr/wp-content/uploads/2018/07/cropped-logo-hacettepe.png" alt="Hacettepe Logo" class="hacettepe-logo">
+      <img src="https://kkm.hacettepe.edu.tr/wp-content/uploads/2018/07/cropped-logo-hacettepe.png" alt="Hacettepe Logo" class="hacettepe-logo" loading="lazy" decoding="async" onerror="this.style.display='none'">
       <button class="fs-btn" id="fullscreenBtn" type="button" aria-label="Tam ekran" title="Tam ekran">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <path id="fsIconPath" d="M8 3H3v5M16 3h5v5M21 16v5h-5M8 21H3v-5" />
@@ -2923,13 +3068,13 @@
   <div class="progress-bar" id="progressBar"></div>
 
   <!-- NAV ARROWS -->
-  <button class="nav-arrow left" id="btnLeft" onclick="prevSlide()">
+  <button class="nav-arrow left" id="btnLeft" type="button" onclick="prevSlide()" aria-label="Önceki slayt" title="Önceki slayt">
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
       stroke-linecap="round">
       <path d="M15 18l-6-6 6-6" />
     </svg>
   </button>
-  <button class="nav-arrow right" id="btnRight" onclick="nextSlide()">
+  <button class="nav-arrow right" id="btnRight" type="button" onclick="nextSlide()" aria-label="Sonraki slayt" title="Sonraki slayt">
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
       stroke-linecap="round">
       <path d="M9 18l6-6-6-6" />
@@ -2948,13 +3093,18 @@
         </div>
         <div class="presenter-head-right">
           <div class="presenter-timer" id="presenterTimer">00:00</div>
+          <div class="presenter-head-actions" style="display:flex;gap:4px;margin-left:4px">
+            <button type="button" class="presenter-btn" id="presenterSmallerBtn" title="Paneli kucult" aria-label="Paneli kucult">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14h6v6M20 10h-6V4M14 10l7-7M10 14l-7 7"/></svg>
+            </button>
+            <button type="button" class="presenter-btn" id="presenterLargerBtn" title="Paneli buyut" aria-label="Paneli buyut">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
+            </button>
+            <button type="button" class="presenter-btn reset" id="presenterResetBtn" title="Panel boyut ve konumunu sifirla" aria-label="Panel boyut ve konumunu sifirla">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+            </button>
+          </div>
         </div>
-      </div>
-      <div class="presenter-toolbar">
-        <button type="button" class="presenter-btn" id="presenterSmallerBtn" title="Paneli kucult" aria-label="Paneli kucult">Kucult</button>
-        <button type="button" class="presenter-btn" id="presenterLargerBtn" title="Paneli buyut" aria-label="Paneli buyut">Buyut</button>
-        <button type="button" class="presenter-btn reset" id="presenterResetBtn" title="Panel boyut ve konumunu sifirla" aria-label="Panel boyut ve konumunu sifirla">Sifirla</button>
-        <span class="presenter-toolbar-hint">Surukle: ust baslik alani · Boyut: sag alt kose</span>
       </div>
       <div class="presenter-meta">
         <div class="presenter-block">
@@ -2977,6 +3127,17 @@
         </div>
         <div class="presenter-block">
           <div class="presenter-label">Konusma Notu (Ornek Akis)</div>
+          <div class="presenter-font-controls">
+            <button type="button" class="font-btn" onclick="updateNoteFontSize(-0.1)" title="Fontu kucult">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+            </button>
+            <button type="button" class="font-btn" onclick="updateNoteFontSize(0.1)" title="Fontu buyut">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+            </button>
+            <button type="button" class="font-btn" onclick="resetNoteFontSize()" title="Fontu sifirla">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+            </button>
+          </div>
           <div class="presenter-note-text" id="presenterTalkNote">-</div>
         </div>
       </div>
@@ -2999,6 +3160,10 @@
         <div class="glow"></div>
         <div class="glow2"></div>
         <div class="glow3"></div>
+        <div class="hero-photo" aria-hidden="true">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/3/3c/Sunset_Toronto_Skyline_Panorama_Crop_from_Snake_Island.jpg" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer">
+          <div class="hero-photo-caption">Toronto Skyline</div>
+        </div>
         <!-- Maple Leaf SVG -->
         <svg class="hero-maple" viewBox="0 0 300 320" xmlns="http://www.w3.org/2000/svg">
           <path
@@ -3264,7 +3429,7 @@
           </div>
         </div>
         <div class="anim-item">
-          <div class="quote-block" style="margin-bottom:16px">
+          <div class="quote-block visual-history" style="margin-bottom:16px">
             <blockquote>"Asimilasyon amacıyla kurulan yatılı okul sistemi, Kanada Yerli topluluklarına yönelik kültürel
               soykırım niteliğinde bir politikaydı."</blockquote>
             <cite>— Truth and Reconciliation Commission of Canada, 2015 Final Report</cite>
@@ -3860,7 +4025,11 @@
           <div
             style="background:rgba(74,222,128,0.07);border:1px solid rgba(74,222,128,0.2);border-radius:12px;padding:16px;backdrop-filter:blur(4px);transition:all 0.3s"
             onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform=''">
-           
+            <div
+              style="font-size:0.72rem;color:#4ade80;font-family:'DM Mono',monospace;letter-spacing:0.1em;margin-bottom:6px">
+              DERS 4</div>
+            <div style="font-size:0.88rem;font-weight:600;margin-bottom:4px">Kapsayıcılık + Öğretmen Güveni</div>
+            <div style="font-size:0.78rem;color:var(--muted);line-height:1.6">IEP, rehberlik, dil desteği ve öğretmen özerkliği birlikte çalıştığında sistem yalnızca başarılı değil, aynı zamanda daha adil hale geliyor.</div>
           </div>
         </div>
       </div>
@@ -3939,6 +4108,7 @@
 
   </div><!-- end deck -->
 
+
   <script>
     const slides = document.querySelectorAll('.slide');
     const totalSlides = slides.length;
@@ -3957,6 +4127,8 @@
     const presenterResetBtn = document.getElementById('presenterResetBtn');
     const presenterResizeHandleEl = document.getElementById('presenterResizeHandle');
     const presenterStatusEl = document.getElementById('presenterStatus');
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const hasFinePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
     const FIT_BOTTOM_GAP = 12;
     const FIT_MIN_SCALE = 0.35;
     const FIT_MAX_SCALE = 1.22;
@@ -3967,80 +4139,86 @@
     const SPEAKER_NOTES = {
       'slide-0': {
         idea: 'Acilista dikkat cek ve Kanada modeline merak uyandir.',
-        talk: `Herkese merhaba, hos geldiniz.
-Bugun Kanada egitim sistemini adim adim inceleyecegiz ve sunum boyunca su soruya cevap arayacagiz: Merkezi bir egitim bakanligi olmadan bu performans nasil korunuyor?
-Ekranda gordugunuz uc veri bu sorunun neden onemli oldugunu gosteriyor: 41 milyonun uzerinde nufus, 1 milyonun uzerinde uluslararasi ogrenci ve PISA okumada ust siralar.
-Birazdan bu tablonun arkasindaki yapiyi birlikte acacagim.`,
+      talk: `Merhaba arkadaşlar. Bugün EGT 354 Karşılaştırmalı Eğitim dersi kapsamında hazırladığım sunumu sizlerle paylaşacağım. Sunumun konusu Kanada Eğitim Sistemi.
+    Kanada, 41 milyonu aşkın nüfusuyla dünyanın en dikkat çekici eğitim modellerinden birine sahip. PISA okuma sıralamasında dünya sekizincisi, ülkede 1 milyonun üzerinde uluslararası öğrenci var ve 13 ayrı eyalet-bölge yönetimi bulunuyor. Neden bu kadar önemli bir örnek? Çünkü merkezi bir milli eğitim bakanlığı olmaksızın bu başarıya nasıl ulaşıldığı, karşılaştırmalı eğitim açısından gerçek bir paradoks sunuyor. Bunu slaytlar ilerledikçe birlikte göreceğiz.`,
       },
       'slide-1': {
         idea: 'Demografi, cok kulturluluk ve egitime ayrilan kaynaklarin etkisini goster.',
-        talk: `Once ulkenin baglamini netlestirelim.
-Kanada cografi olarak cok buyuk bir ulke ama nufusun buyuk bolumu guney koridorda toplaniyor.
-Nufusun yaklasik yuzde 23 unun yurt disi dogumlu olmasi, okullarda dil destegi ve kapsayici politikalarin neden kritik oldugunu acikliyor.
-Kisacasi burada cesitlilik bir risk degil; dogru yonetildiginde ogrenmeyi guclendiren bir avantaj.`,
+      talk: `Kanada'yı anlamak için önce demografik ve ekonomik yapısına bakmak gerekiyor.
+    Nüfusun yüzde yirmi üçü yurt dışında doğmuş; yani her dört kişiden biri göçmen. Bu oran Kanada'yı dünyanın en çok göç kabul eden ülkeleri arasına taşıyor. İki resmi dil var: İngilizce ve Fransızca. Anayasa her iki dilde eğitim hakkını güvence altına alıyor.
+    Ekonomik tabloya bakıldığında, Kanada bir G7 üyesi ve 2023 itibarıyla yaklaşık 2,14 trilyon dolarlık GSYİH'siyle güçlü bir ekonomiye sahip. Kişi başı gelir OECD ortalamasının üzerinde. Eğitime ayrılan pay ise GSYİH'nin yaklaşık yüzde 5,3'ü. Peki bu bütçenin önemli bir kısmı nereden geliyor? Uluslararası öğrenciler. Ülkedeki 1 milyon uluslararası öğrenci yıllık 22 milyar Kanada Doları ekonomik katkı sağlıyor.`,
       },
       'slide-1-5': {
         idea: 'Yerli halklari tanimadan Kanada egitim baglamini eksik birakma.',
-        talk: `Kanada egitimini anlamak icin yerli halklari mutlaka konusmamiz gerekiyor.
-First Nations, Metis ve Inuit topluluklari bu ulkenin kurucu gercekliginin bir parcasi.
-Bugun kapsayici olarak Indigenous Peoples ifadesi kullaniliyor; bu tercih hem guncel hem de daha saygili bir kullanim.
-Bu baslik sadece tarih degil, bugun muredat, dil ve esitlik politikalarini dogrudan etkileyen canli bir alan.`,
+      talk: `Kanada'yı anlatırken Yerli Halkları atlamak büyük bir eksiklik olur. Çünkü bu topluluklar hem demografik tablonun hem de eğitim tarihinin merkezinde yer alıyor.
+    Kanada'da üç ana Yerli Halk grubu var. First Nations, sömürge öncesinden beri bu topraklarda yaşayan 600'den fazla topluluğu kapsıyor; Cree ve Mohawk bunların en bilinenleri. Métis, Avrupalı yerleşimcilerle Yerli halkların birlikteliğinden doğan ve kendine özgü Michif diliyle ayrışan bir ulus. Inuit ise Kanada'nın Kuzey Kutup bölgesinde yaşıyor; kendi dillerinde 'inuit' kelimesi zaten 'insanlar' anlamına geliyor.
+    Bugün akademik literatürde bu üç grup için şemsiye terim olarak 'Indigenous Peoples' kullanılıyor. 'Aboriginal' terimi ise yalnızca hukuki belgelerde görülüyor.`,
       },
       'slide-2': {
         idea: 'En kritik fark: Federal duzeyde egitim bakanligi yok.',
-        talk: `Simdi yapiyi belirleyen en kritik farka geliyoruz.
-Kanada, G7 icinde ulusal egitim bakanligi olmayan tek ulke.
-1867 sonrasinda egitim yetkisi 10 eyalet ve 3 bolgeye birakiliyor.
-Ilk bakista daginik gibi gorunse de koordinasyon CMEC ve ortak hedefler uzerinden saglaniyor; yani merkeziyet az ama sistem duzeni guclu.`,
+      talk: `Kanada, federal parlamenter demokrasi ve anayasal monarşi modeliyle yönetiliyor. 10 eyalet ve 3 bölgeden oluşuyor.
+    Ama asıl dikkat çekici nokta şu: Kanada'da federal düzeyde bir eğitim bakanlığı yok. Bu bir hata ya da eksiklik değil; 1867 tarihli Anayasa'nın bilinçli tercihi. Anayasa'nın 93. maddesi eğitimi doğrudan eyaletlerin yetkisine devrediyor. Ve bu yapı Kanada'yı G7 ülkeleri arasında federal eğitim bakanlığı olmayan tek ülke konumuna getiriyor.
+    Peki koordinasyon nasıl sağlanıyor? CMEC, yani 'Council of Ministers of Education, Canada' adlı bir platform var. 13 eyalet ve bölgenin eğitim bakanları bu çatı altında bir araya geliyor. Ama CMEC bağlayıcı kararlar alamıyor; yalnızca uzlaşı yoluyla ortak politikalar geliştiriyor. Bu yapı, Kanada'yı hem teorik hem de pratik açıdan son derece ilginç bir örnek haline getiriyor.`,
       },
       'slide-3': {
         idea: 'Gecmisle yuzlesme ve uzlasma surecinin egitime etkisini vurgula.',
-        talk: `Bu bolumde daha sakin ve saygili bir cercevede ilerlemek istiyorum.
-Residential Schools donemi, yerli topluluklar icin agir bir travma birakti ve etkileri uzun yillar devam etti.
-2008 resmi ozur ve Truth and Reconciliation sureci, bu yarayi onarmak icin atilan onemli adimlar oldu.
-Bugun yerli tarih ve kulturun muredata dahil edilmesi, adalet ve guven acisindan temel bir gereklilik olarak kabul ediliyor.`,
+      talk: `Şimdi Kanada eğitiminin tarihsel arka planına geçelim. Bu kısım aynı zamanda en ağır kısım.
+    Başlangıçta, yani 1600'lerden 1860'lara uzanan sömürge döneminde, eğitim büyük ölçüde kilise kontrolündeydi. 1867'de Konfederasyon kurulunca eğitim yetkisi eyaletlere devredildi.
+    Ancak bu dönemde Yerli çocuklar için bambaşka bir sistem işliyordu: Yatılı Okullar. 1880'den 1996'ya kadar süren bu sistemde 150 binden fazla Yerli çocuk ailelerinden zorla koparıldı. Bu okullar kültürel asimilasyon aracıydı; fiziksel ve kültürel şiddet yaşandı. Son yatılı okul 1996'da kapandı; yani bu, uzak bir tarih değil.
+    2008'de dönemin başbakanı resmi özür diledi. 2015'te ise Hakikat ve Uzlaşma Komisyonu kapsamlı raporunu yayımladı. Bu rapor, yatılı okul sistemini 'kültürel soykırım' olarak tanımladı. Ve bugün tüm Kanada eyaletleri, Yerli Halklar'ın tarihini ve kültürünü müfredatlarına dahil etmek zorunda.
+    Hofstede kültür boyutlarına da kısaca değinmek istiyorum: Kanada'da güç mesafesi düşük, bireycilik yüksek, belirsizlikten kaçınma düşük. Bu değerler sınıfın demokratik ve diyalog temelli yapısına, öğrenci özerkliğine ve müfredattaki esnekliğe doğrudan yansıyor.`,
       },
       'slide-4': {
         idea: 'Eyalet farkliliklarina ragmen ortak K-12 omurgasini anlat.',
-        talk: `Burada K-12 yapisini net bir sekilde gorelim.
-Eyaletler arasinda muredat farklari var, ancak temel omurga ulke genelinde benzer bir akista ilerliyor.
-Erken cocuklukta oyun temelli yaklasim, sadece akademik puani degil beceri gelisimini hedefliyor.
-Lisede akademik ve mesleki yollar arasindaki esnek gecisler de ogrenciyi sistemin disina itmek yerine sistemin icinde tutuyor.`,
+      talk: `Şimdi Kanada'nın eğitim kademelerine bakalım. Her eyaletin kendi müfredatı olsa da genel K-12 çerçevesi ortaktır.
+    Okul öncesi kademede oyun temelli öğrenme esastır. Çoğu eyalette ücretsiz olarak sunuluyor. İlgi çekici bir seçenek olarak French Immersion var; tüm dersler Fransızca yürütülerek çocuklar ikinci resmi dile erken yaşta daldırılıyor.
+    İlkokulda sınıf öğretmeni tüm derslere giriyor. Kaynaştırma eğitimi ilkesi gereğince özel gereksinimli öğrenciler, Eğitim Yardımcısı desteğiyle genel sınıflarda öğrenim görüyor. Değerlendirme biçimlendirici ağırlıklı; merkezi sınav yok.
+    Ortaokulda branş öğretmenine geçiş yaşanıyor. Kariyer ve kişisel gelişim dersleri başlıyor; öğrenciler ilgi alanlarını keşfetmeye yönlendiriliyor.
+    Lisede kredili sistem var. Öğrenci hedefine göre; üniversite, kolej veya mesleki yol için farklı düzeylerde dersler alabiliyor. Ontario'da mezuniyet için 30 kredi, 40 saatlik toplum hizmeti ve okuryazarlık testi gerekiyor.
+    Yükseköğretimde ise iki kollu yapı var: akademik üniversiteler ve mesleki kolejler. Bu iki kol arasındaki geçirgenlik yüksek; yani kolejden üniversiteye kredi transferi mümkün. Yetişkin nüfusun yüzde 64'ü en az yükseköğretim diplomasına sahip; bu oran OECD ortalamasının çok üzerinde.`,
       },
       'slide-5': {
         idea: 'Mesleki egitim ve hayat boyu ogrenmede esnek mekanizmalari one cikar.',
-        talk: `Mesleki egitim Kanada da ikinci bir secenek gibi degil, ana yollardan biri gibi kurgulaniyor.
-Red Seal standardi sayesinde bir eyalette kazanilan yeterlilik diger eyaletlerde de taninabiliyor.
-PLAR mekanizmasi da okul disinda kazanilan becerileri krediye cevirerek deneyimi resmi egitime dahil ediyor.
-Boylece hayat boyu ogrenme sadece bir hedef degil, kariyer boyunca calisan gercek bir model haline geliyor.`,
+      talk: `Kanada'da mesleki eğitim sağlam bir yapıya oturmuş durumda.
+    Red Seal sistemi, eyaletlerarası geçerli usta-çırak sertifikasyonunu temsil ediyor. Elektrik, sıhhi tesisat, otomotiv tamiri gibi alanlarda standartlaşmış bir uygulama eğitimi sunuluyor; sertifika alındığında tüm Kanada'da geçerli.
+    Kolejlerin Sürekli Eğitim birimleri her yaştan yetişkine gündüz, gece veya çevrimiçi kurslar sunuyor. Dijital beceriler, sağlık ve teknoloji alanlarında modüler yapıdaki mikro-sertifikalar giderek yaygınlaşıyor.
+    Bence en dikkat çekici uygulama PLAR, yani 'Prior Learning Assessment and Recognition'. Bu sistem, iş deneyimiyle edinilmiş becerileri resmi kredi olarak tanıyor. Yani birisinin onlarca yıl boyunca pratikte öğrendikleri, diplomadan bağımsız olarak tanınabiliyor. Bu, hayat boyu öğrenmenin kurumsal bir yansıması.
+    Öğretmen özerkliği de bu kademede öne çıkıyor. Pedagojik yöntem büyük ölçüde öğretmene bırakılıyor; öğrenci ise proje, tartışma ve araştırma odaklı aktif bir öğrenici rolünde.`,
       },
       'slide-6': {
         idea: 'Merkezi sinav baskisi olmadan PISA basarisi paradoksunu acikla.',
-        talk: `Simdi en dikkat cekici paradoksa bakalim.
-Kanada da YKS benzeri tek bir merkez sinavi yok, ama PISA sonuclari yuksek.
-Bunun nedeni surec odakli degerlendirme anlayisi: Sadece sonuca bakilmiyor, ogrenme sureci de yakindan izleniyor.
-Kisa formulu su sekilde okuyabiliriz: Daha dusuk sinav baskisi, daha kaliteli geri bildirim ve daha derin ogrenme.`,
+      talk: `Kanada'nın ölçme-değerlendirme anlayışı, öğrenciyi tek bir sınav üzerinden yargılamak yerine süreci görünür kılmaya dayalı.
+    Portfolyo uygulamaları, proje ve sunum çalışmaları, öz-değerlendirme raporları bunların başında geliyor. Dönem sonu sınavları var ama belirleyici tek unsur değil.
+    Eyalet düzeyinde standart testler uygulanıyor; Ontario'da EQAO, BC'de FSA gibi. Ama bu testler öğrencileri elemeye değil, sistemi ölçmeye yarıyor. Sonuçlar karne notuna yansımıyor; kaynak planlaması için kullanılıyor.
+    Şimdi sonuca bakalım. Türkiye'nin YKS'si, Güney Kore'nin Suneung'u gibi tek seferlik merkezi sınav sistemleri yerine portfolyo ve süreç değerlendirmesine dayanan Kanada, PISA 2022'de okumada 507 puanla 8. sıraya yerleşiyor. Matematik 9., fen 8. sırada. Türkiye ise okumada 456 puanla 36. sırada.
+    Ve işte asıl paradoks: 13 ayrı bakanlık, ortak ulusal müfredat yok — ama tutarlı biçimde PISA ilk 10'unda. Bu, merkeziyetsizliğin eğitim kalitesiyle çelişmediğinin en güçlü kanıtı.`,
       },
       'slide-7': {
         idea: 'Destek mekanizmalari ile hicbir ogrencinin geride kalmamasi.',
-        talk: `Bu slayt sistemin insan odakli tarafini gosteriyor.
-Rehberlik servisleri, okul psikologlari, IEP planlari ve EA destegi erken mudahale mantigiyla birlikte calisiyor.
-Dil destegi gereken ogrenciler icin ELL ve FLL uygulamalari, akademik ilerleme ile sosyal uyumu ayni anda destekliyor.
-Yani kapsayicilik burada bir slogan degil, okulun gunluk isleyisine yerlesen somut bir uygulama bicimi.`,
+      talk: `Kanada eğitiminde öğrenci refahı bütüncül bir yaklaşımla ele alınıyor. Sistemi birkaç temel yapı üzerinden anlatmak istiyorum.
+    Her ortaöğretim okulunda Guidance Counselor adı verilen profesyonel rehber danışmanlar görev yapıyor. Ders seçimi, üniversite başvurusu ve kariyer planlaması bu danışmanlığın temel alanları.
+    Okul psikoloğu her okulda zorunlu. Mental sağlık taramaları, anksiyete ve depresyon müdahaleleri, kriz protokolleri bu görevin kapsamında. COVID-19 sonrasında bu hizmetlere yapılan yatırım ciddi biçimde artırıldı.
+    IEP, yani Bireyselleştirilmiş Eğitim Planı, özel gereksinimli her öğrenci için yasal zorunluluk. Her öğrenciye özgü hedefler ve destek stratejileri belirleniyor. Temel ilke şu: özel gereksinimli öğrencileri ayrı okullara yönlendirmek yerine genel sınıflarda tutmak. Sınıfta öğretmenin yanında Eğitim Yardımcısı bu öğrencilere bireysel destek veriyor.
+    Yeni göçmen öğrenciler için ayrı ELL/FLL dil desteği öğretmenleri var. 'Dil bilmemek akademik başarısızlık gerekçesi olamaz' ilkesi sistemin temelinde yatıyor.
+    Son olarak, Aile Danışma Kurulları aracılığıyla veliler okul kararlarına resmî olarak katılıyor. Yerli topluluklarla bağı güçlendirmek için de ayrıca kültürel bağlantı görevlileri istihdam ediliyor.`,
       },
       'slide-8': {
         idea: 'CMEC i ulusal koordinasyonun merkezinde konumlandir.',
-        talk: `CMEC i dogru konumlandiralim.
-Bu yapi bir ust bakanlik degil; eyaletlerin ozerkligini korurken ortak hedeflerde uzlasma saglayan bir koordinasyon platformu.
-PISA temsili, denklik, veri paylasimi ve politika diyalogu gibi basliklarda ulusal olcekte birlikte hareket etmeyi kolaylastiriyor.
-Boylece merkezi otorite sinirli olsa bile ulusal uyum korunabiliyor.`,
+      talk: `Bu slayt, Kanada'nın yapısal özgünlüğünü en net biçimde ortaya koyuyor.
+    Kanada'da federal düzeyde bir eğitim bakanlığı yok. On eyalet ve üç bölgenin her biri kendi bakanlığını bağımsız işletiyor. Kendi müfredatını kendisi geliştiriyor, kendi öğretmen sertifikasyon standartlarını kendisi belirliyor, okullarını kendi bütçesinden finanse ediyor.
+    Bu 13 ayrı sistemin arasındaki koordinasyon yalnızca CMEC üzerinden yürüyor. Eyalet bakanları bu platformda bir araya geliyor; ama CMEC bağlayıcı karar alamıyor. Her şey uzlaşıyla ilerliyor.
+    Bu yapı ilk bakışta dağınık görünebilir. Ama pratikte farklı bir tablo var: eyaletler birbirinden öğreniyor, iyi uygulamalar gönüllülük esasıyla yayılıyor. Ontario'nun bir uygulaması başarılıysa, BC onu benimseyebiliyor. Bu organik bir koordinasyon biçimi.
+    Bu model, Türkiye'deki MEB merkezli yapıyla doğrudan karşılaştırıldığında; yerel ihtiyaçlara daha hızlı yanıt verebildiği, öğretmen özerkliğini daha fazla desteklediği ve yenilikçi uygulamalara daha geniş alan açtığı görülüyor.`,
       },
       'slide-9': {
         idea: 'Kanada-Turkiye karsilastirmasini ders cikarimlariyla bagla.',
-        talk: `Burada Kanada ve Turkiye yi yargilamak icin degil, ders cikarmak icin karsilastiriyorum.
-Asil fark, sistemi yoneten felsefede ortaya cikiyor.
-Bu karsilastirmadan dort net ders cikiyor: ozerklik, surec odakli degerlendirme, gecmisle yuzlesme ve kapsayici okul kulturu.
-Bizim icin kritik soru su: Bu ilkeleri kendi baglamimiza hangi adimla ve hangi olcekte uyarlayabiliriz?`,
+      talk: `Son karşılaştırma slaytına geliyoruz.
+    Kanada ve Türkiye eğitim sistemleri arasındaki temel farklılıkları özetlemek gerekirse: Kanada merkeziyetsiz, Türkiye MEB üzerinden merkeziyetçi. Kanada'da üniversite geçişi portfolyo ve not ortalamasıyla yapılıyor, Türkiye'de YKS. PISA 2022'de Kanada 507 puanla 8., Türkiye 456 puanla 36. sırada. Yükseköğretim oranı Kanada'da yüzde 64, Türkiye OECD ortalamasının altında. Hofstede'ye göre güç mesafesi Kanada'da 39, Türkiye'de 66.
+    Bu karşılaştırmadan üç temel ders çıkarıyorum.
+    Birincisi: Merkeziyetsizlik, başarısızlık demek değil. 13 ayrı bakanlıkla PISA'da tutarlı biçimde ilk 10'da yer almak, özerkliğin kaliteyi engellemediğini kanıtlıyor.
+    İkincisi: Sınav baskısından süreç değerlendirmesine geçiş mümkün. Portfolyo ve biçimlendirici değerlendirme hem öğrenci stresini azaltıyor hem de daha otantik bir öğrenme ortamı yaratıyor.
+    Üçüncüsü: Tarihsel yüzleşme eğitimle mümkün. Yatılı okulların mirasıyla yüzleşen TRC süreci ve bu sürecin müfredata yansıtılması, eğitimde güven ve uzlaşma kültürünün yeniden inşasında dünyaya örnek bir model sunuyor.
+    Dinlediğiniz için teşekkür ederim, sorularınıza geçebiliriz.`,
       },
       'slide-10': {
         idea: 'Kaynak guvenilirligini vurgula ve guclu kapanis yap.',
@@ -4059,6 +4237,7 @@ Simdi soru ve goruslerinizi memnuniyetle almak isterim.`,
     let presenterDragState = null;
     let presenterResizeState = null;
     let presenterResizeObserver = null;
+    let noteFontSize = 0.86;
 
     const isDisplayWindow = new URLSearchParams(window.location.search).get('display') === '1';
 
@@ -4071,7 +4250,10 @@ Simdi soru ve goruslerinizi memnuniyetle almak isterim.`,
     const dotNav = document.getElementById('dotNav');
     slides.forEach((_, i) => {
       const dot = document.createElement('button');
+      dot.type = 'button';
       dot.className = 'nav-dot' + (i === 0 ? ' active' : '');
+      dot.setAttribute('aria-label', `${i + 1}. slayta git`);
+      dot.title = `${i + 1}. slayta git`;
       dot.onclick = () => goTo(i);
       dotNav.appendChild(dot);
     });
@@ -4205,6 +4387,32 @@ Simdi soru ve goruslerinizi memnuniyetle almak isterim.`,
         });
       }
 
+      function updateNoteFontSize(delta) {
+        noteFontSize = clampNumber(noteFontSize + delta, 0.5, 2.5);
+        document.documentElement.style.setProperty('--note-fs', `${noteFontSize}rem`);
+        try {
+          localStorage.setItem('kanadaSunum:noteFontSize', noteFontSize);
+        } catch(e){}
+      }
+
+      function resetNoteFontSize() {
+        noteFontSize = 0.86;
+        document.documentElement.style.setProperty('--note-fs', `${noteFontSize}rem`);
+        try {
+          localStorage.removeItem('kanadaSunum:noteFontSize');
+        } catch(e){}
+      }
+
+      function restoreNoteFontSize() {
+        try {
+          const saved = localStorage.getItem('kanadaSunum:noteFontSize');
+          if (saved) {
+            noteFontSize = parseFloat(saved);
+            document.documentElement.style.setProperty('--note-fs', `${noteFontSize}rem`);
+          }
+        } catch(e){}
+      }
+
       function startPresenterDrag(e) {
         if (isDisplayWindow || !presenterPanel || !presenterHeadEl) return;
         if (e.button !== 0) return;
@@ -4300,6 +4508,7 @@ Simdi soru ve goruslerinizi memnuniyetle almak isterim.`,
         if (isDisplayWindow || !presenterPanel) return;
 
         restorePresenterLayout();
+        restoreNoteFontSize();
 
         if (presenterHeadEl) {
           presenterHeadEl.addEventListener('mousedown', startPresenterDrag);
@@ -4488,6 +4697,30 @@ Simdi soru ve goruslerinizi memnuniyetle almak isterim.`,
           return;
         }
 
+        if (key === 'home') {
+          e.preventDefault();
+          goTo(0);
+          return;
+        }
+
+        if (key === 'end') {
+          e.preventDefault();
+          goTo(totalSlides - 1);
+          return;
+        }
+
+        if (key === ' ' || key === 'spacebar' || key === 'pagedown') {
+          e.preventDefault();
+          nextSlide();
+          return;
+        }
+
+        if (key === 'pageup') {
+          e.preventDefault();
+          prevSlide();
+          return;
+        }
+
         if (key === 'arrowright' || key === 'arrowdown') nextSlide();
         if (key === 'arrowleft' || key === 'arrowup') prevSlide();
         if (key === 'f') toggleFullscreen();
@@ -4646,6 +4879,13 @@ Simdi soru ve goruslerinizi memnuniyetle almak isterim.`,
     function animatePisa() {
       if (pisaAnimated) return;
       pisaAnimated = true;
+      if (prefersReducedMotion) {
+        document.querySelectorAll('.pisa-bar-fill').forEach(bar => {
+          const t = bar.dataset.target;
+          bar.style.width = t + '%';
+        });
+        return;
+      }
       document.querySelectorAll('.pisa-bar-fill').forEach((bar, i) => {
         const t = bar.dataset.target;
         setTimeout(() => bar.style.width = t + '%', 200 + i * 150);
@@ -4682,6 +4922,14 @@ Simdi soru ve goruslerinizi memnuniyetle almak isterim.`,
 
     function animateCounters(slideEl) {
       const counters = slideEl.querySelectorAll('[data-count]');
+      if (prefersReducedMotion) {
+        counters.forEach(el => {
+          const target = parseInt(el.dataset.count, 10);
+          el.textContent = target;
+          el.dataset.animated = 'true';
+        });
+        return;
+      }
       counters.forEach((el, i) => {
         const target = parseInt(el.dataset.count, 10);
         setTimeout(() => animateCounter(el, target), 300 + i * 200);
@@ -4696,6 +4944,7 @@ Simdi soru ve goruslerinizi memnuniyetle almak isterim.`,
     // ============================================================
 
     function initTiltCards() {
+      if (prefersReducedMotion || !hasFinePointer) return;
       const cards = document.querySelectorAll('.card, .rehber-card, .stat-box');
       cards.forEach(card => {
         card.addEventListener('mousemove', (e) => {
@@ -4721,9 +4970,11 @@ Simdi soru ve goruslerinizi memnuniyetle almak isterim.`,
     // ============================================================
 
     function createParticles() {
+      if (prefersReducedMotion) return;
+      const particleCount = window.innerWidth <= 768 ? 3 : 6;
       const slideBgs = document.querySelectorAll('.slide-bg');
       slideBgs.forEach(bg => {
-        for (let i = 0; i < 6; i++) {
+        for (let i = 0; i < particleCount; i++) {
           const particle = document.createElement('div');
           particle.className = 'particle';
           const size = Math.random() * 4 + 2;
